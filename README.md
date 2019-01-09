@@ -37,35 +37,3 @@
 * creates all the files needed for production in the build directory
 * minifies images (jpg, png, jpg, svg)
 * includes various icon references for touch devices
-
-
-### Assignment4
-- create a Joker SPA 
-  - without libraries or frameworks for routing and templating
-- use the baboilerplate2
-## check
-
-
-The main page (‘/’) should have a button “Tell joke”
-after pressing the button a joke from the  babossignment REST API (https://babossingment.firebaseapp.com/api/v1/jokes) should be displayed 
-use your code from last assignment to disable showing a joke more than one time
-if all jokes are told display a message that indicates that
-## check
-
-the main page should have an anchor link “Add joke”
-pressing on it should take us to the creation page /create (without full reload!)
-use the babossignment API to add a new joke
-show adding indication and send us back to the main page when the joke is added to the REST API
-add a back button to this page
-
-the main page should have an anchor link “All jokes”
-pressing on it should take us to the jokes page /jokes (without full reload!)
-use the babossignment API to list all jokes and authors of them
-add a back button to this page
-
-use es6 modules and as much as possible the stuff we lerned
-there should never occur a full page reload using the SPA
-browser back and forward buttons should work
-reloading the SPA on a page should render that page
-
-- implement Page Not Found 404
