@@ -1,6 +1,20 @@
 # MMP2A
 > This repository is for the Multimedia Project in our MMT Bachelor study
 
+## Individual Strengths
+* HTML & CSS
+* Teamwork
+* Usage of Boilerplate
+* Fun in creating this App together
+
+## Individal Weaknesses
+* Limited JavaScript abilities
+
+## Learning Goals
+* Improve our JavaScript abilities
+* Usage of API (Open Trivia DB for the questions + Google for Login)
+* (Usage of Firebase)
+
 # Webpack for Webdevs
 ## A webpack 4 based setup
 
