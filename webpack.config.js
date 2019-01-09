@@ -1,50 +1,34 @@
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const globImporter = require('node-sass-glob-importer');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-const glob = require('glob');
-const path = require('path');
-
-const themeName = 'alex';
-const themeFolder = `public/wp-content/themes/${themeName}`;
-const phpServerUrl = `${themeName}.localhost`
-
-// We have multiple PHP files. Let's not write a HtmlWebPackPlugin-block for each in the plugin section manually:
-var PHPfiles = glob.sync("src/*.php", []);
-var PHPCopyPlugins = PHPfiles.map(function(fileName) {
-  return new HtmlWebpackPlugin({
-    template: fileName,
-    filename: fileName.replace('src/', ''),
-    hash: true,
-    inject: false
-  })
-});
+const path = require('path')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const globImporter = require('node-sass-glob-importer')
 
 module.exports = {
-  entry: { main:'./src/index.js' },
+  entry: { main: './src/index.js' },
   output: {
+    publicPath: '/',
     filename: '[name].[chunkhash].js',
-    path: path.resolve(__dirname, themeFolder)
+    path: path.resolve(__dirname, 'dist'),
   },
 
   devServer: {
-    contentBase: './dist'
+    contentBase: './dist',
+    historyApiFallback: true,
   },
 
   module: {
     rules: [
-
       // use babel for all js files
       {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
-            presets: ['babel-preset-env']
+            presets: ['@babel/preset-env'],
+            plugins: ['@babel/plugin-proposal-object-rest-spread'],
           }
         }
       },
@@ -54,42 +38,37 @@ module.exports = {
         test: /\.scss$/,
         use: [
           MiniCssExtractPlugin.loader, // extract CSS into separate file
-          "css-loader", // translates CSS into CommonJS
-          "postcss-loader", // autoprefixes CSS
-          { loader: "sass-loader", // compiles Sass to CSS, using Node Sass by default
+          'css-loader', // translates CSS into CommonJS
+          'postcss-loader', // autoprefixes CSS
+          {
+            loader: 'sass-loader', // compiles Sass to CSS, using Node Sass by default
             options: {
               importer: globImporter() // allows you to use glob syntax, eg. @import 'layout/*';
             }
           }
         ]
       },
-
-      // include fonts
+  
+      // include fonts in your build
       {
         test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
-        use: [{
-          loader: 'file-loader',
-          options: {
-            name: '[name].[ext]',
-            outputPath: 'fonts/'
-          }
-        }]
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'fonts/',
+            },
+          },
+        ],
       },
-
-      // include partials (must be located in `src/partials/`)
-      {
-        test: /\_.*\.html$/,
-        include: [path.resolve(__dirname, 'src/partials')],
-        use: [{
-          loader: 'html-loader'
-        }]
-      },
-      
-      // compress and include images
+  
+      // include images in your build
       {
         test: /\.(png|svg|jpg|gif)$/,
         use: [
-          { loader: 'file-loader',
+          {
+            loader: 'file-loader',
             options: {
               name: '[name].[ext]',
               outputPath: 'images/'
@@ -100,8 +79,8 @@ module.exports = {
             loader: 'image-webpack-loader',
             options: {
               // best image compression settings: https://gist.github.com/LoyEgor/e9dba0725b3ddbb8d1a68c91ca5452b5
-
-              //png
+  
+              // png
               pngquant: {
                 speed: 1,
                 quality: 98,
@@ -110,13 +89,15 @@ module.exports = {
                 more: true,
                 iterations: 50 // very slow but more effective
               },
-              //svg
+              // svg
               svgo: {
-                plugins: [{
-                  removeViewBox: false
-                }]
+                plugins: [
+                  {
+                    removeViewBox: false,
+                  },
+                ],
               },
-              //jpg lossless
+              // jpg lossless
               jpegtran: {
                 progressive: true
               },
@@ -138,42 +119,22 @@ module.exports = {
   },
 
   plugins: [
-
-    // Sync webpage via proxy-server
-    new BrowserSyncPlugin(
-      {
-        proxy: phpServerUrl 
-      },
-      {
-        // reload: false
-      }
-    ),
-    // clean themes' stylesheet and js-file before each build
-    new CleanWebpackPlugin([
-      `${themeFolder}/*.js`,
-      `${themeFolder}/style.*.css`,
-    ]),
+    // clean dist folder before each build
+    new CleanWebpackPlugin(['dist']),
 
     // extract css into file
     new MiniCssExtractPlugin({
-      filename: 'style.[contenthash].css'
+      filename: './style.[contenthash].css',
     }),
-
-    new CopyWebpackPlugin([
-      { from: 'src/favicons/*', 
-        to: path.resolve(__dirname, themeFolder),
-        flatten: true
-      },
-      { from: 'src/style.css', 
-        to: path.resolve(__dirname, themeFolder),
-        flatten: true
-      },
-      { from: 'src/screenshot.png', 
-        to: path.resolve(__dirname, themeFolder),
-        flatten: true
-      }
-    ])
-  ].concat(PHPCopyPlugins), // add the PHP files as defined above,
+  
+    // use index.html as a template
+    new HtmlWebpackPlugin({
+      inject: false,
+      hash: true,
+      template: './src/index.html',
+      filename: 'index.html',
+    }),
+  ],
 
   optimization: {
     minimizer: [
@@ -184,5 +145,4 @@ module.exports = {
       })
     ]
   }
-
 }
