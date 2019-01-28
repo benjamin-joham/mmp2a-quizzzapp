@@ -48,7 +48,7 @@ module.exports = {
           }
         ]
       },
-  
+
       // include fonts in your build
       {
         test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
@@ -62,7 +62,16 @@ module.exports = {
           },
         ],
       },
-  
+
+      // include partials (must be located in `src/partials/`)
+      {
+        test: /\_.*\.html$/,
+        include: [path.resolve(__dirname, 'src/partials')],
+        use: [{
+          loader: 'html-loader'
+        }]
+      },
+
       // include images in your build
       {
         test: /\.(png|svg|jpg|gif)$/,
@@ -79,7 +88,7 @@ module.exports = {
             loader: 'image-webpack-loader',
             options: {
               // best image compression settings: https://gist.github.com/LoyEgor/e9dba0725b3ddbb8d1a68c91ca5452b5
-  
+
               // png
               pngquant: {
                 speed: 1,
@@ -126,7 +135,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: './style.[contenthash].css',
     }),
-  
+
     // use index.html as a template
     new HtmlWebpackPlugin({
       inject: false,
