@@ -11,8 +11,8 @@ body {
   background: url('../images/icon.png');
   background-repeat: no-repeat;
   background-position: 1.5em 1.3em;
-  color: white;
-  //padding: 1em;
+  color: white; 
+  padding: 1em;
   height: 100vh;
   // background-color: $color;
 }
@@ -28,6 +28,7 @@ button {
   font-size: 1.3em;
   padding: 5px 10px;
   margin-right: 10px;
+  background-color: red;
 }
 input[type="label"] {
   width: 400px;
