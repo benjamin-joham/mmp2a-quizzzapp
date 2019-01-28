@@ -1,9 +1,57 @@
 *, *:after, *:before {
   box-sizing: border-box;
 }
-
 html {
-  // prevent text size adjust after orientation change, without disabling user zoom
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
+  font-family: 'le_havre_lightlight','Avenir';
+  font-size: 36px;
+  color: $white;
+  scroll-behavior: smooth;
+  a{
+    color: white;
+    text-decoration: none;
+  }a:hover {
+    background-color: $white;
+    background-color: #f1f1f1;
+    color: $darker_blue_100;
+    }
+    button {
+      padding: 5 0 0 5;
+      height: 10vh;
+      font-size: $medium;
+      margin-bottom: 10vh;
+      border-radius: 2%;
+      width:30vw;
+      min-height: 40px;
+      @media(max-width: 600px){
+      min-width: 300px;
+      
+      }
+    }
+  body {
+    line-height: 1.3rem;
+    letter-spacing: auto;
+  }
+
+h1 {
+  font-size: 1.5em;
+}
+h2{
+  font-size: 1.3em;
+}
+
+code {
+  background-color: $white;
+  color: black;
+  display: block;
+  padding: 10px 5px;
+  font-size: 0.8em;
+  overflow: auto;
+  word-wrap: normal;
+  margin: 0 20px;
+}
+@media (max-width: 996px) {
+  font-size: 20px;
+}
 }

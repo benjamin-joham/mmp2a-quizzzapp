@@ -1,0 +1,45 @@
+#profile{
+  margin-top: 0;
+  article{
+    display: flex; 
+    @media (max-width: 600px) {
+      display: block;
+    }
+    h1{
+      background-color: $darker_blue_60;
+      text-align: center;
+      width: 50vw;
+      margin: 0;
+      position: absolute;
+      left: 50%;
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      border-radius: 2%;
+      padding: 2%;
+      min-width: 300px;
+      @media (max-width: 600px) {
+        position: relative;
+      }
+    }
+  div{
+      background-color: $darker_blue_60;
+      flex-direction: column;
+      margin: 5%;
+      margin-bottom: 0;
+      height: 50vh;
+      width: 50vw;
+      border-radius: 2%;
+      text-align: center;
+      min-width: 300px;;
+      @media (max-width: 600px) {
+        margin-top: 5%;
+        margin-bottom: 50%;
+        position:relative;
+      }
+  }
+  a{
+    display: block;
+    margin-bottom: 50%;
+  }
+  }
+}

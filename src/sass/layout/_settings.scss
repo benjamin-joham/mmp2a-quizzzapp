@@ -1,0 +1,33 @@
+#settings{
+  display: flex;
+  div{
+    flex-direction: row;
+    margin: auto; 
+    h1{
+      background-color: $darker_blue_70;
+      padding: 5%;
+      border-radius: 2%;
+    }
+    .settings__div{
+      //display: flex;
+    }
+    .settings__button{
+      font-size: $regular;
+      width: 5vw !important;
+      height: 5vw;
+      border-radius: 2%;
+      margin-left: 40px;
+      margin-bottom: 40px;
+    }
+  }
+ @media(max-width: 600px){
+   display: block;
+ } 
+}
+#btn{
+    text-align: center;
+    margin: auto;
+    @media(max-width: 600px){
+      margin-top: 20%;
+    }
+}
