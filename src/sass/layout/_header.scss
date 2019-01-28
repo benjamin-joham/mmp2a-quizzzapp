@@ -1,4 +1,4 @@
-header {
+.header {
   position: fixed !important;
   z-index: 100;
   top: 0 !important;
@@ -7,32 +7,36 @@ header {
   height: 10vh;
   min-height: 50px;
   display: flex;
-  //flex-wrap: wrap;
   align-items: center;
   align-self: auto;
   text-align: center;
   justify-content: space-between;
   padding: 10px 0;
   margin-bottom: 10vh;
-  div, #header_logo {
+
+  &__div {
     width: 200px;
     height: inherit;
     min-height: 45px;
+
+    // modifier
+    &--center {
+      display: inherit;
+      align-items: inherit;
+      text-align: center;
+      justify-content: center;
+      font-style: italic;
+      font-size: $medium;
+    }
+
+    &--right {
+      margin-right: 2vw;
+      margin-top: auto;
+      text-align: end;
+    }
   }
-  #header_middle {
-    display: inherit;
-    align-items: inherit;
-    text-align: center;
-    margin: auto;
-    justify-content: center;
-    font-style: italic;
-    font-size: $small;
-  }
-  #header_right {
-    //width: 50vw;
-    margin-right: 2vw;
-    margin-top: 4vh;
-    text-align: end;
+  &__img {
+    width: inherit;
+    height: inherit;
   }
 }
-
