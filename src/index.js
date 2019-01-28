@@ -1,138 +1,142 @@
 import './sass/style.scss'
-import firebase from 'firebase/app'
-import 'firebase/database'
-import 'firebase/auth'
+// import 'firebase/database'
+
 import { h } from 'jsx-dom'
 import Navigo from 'navigo'
 import bem from 'bem-names'
+import '@babel/polyfill'
 
 // import firebase config
 import { config as FirebaseConfig } from './js/firebase'
 
 
-// import classes
-import your_class from './js/your_class'
-
-// CORE CODE
-firebase.initializeApp(FirebaseConfig)
-
-// TODO: BEM test
-console.log(bem('block', 'div', ['blue']))
-// block__div block__div--blue
-
-// TODO: routing test with navigo.js
-const router = new Navigo(null)
-
-// TODO: load data from open trivia api
 
 
-
-
-// get content section
-const content = document.getElementById('content')
-
-const btnLogin = document.getElementById('btnLogin')
-const btnLogout = document.getElementById('btnLogout')
-
-let niceFunc = "Benjamin"
-// $id = (i) => document.getElementById(i);
-
-const h1 = (e, i) => {
-  return <h1>{e}</h1>
+// TODO: Firebase start
+import firebase from 'firebase/app'
+import 'firebase/auth'
+const config = {
+  apiKey: 'AIzaSyCYwYxJ-Mmwz47-PpFXtdONtBjUUDR8-7E',
+  authDomain: 'mmp2a-85c2b.firebaseapp.com',
+  databaseURL: 'https://mmp2a-85c2b.firebaseio.com/',
+  projectId: 'mmp2a-85c2b',
+  storageBucket: 'mmp2a-85c2b.appspot.com',
+  messagingSenderId: '519321050416',
 }
 
-router
-  .on('/login', () => {
-    content.innerHTML = ''
-    // content.appendChild(h1("test"))
-    //content.appendChild(h1)
-    content.appendChild(h1('Bla'))
-    content.appendChild(
-      <ul>
-        <li>
-          <a id="btnLogin" href="#">
-            Login
-          </a>
-        </li>
-        <li>
-          <a id="btnLogout" class="hide" href="#">
-            Logout
-          </a>
-        </li>
-      </ul>
-    )
-    btnLogin.onclick = e => {
-      e.preventDefault()
-      firebase.auth().signInAnonymously()
-    }
-  })
-  .resolve()
+firebase.initializeApp(config)
+console.log(firebase)
+firebase.auth().signInAnonymously().catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+});
 
-router
-  .on('/geil', () => {
-    content.innerHTML = ''
-    content.appendChild(<h1>Geile Seite</h1>)
-  })
-  .resolve()
-// .resolve();
-// Firebase.initializeApp(FirebaseConfig)
-// var myFirebase = Firebase.database().ref()
-// const table = myFirebase.child('users')
+firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          // User is signed in.
+          console.log(user);
+          var isAnonymous = user.isAnonymous;
+          var uid = user.uid;
+          // ...
+        } else {
+          // User is signed out.
+          // ...
+        }
+        // ...
+      });
 
-// table.push().set({
-//   Denise: 'Hödl',
-// })
-// myFirebase.on(
-//   'value',
-//   function(snapshot) {
-//     console.log(snapshot.val())
-//   },
-//   function(errorObject) {
-//     console.log('The read failed: ' + errorObject.code)
-//   },
-// )
-// console.log(table)
+// TODO: REVIEW: Firebase stop
 
-// If you have any questions just ask :)
 
-const renderPage = path => {
-  var button1 = document.createElement('button')
-  button1.onclick = () => {
-    router.navigate('/login') // like pushstate
-  }
-  var node1 = document.createTextNode('Login')
-  button1.appendChild(node1)
+const router = new Navigo(null, true, '#')
+// const router = new Navigo(window.location.origin)
 
-  var button2 = document.createElement('button')
-  button2.onclick = () => {
-    router.navigate('/geil')
-    // renderPage('/page2')
-  }
-  var node2 = document.createTextNode('Geil')
-  button2.appendChild(node2)
 
-  let var3 = document.createTextNode(path)
 
-  const root = document.getElementById('root')
-  root.innerHTML = ''
-  const text = ['Hallo', 'Sepp']
-  root.appendChild(
-    <div>
-      <span style={{ backgroundColor: 'red' }}>
-        {text.map(k => (
-          <li>{k}</li>
-        ))}
-      </span>
-      h1
-    </div>,
-  )
-  root.appendChild(button1)
-  root.appendChild(button2)
-  root.appendChild(var3)
+
+
+// // import classes
+import app from './js/app'
+
+// import data from open trivia api
+import api from './js/openTriviaApi'
+// import Header from './js/components/header';
+const trivia = new api
+
+async function apiCall() {
+  return await trivia.getData(5)
+  // await console.log(trivia_data)
 }
-renderPage(window.location.pathname)
+//const response = apiCall().then(x => console.log(x))
 
 
-router.notFound( (query) => {
-  console.log(query);
+// let quizz = new app
+// console.log(quizz.landingpage())
+// let header = quizz.landingpage()
+
+
+const quizz = new app
+
+// console.log(quizz)
+
+// console.log (quizz.header())
+// console.log(quizz.login)
+
+// console.log(quizz.firebase())
+
+// // CORE CODE
+
+
+// // TODO: BEM test
+// console.log(bem('block', 'div', ['blue']))
+// // block__div block__div--blue
+
+// // TODO: routing test with navigo.js
+const main = document.querySelector('main')
+const body = main.parentElement
+// console.log( 'body ist gleich')
+// console.log(body)
+// console.log(navigoRoot)
+// const router = new Navigo(null, true, '#')
+
+// console.log(router)
+
+router.notFound( () => {
+  main.innerHTML = ''
+  main.appendChild(<h1>404 Page not found</h1>)
+  console.log('404')
 })
+
+router
+  .on(
+  {
+    '/': () => {
+      console.log('jetzt in root')
+      main.innerHTML = ''
+      // Landingpage.render(root);
+      quizz.landingPage(main)
+    },
+    'test': () => {
+      // body.innerHTML = ''
+      // body.insertBefore(<Header />, main)
+      console.log('jetzt in test')
+      main.innerHTML = ''
+      main.appendChild(<h1>Test</h1>)
+    },
+    'main': () => {
+      console.log('jetzt in main')
+      main.innerHTML = ''
+      main.appendChild(<h1>Main</h1>)
+    },
+    'login': () => {
+      main.innerHTML = ''
+      console.log('jetzt in login')
+      console.log(quizz)
+      quizz.loginPage(main)
+    },
+    'impressum': () => {
+      main.innerHTML = ''
+      quizz.impressum(main)
+    }
+  }).resolve

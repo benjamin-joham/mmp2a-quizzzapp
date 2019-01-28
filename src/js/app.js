@@ -1,9 +1,7 @@
 import { h } from 'jsx-dom'
 import bem from 'bem-names'
-// import header from './partials/header'
+import Impressum from './components/impressum'
 import Login from './components/login'
-// import login from './partials/login'
-
 
 
 export default class app {
@@ -27,7 +25,7 @@ export default class app {
     console.log(google)
     google.addEventListener('click', (e) => {
       e.preventDefault()
-      firebase()
+      // firebase()
       console.log('login with google')
     })
   }
@@ -35,5 +33,8 @@ export default class app {
   landingPage(root) {
     root.appendChild(<h1>Root</h1>)
 
+  }
+  impressum(root) {
+    root.appendChild(<Impressum/>)
   }
 }
