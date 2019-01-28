@@ -1,18 +1,22 @@
-import header from './partials/header'
+//import header from './partials/header'
+import Login from './components/login'
 // import login from './partials/login'
 
 export default class app {
   constructor() {
-    this.test = new header
-    // this.login = new login
+  //this.login = Login
+    this.login = new Login
   }
   header() {
-    return this.test.renderLogin()
+    //return this.test.renderLogin()
   }
   footer() {
 
   }
   firebase() {
     // this.login
+  }
+  landingpage(){
+    console.log(login)
   }
 }
