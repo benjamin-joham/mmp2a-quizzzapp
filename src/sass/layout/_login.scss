@@ -1,4 +1,4 @@
-#login{
+.login{
   background-color: $darker_blue_70;
   text-align: center;
   width: 50vw;
@@ -8,8 +8,5 @@
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  min-width: 360px; 
-  h2{
-    padding-bottom: 5%;
-  }
+  min-width: 360px;
 }

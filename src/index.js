@@ -73,7 +73,11 @@ let quizz = new app
 
 // console.log(quizz)
 
-console.log (quizz.header())
+// console.log (quizz.header())
+// console.log(quizz.login)
+
+const main=document.body.querySelector('main')
+main.appendChild(quizz.login)
 // console.log(quizz.firebase())
 
 // // CORE CODE
