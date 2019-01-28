@@ -1,0 +1,12 @@
+footer{
+    background-color: $darker_blue_100;
+    text-align: right;
+    padding: 2%;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    @media (max-width: 600px){
+        position: relative;
+    }
+}

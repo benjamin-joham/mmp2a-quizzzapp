@@ -11,3 +11,12 @@
 //        url('../fonts/open-sans-v15-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
 //        url('../fonts/open-sans-v15-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 // }
+@charset "UTF-8";
+
+@font-face {
+  font-family: 'le_havre_lightlight';
+  src: url('../assets/fonts/le_havre_light/le_havre_light_light-webfont.woff2') format('woff2'),
+       url('../assets/fonts/le_havre_light/le_havre_light_light-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}

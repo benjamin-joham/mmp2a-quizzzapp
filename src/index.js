@@ -9,8 +9,11 @@ import bem from 'bem-names'
 // import firebase config
 import { config as FirebaseConfig } from './js/firebase'
 
+
+// import classes
 import your_class from './js/your_class'
 
+// CORE CODE
 firebase.initializeApp(FirebaseConfig)
 
 // TODO: BEM test
