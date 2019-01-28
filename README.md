@@ -1,20 +1,3 @@
-# MMP2A
-> This repository is for the Multimedia Project in our MMT Bachelor study
-
-## Individual Strengths
-* HTML & CSS
-* Teamwork
-* Usage of Boilerplate
-* Fun in creating this App together
-
-## Individal Weaknesses
-* Limited JavaScript abilities
-
-## Learning Goals
-* Improve our JavaScript abilities
-* Usage of API (Open Trivia DB for the questions + Google for Login)
-* (Usage of Firebase)
-
 # Webpack for Webdevs
 ## A webpack 4 based setup
 
@@ -37,3 +20,13 @@
 * creates all the files needed for production in the build directory
 * minifies images (jpg, png, jpg, svg)
 * includes various icon references for touch devices
+
+## Potentielle Packages/Libraries/APIs
+* [ESLint](https://eslint.org/docs/rules/#stylistic-issues)
+* [bem-names](https://www.npmjs.com/package/bem-names) naming generator for BEM
+* [git-flow](https://github.com/nvie/gitflow/wiki/Mac-OS-X) for better git usage
+* [open-trivia-api](https://opentdb.com/) for the questions and answers
+* [chart.js](https://www.chartjs.org/docs/latest/) to display our charts in an easy way
+* [navigo.js](https://github.com/krasimir/navigo) for routing
+* [firebase](https://www.npmjs.com/package/firebase) for database access and authentication with either google or anonymously
+* [jsx-dom](https://www.npmjs.com/package/jsx-dom) to write html in js
