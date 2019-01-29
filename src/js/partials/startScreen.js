@@ -19,8 +19,10 @@ import api from './../modules/openTriviaApi'
   console.log(api(questions.value).then(x => {
     localStorage.setItem('questions', JSON.stringify(x))
     console.log(x)
-  }))
-  window.location.assign('/quiz')
+  }).then(()=>{
+    window.location.assign('/quiz')
+  })
+  )
 
   // window.questions = await api(questions.value).then(x => x)
 
