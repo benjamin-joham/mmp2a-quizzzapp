@@ -1,66 +1,34 @@
 import './sass/style.scss'
-// import 'firebase/database'
 
 import { h } from 'jsx-dom'
 import Navigo from 'navigo'
 import bem from 'bem-names'
 import '@babel/polyfill'
 
-// import firebase config
-import { config as FirebaseConfig } from './js/firebase'
-
-
-
+import { getUsers } from './js/modules/firebase'
+import { Header_right } from './js/partials/header'
 
 // TODO: Firebase start
-import firebase from 'firebase/app'
-import 'firebase/auth'
-const config = {
-  apiKey: 'AIzaSyCYwYxJ-Mmwz47-PpFXtdONtBjUUDR8-7E',
-  authDomain: 'mmp2a-85c2b.firebaseapp.com',
-  databaseURL: 'https://mmp2a-85c2b.firebaseio.com/',
-  projectId: 'mmp2a-85c2b',
-  storageBucket: 'mmp2a-85c2b.appspot.com',
-  messagingSenderId: '519321050416',
-}
-
-firebase.initializeApp(config)
-console.log(firebase)
-firebase.auth().signInAnonymously().catch(function(error) {
-  // Handle Errors here.
-  var errorCode = error.code;
-  var errorMessage = error.message;
-});
-
-firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-          // User is signed in.
-          console.log(user);
-          var isAnonymous = user.isAnonymous;
-          var uid = user.uid;
-          // ...
-        } else {
-          // User is signed out.
-          // ...
-        }
-        // ...
-      });
-
+// see firebase.js
 // TODO: REVIEW: Firebase stop
 
-
-const router = new Navigo(null, true, '#')
+window.location.hash = ''
+const router = new Navigo(window.location.origin)
+  // console.log(router)
 // const router = new Navigo(window.location.origin)
 
+async function test() {
 
-
+  return await getUsers();
+}
+const testUser = test().then(x => console.log("test",x))
 
 
 // // import classes
 import app from './js/app'
 
 // import data from open trivia api
-import api from './js/openTriviaApi'
+import api from './js/modules/openTriviaApi'
 // import Header from './js/components/header';
 const trivia = new api
 
@@ -94,13 +62,10 @@ const quizz = new app
 
 // // TODO: routing test with navigo.js
 const main = document.querySelector('main')
+const header = document.querySelector('header')
 const body = main.parentElement
-// console.log( 'body ist gleich')
-// console.log(body)
-// console.log(navigoRoot)
-// const router = new Navigo(null, true, '#')
 
-// console.log(router)
+console.log(window.location.pathname)
 
 router.notFound( () => {
   main.innerHTML = ''
@@ -112,16 +77,21 @@ router
   .on(
   {
     '/': () => {
+      // console.log(window.location)
       console.log('jetzt in root')
       main.innerHTML = ''
       // Landingpage.render(root);
       quizz.landingPage(main)
     },
     'test': () => {
-      // body.innerHTML = ''
-      // body.insertBefore(<Header />, main)
+
+      // body.innerHTML = 'Hi'
+      // body.insertBefore(quizz.header(), main)
+      quizz.header(header)
       console.log('jetzt in test')
       main.innerHTML = ''
+      // main.appendChild(<h1>{window.user}</h1>)
+
       main.appendChild(<h1>Test</h1>)
     },
     'main': () => {
@@ -132,11 +102,11 @@ router
     'login': () => {
       main.innerHTML = ''
       console.log('jetzt in login')
-      console.log(quizz)
+      // console.log(quizz)
       quizz.loginPage(main)
     },
     'impressum': () => {
       main.innerHTML = ''
       quizz.impressum(main)
     }
-  }).resolve
+  }).resolve()

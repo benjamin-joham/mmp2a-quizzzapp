@@ -24,9 +24,10 @@ html {
       border-radius: 2%;
       width:30vw;
       min-height: 40px;
+      cursor: pointer;
       @media(max-width: 600px){
       min-width: 300px;
-      
+
       }
     }
   body {

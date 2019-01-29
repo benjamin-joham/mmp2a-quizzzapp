@@ -1,7 +1,8 @@
 
 import { h } from 'jsx-dom'
-
 import bem from 'bem-names'
+import { userLogin, userLogout } from './../modules/firebase'
+import logo from './../../images/QA_logo_white.svg'
 
 export default class header {
   constructor() {
@@ -36,4 +37,56 @@ export default class header {
     // content.appendChild(<h1 className='header__h1'>Test</h1>)
     return (header)
   }
+
 }
+
+export const Header_right = () =>{
+  return(
+    <div id='header_right' className={bem('header','div',['right'])}>
+      <a onClick={window.location.assign('profile')}>Profile</a>
+    </div>
+  )
+}
+
+const userLoginHandler = async (event) => {
+  event.preventDefault()
+
+  let response = await userLogin()
+  console.log(response)
+
+  localStorage.setItem('user', JSON.stringify(response.user))
+}
+
+export const Header = () => {
+  let authentication = () => {
+    if (localStorage.getItem('user')) {
+
+        <a href="#">Profile</a>
+
+    }
+    else {
+        <a href="#">Login</a>
+    }
+  }
+
+  return(
+    <header class='header'>
+    <div id='header_left' className={bem('header','div',['left'])}>
+      <a href="/">
+        <img src={logo} alt='App-Logo' id='header_logo' className={bem('header','img')} ></img>
+      </a>
+    </div>
+    <div id='header_right' className={bem('header','div',['right'])}>
+      {authentication}
+    </div>
+  </header>
+  )
+}
+
+// <header class='header'>
+//   <div id='header_left' class='header__div header__div--left'>
+//     <a href="/">
+//       <img src="<%= require('./images/QA_logo_white.svg') %>" alt='App-Logo' id='header_logo' class='header__img' onclick="{() => }"></img>
+//     </a>
+//   </div>
+// </header>

@@ -2,6 +2,7 @@ import { h } from 'jsx-dom'
 import bem from 'bem-names'
 import Impressum from './components/impressum'
 import Login from './components/login'
+import { Header } from './partials/header'
 
 
 export default class app {
@@ -9,7 +10,11 @@ export default class app {
   //this.login = Login
     // this.login = new Login
   }
-  header() {
+  header(root) {
+    root.appendChild(<Header/>)
+    // if(window.user != null){
+    //   root.appendChild(<a>Profile</a>)
+    // }
     //return this.test.renderLogin()
   }
   footer() {
@@ -21,17 +26,17 @@ export default class app {
 
   loginPage(root) {
     root.appendChild(<Login/>)
-    let google = document.getElementsByClassName('button--login')[0]
-    console.log(google)
-    google.addEventListener('click', (e) => {
-      e.preventDefault()
-      // firebase()
-      console.log('login with google')
-    })
+    // let google = document.getElementsByClassName('button--login')[0]
+    // console.log(google)
+    // google.addEventListener('click', (e) => {
+    //   e.preventDefault()
+    //   // firebase()
+    //   console.log('login with google')
+    // })
   }
 
   landingPage(root) {
-    root.appendChild(<h1>Root</h1>)
+    root.appendChild(<Login/>)
 
   }
   impressum(root) {
