@@ -1,7 +1,7 @@
 import { h } from 'jsx-dom'
 import * as JSX from 'jsx-dom'
 import bem from 'bem-names'
-import api from '../openTriviaApi'
+import api from './../modules/openTriviaApi'
 
 
 
@@ -11,7 +11,6 @@ const Quiz = () => {
   let score = 0
   let current_question = 1
   let question_and_answers
-  const api_call = new api()    //wird dann nicht mehr genötigt
   const nr = JSX.createRef()
   const question = JSX.createRef()
   const answer1 = JSX.createRef()
@@ -19,7 +18,7 @@ const Quiz = () => {
   const answer3 = JSX.createRef()
   const answer4 = JSX.createRef()
 
-  api_call.getData(number_of_questions).then((x) => {
+  api(number_of_questions).then((x) => {
     question_and_answers = x
     x.map((item) => {
       console.log(item)
@@ -55,14 +54,14 @@ const Quiz = () => {
     let button_text=event.target.textContent
     let button =event.target
     button_text = button_text.substring(3, button_text.length);
-    if(button_text==question_and_answers[current_question-1].correct_answer) 
+    if(button_text==question_and_answers[current_question-1].correct_answer)
     {
         let buttons= document.getElementsByTagName('button');
         button.id='correct'
         for(let i = 0; i<4; i++)
         {
-            if (buttons[i].id!= 'correct')  buttons[i].style.visibility = 'hidden'; 
-        }   
+            if (buttons[i].id!= 'correct')  buttons[i].style.visibility = 'hidden';
+        }
     }
     else {
         button.id='wrong'
@@ -73,8 +72,8 @@ const Quiz = () => {
             let current_button = buttons[i]
             console.log(current_button.textContent.substring(3, current_button.textContent.length))
             if(current_button.textContent.substring(3, current_button.textContent.length)==question_and_answers[current_question-1].correct_answer) button.id='correct'
-            if (current_button.id!= 'wrong' && current_button.id!='correct') current_button.style.visibility = 'hidden'; 
-        } 
+            if (current_button.id!= 'wrong' && current_button.id!='correct') current_button.style.visibility = 'hidden';
+        }
 
     }
     //event.target.style.visibility = 'hidden';

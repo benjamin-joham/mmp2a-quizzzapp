@@ -11,6 +11,7 @@ import '@babel/polyfill'
 import Header from './js/components/header';
 import LoginScreen from './js/partials/loginScreen';
 import StartScreen from './js/partials/startScreen';
+import QuizzScreen from './js/partials/quizzScreen';
 
 // TODO: Firebase start
 // see firebase.js
@@ -81,8 +82,11 @@ router
       // append StartScreen
       body.appendChild(<StartScreen />)
     },
+    'quiz': () => {
+      body.appendChild(<QuizzScreen/>)
+    },
     'test': () => {
-      body.appendChild(<Header data='quiz' value='1/5'/>)
+      // body.appendChild(<Header data='quiz' value='1/5'/>)
       // body.innerHTML = 'Hi'
       // body.insertBefore(quizz.header(), main)
       // quizz.header(header)
