@@ -55,7 +55,7 @@ const Quiz = () => {
             if (current_button.id!= 'wrong' && current_button.id!='correct') {current_button.style.visibility = 'hidden';}
             console.log(current_button.id)
         }
-
+        current_question++
     }
 }
 
