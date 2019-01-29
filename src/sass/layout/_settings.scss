@@ -1,25 +1,37 @@
-#settings{
+.settings{
   display: flex;
-  div{
-    flex-direction: row;
-    margin: auto; 
-    h1{
+  &__div{
+    flex-direction: column;   
+    margin: auto;
+    &--players {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+    &--questions {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+  }
+  &__h1{
       background-color: $darker_blue_70;
       padding: 5%;
       border-radius: 2%;
     }
     .settings__div{
-      //display: flex;
+      display: flex;
     }
-    .settings__button{
+  &__button{
       font-size: $regular;
-      width: 5vw !important;
-      height: 5vw;
+      width: calc(50%-40px);
+      height: 100px;
       border-radius: 2%;
-      margin-left: 40px;
-      margin-bottom: 40px;
+      margin: 40px;
+      max-width: 100px;
     }
-  }
  @media(max-width: 600px){
    display: block;
  } 
@@ -30,4 +42,10 @@
     @media(max-width: 600px){
       margin-top: 20%;
     }
+}
+
+#btn_players_active,
+#btn_questions_active {
+  background-color: $darker_blue_100;
+  color: white
 }

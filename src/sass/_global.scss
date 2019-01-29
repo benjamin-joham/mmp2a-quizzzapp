@@ -21,6 +21,7 @@ html {
       height: 10vh;
       font-size: $medium;
       margin-bottom: 10vh;
+      border:0;
       border-radius: 2%;
       width:30vw;
       min-height: 40px;
@@ -33,6 +34,7 @@ html {
   body {
     line-height: 1.3rem;
     letter-spacing: auto;
+    background-image: url('../assets/background/background.png');
   }
 
 h1 {
@@ -57,7 +59,4 @@ code {
 }
 }
 
-#btn_players_active,
-#btn_questions_active {
-  background-color: $lighter_blue
-}
+
