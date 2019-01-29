@@ -7,9 +7,9 @@ import '@babel/polyfill'
 
 // // import classes
 
-// import data from open trivia api
+// pages
 import Header from './js/components/header';
-import LoginPage from './js/partials/loginScreen';
+import LoginScreen from './js/partials/loginScreen';
 
 // TODO: Firebase start
 // see firebase.js
@@ -75,10 +75,15 @@ router
     '/': () => {
       // console.log(window.location)
       console.log('jetzt in root')
-      root.appendChild(<LoginPage/>)
+      // append LoginScreen
+      root.appendChild(<LoginScreen/>)
       // main.innerHTML = ''
       // Landingpage.render(root);
       // quizz.landingPage(main)
+    },
+    'start': () => {
+      // append StartScreen
+      // root.appendChild()
     },
     'test': () => {
       root.appendChild(<Header data='quiz' value='1/5'/>)

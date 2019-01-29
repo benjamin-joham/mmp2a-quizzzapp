@@ -3,7 +3,7 @@ import { h } from 'jsx-dom'
 import Login from '../components/login';
 
 
-const LoginPage = () => {
+const LoginScreen = () => {
 
   return(
     <div id='root'>
@@ -15,4 +15,4 @@ const LoginPage = () => {
   )
 }
 
-export default LoginPage
+export default LoginScreen
