@@ -18,8 +18,10 @@ const Quiz = () => {
   const answer3 = JSX.createRef()
   const answer4 = JSX.createRef()
 
+  console.log(JSON.parse(localStorage.getItem('questions')))
+
   api(number_of_questions).then((x) => {
-    question_and_answers = x
+    question_and_answers = JSON.parse(localStorage.getItem('questions'))
     x.map((item) => {
       console.log(item)
     })

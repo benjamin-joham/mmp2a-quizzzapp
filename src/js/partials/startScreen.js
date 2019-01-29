@@ -4,7 +4,7 @@ import Login from '../components/login';
 import Settings from '../components/settings';
 import api from './../modules/openTriviaApi'
 
-const clickHandler = (event) => {
+ const clickHandler = async (event) => {
 
   event.preventDefault()
   console.log(event.target)
@@ -16,7 +16,15 @@ const clickHandler = (event) => {
   console.log('amount of players: ', players.value)
   console.log('amount of questions: ', questions.value)
 
-  console.log(api(questions.value).then(x => console.log(x)))
+  console.log(api(questions.value).then(x => {
+    localStorage.setItem('questions', JSON.stringify(x))
+    console.log(x)
+  }))
+  window.location.assign('/quiz')
+
+  // window.questions = await api(questions.value).then(x => x)
+
+  // localStorage.setItem('questions', JSON.stringify(window.questions))
 
 }
 
