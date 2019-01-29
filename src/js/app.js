@@ -9,6 +9,7 @@ export default class app {
   constructor() {
   //this.login = Login
     // this.login = new Login
+    this.quiz = new Quiz
   }
   header() {
     //return this.test.renderLogin()

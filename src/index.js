@@ -94,6 +94,7 @@ const quizz = new app
 
 // // TODO: routing test with navigo.js
 const main = document.querySelector('main')
+main.appendChild(quizz.quiz)
 const body = main.parentElement
 // console.log( 'body ist gleich')
 // console.log(body)
