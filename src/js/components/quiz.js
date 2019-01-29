@@ -19,10 +19,11 @@ const Quiz = () => {
             console.log(item)
         })
         question.current.innerHTML = question_and_answers[0].question
-        answer1.current.innerHTML = question_and_answers[0].correct_answer
-        answer2.current.innerHTML = question_and_answers[0].incorrect_answers[0]
+        let n= Math.floor((Math.random() * 4) + 1);
+        answer2.current.innerHTML = question_and_answers[0].incorrect_answers[n]
         answer3.current.innerHTML = question_and_answers[0].incorrect_answers[1]
         answer4.current.innerHTML = question_and_answers[0].incorrect_answers[2]
+        answer1.current.innerHTML = question_and_answers[0].correct_answer
     })
 
     return(
@@ -40,5 +41,4 @@ const Quiz = () => {
         </section>
     )
 }
-//What is the name of the planet that the Doctor from television series &quot;Doctor Who&quot; comes from?
 export default Quiz
