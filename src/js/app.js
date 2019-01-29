@@ -4,24 +4,23 @@ import Impressum from './components/impressum'
 import Login from './components/login'
 import Quiz from './components/quiz'
 
-
 export default class app {
-  constructor() {
-  //this.login = Login
+  constructor () {
+  // this.login = Login
     // this.login = new Login
-    this.quiz = new Quiz
+    this.quiz = new Quiz()
   }
-  header() {
-    //return this.test.renderLogin()
+  header () {
+    // return this.test.renderLogin()
   }
-  footer() {
+  footer () {
 
   }
-  firebase() {
+  firebase () {
     // this.login
   }
 
-  loginPage(root) {
+  loginPage (root) {
     root.appendChild(<Login/>)
     let google = document.getElementsByClassName('button--login')[0]
     console.log(google)
@@ -32,11 +31,10 @@ export default class app {
     })
   }
 
-  landingPage(root) {
+  landingPage (root) {
     root.appendChild(<h1>Root</h1>)
-
   }
-  impressum(root) {
+  impressum (root) {
     root.appendChild(<Impressum/>)
   }
 }

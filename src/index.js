@@ -9,74 +9,64 @@ import '@babel/polyfill'
 // import firebase config
 import { config as FirebaseConfig } from './js/firebase'
 
-
-
-
 // TODO: Firebase start
 import firebase from 'firebase/app'
 import 'firebase/auth'
-const config = {
-  apiKey: 'AIzaSyCYwYxJ-Mmwz47-PpFXtdONtBjUUDR8-7E',
-  authDomain: 'mmp2a-85c2b.firebaseapp.com',
-  databaseURL: 'https://mmp2a-85c2b.firebaseio.com/',
-  projectId: 'mmp2a-85c2b',
-  storageBucket: 'mmp2a-85c2b.appspot.com',
-  messagingSenderId: '519321050416',
-}
-
-firebase.initializeApp(config)
-console.log(firebase)
-firebase.auth().signInAnonymously().catch(function(error) {
-  // Handle Errors here.
-  var errorCode = error.code;
-  var errorMessage = error.message;
-});
-
-firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-          // User is signed in.
-          console.log(user);
-          var isAnonymous = user.isAnonymous;
-          var uid = user.uid;
-          // ...
-        } else {
-          // User is signed out.
-          // ...
-        }
-        // ...
-      });
-
-// TODO: REVIEW: Firebase stop
-
-
-const router = new Navigo(null, true, '#')
 // const router = new Navigo(window.location.origin)
-
-
-
-
 
 // // import classes
 import app from './js/app'
 
 // import data from open trivia api
 import api from './js/openTriviaApi'
-// import Header from './js/components/header';
-const trivia = new api
+const config = {
+  apiKey: 'AIzaSyCYwYxJ-Mmwz47-PpFXtdONtBjUUDR8-7E',
+  authDomain: 'mmp2a-85c2b.firebaseapp.com',
+  databaseURL: 'https://mmp2a-85c2b.firebaseio.com/',
+  projectId: 'mmp2a-85c2b',
+  storageBucket: 'mmp2a-85c2b.appspot.com',
+  messagingSenderId: '519321050416'
+}
 
-async function apiCall() {
+firebase.initializeApp(config)
+console.log(firebase)
+firebase.auth().signInAnonymously().catch(function (error) {
+  // Handle Errors here.
+  var errorCode = error.code
+  var errorMessage = error.message
+})
+
+firebase.auth().onAuthStateChanged(function (user) {
+  if (user) {
+    // User is signed in.
+    console.log(user)
+    var isAnonymous = user.isAnonymous
+    var uid = user.uid
+    // ...
+  } else {
+    // User is signed out.
+    // ...
+  }
+  // ...
+})
+
+// TODO: REVIEW: Firebase stop
+
+const router = new Navigo(null, true, '#')
+// import Header from './js/components/header';
+const trivia = new api()
+
+async function apiCall () {
   return await trivia.getData(5)
   // await console.log(trivia_data)
 }
-//const response = apiCall().then(x => console.log(x))
-
+// const response = apiCall().then(x => console.log(x))
 
 // let quizz = new app
 // console.log(quizz.landingpage())
 // let header = quizz.landingpage()
 
-
-const quizz = new app
+const quizz = new app()
 
 // console.log(quizz)
 
@@ -86,7 +76,6 @@ const quizz = new app
 // console.log(quizz.firebase())
 
 // // CORE CODE
-
 
 // // TODO: BEM test
 // console.log(bem('block', 'div', ['blue']))
@@ -103,7 +92,7 @@ const body = main.parentElement
 
 // console.log(router)
 
-router.notFound( () => {
+router.notFound(() => {
   main.innerHTML = ''
   main.appendChild(<h1>404 Page not found</h1>)
   console.log('404')
@@ -111,33 +100,33 @@ router.notFound( () => {
 
 router
   .on(
-  {
-    '/': () => {
-      console.log('jetzt in root')
-      main.innerHTML = ''
-      // Landingpage.render(root);
-      quizz.landingPage(main)
-    },
-    'test': () => {
+    {
+      '/': () => {
+        console.log('jetzt in root')
+        main.innerHTML = ''
+        // Landingpage.render(root);
+        quizz.landingPage(main)
+      },
+      'test': () => {
       // body.innerHTML = ''
       // body.insertBefore(<Header />, main)
-      console.log('jetzt in test')
-      main.innerHTML = ''
-      main.appendChild(<h1>Test</h1>)
-    },
-    'main': () => {
-      console.log('jetzt in main')
-      main.innerHTML = ''
-      main.appendChild(<h1>Main</h1>)
-    },
-    'login': () => {
-      main.innerHTML = ''
-      console.log('jetzt in login')
-      console.log(quizz)
-      quizz.loginPage(main)
-    },
-    'impressum': () => {
-      main.innerHTML = ''
-      quizz.impressum(main)
-    }
-  }).resolve
+        console.log('jetzt in test')
+        main.innerHTML = ''
+        main.appendChild(<h1>Test</h1>)
+      },
+      'main': () => {
+        console.log('jetzt in main')
+        main.innerHTML = ''
+        main.appendChild(<h1>Main</h1>)
+      },
+      'login': () => {
+        main.innerHTML = ''
+        console.log('jetzt in login')
+        console.log(quizz)
+        quizz.loginPage(main)
+      },
+      'impressum': () => {
+        main.innerHTML = ''
+        quizz.impressum(main)
+      }
+    }).resolve

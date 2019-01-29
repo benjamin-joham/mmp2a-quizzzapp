@@ -4,7 +4,7 @@ export const config = {
   databaseURL: 'https://mmp2a-85c2b.firebaseio.com/',
   projectId: 'mmp2a-85c2b',
   storageBucket: 'mmp2a-85c2b.appspot.com',
-  messagingSenderId: '519321050416',
+  messagingSenderId: '519321050416'
 }
 
 // const test = firebase.database().ref('test')
