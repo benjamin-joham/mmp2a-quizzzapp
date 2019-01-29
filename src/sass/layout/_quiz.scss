@@ -1,23 +1,25 @@
-#quiz{
-    text-align: center; 
-    background-color: $darker_blue_60;
-    padding-top: 5vh;
-    padding-bottom: 5vh;
-    margin-bottom: 20px;
-}
-#answers{
-    display: flex;
-    padding-top:0;
-    margin: auto;
+.quiz{
     text-align: center;
-    button{
-        height: 25vh;
-        width: 45vw;
-        margin: auto;
-        margin-top: 5%;
-    }
-    @media(max-width: 600px){
-        display: block;
-        margin-bottom: 5%;
-    }
 }
+.question{
+        background-color: $darker_blue_60;
+        padding-top: 5vh;
+        padding-bottom: 5vh;
+        margin-bottom: 20px;
+    }
+.answers{
+        display: flex;
+        padding-top:0;
+        margin: auto;
+        text-align: center;
+        &__button{
+            height: 25vh;
+            width: 45vw;
+            margin: auto;
+            margin-top: 5%;
+            }
+        @media(max-width: 600px){
+            display: block;
+            margin-bottom: 5%;
+        }
+    }

@@ -2,6 +2,7 @@ import { h } from 'jsx-dom'
 import bem from 'bem-names'
 import Impressum from './components/impressum'
 import Login from './components/login'
+import Quiz from './components/quiz'
 
 
 export default class app {
