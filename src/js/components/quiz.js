@@ -11,7 +11,7 @@ const Quiz = () => {
   let score = 0
   let current_question = 1
   let question_and_answers
-  const api_call = new api()
+  const api_call = new api()    //wird dann nicht mehr genötigt
   const nr = JSX.createRef()
   const question = JSX.createRef()
   const answer1 = JSX.createRef()
@@ -55,14 +55,33 @@ const Quiz = () => {
     let button_text=event.target.textContent
     let button =event.target
     button_text = button_text.substring(3, button_text.length);
-    console.log(button_text)
-    if(button_text==question_and_answers[current_question-1].correct_answer) button.id='correct'
+    if(button_text==question_and_answers[current_question-1].correct_answer) 
+    {
+        let buttons= document.getElementsByTagName('button');
+        button.id='correct'
+        for(let i = 0; i<4; i++)
+        {
+            if (buttons[i].id!= 'correct')  buttons[i].style.visibility = 'hidden'; 
+        }   
+    }
     else {
         button.id='wrong'
+        let buttons= document.getElementsByTagName('button');
+
+        for(let i = 0; i<4; i++)
+        {
+            let current_button = buttons[i]
+            console.log(current_button.textContent.substring(3, current_button.textContent.length))
+            if(current_button.textContent.substring(3, current_button.textContent.length)==question_and_answers[current_question-1].correct_answer) button.id='correct'
+            if (current_button.id!= 'wrong' && current_button.id!='correct') current_button.style.visibility = 'hidden'; 
+        } 
+
     }
     //event.target.style.visibility = 'hidden';
     //newQuestion;
 }
+
+ // newQuestion
 
 
   return (
@@ -72,10 +91,10 @@ const Quiz = () => {
         <p className={bem('question', 'p')} ref={question}></p>
       </article>
       <article className={bem('answers')}>
-        <p className={bem('answers', 'p')}><button className={bem('answers', 'button')} active='false' ref={answer1} onClick={checkAnswer}></button>
-          <button className={bem('answers', 'button')} active='false' ref={answer2} onClick={checkAnswer}></button></p>
-        <p className={bem('answers', 'p')}><button className={bem('answers', 'button')} active='false' ref={answer3} onClick={checkAnswer}></button>
-          <button className={bem('answers', 'button')} active='false' ref={answer4} onClick={checkAnswer}></button></p>
+        <p className={bem('answers', 'p')}><button className={bem('answers', 'button')} ref={answer1} onClick={checkAnswer}></button>
+          <button className={bem('answers', 'button')} ref={answer2} onClick={checkAnswer}></button></p>
+        <p className={bem('answers', 'p')}><button className={bem('answers', 'button')} ref={answer3} onClick={checkAnswer}></button>
+          <button className={bem('answers', 'button')} ref={answer4} onClick={checkAnswer}></button></p>
       </article>
     </section>
   )
