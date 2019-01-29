@@ -5,8 +5,11 @@ import Navigo from 'navigo'
 import bem from 'bem-names'
 import '@babel/polyfill'
 
-import { getUsers } from './js/modules/firebase'
-import { Header_right } from './js/partials/header'
+// // import classes
+
+// import data from open trivia api
+import Header from './js/components/header';
+import LoginPage from './js/partials/loginScreen';
 
 // TODO: Firebase start
 // see firebase.js
@@ -17,25 +20,20 @@ const router = new Navigo(window.location.origin)
   // console.log(router)
 // const router = new Navigo(window.location.origin)
 
-async function test() {
+// async function test() {
 
-  return await getUsers();
-}
-const testUser = test().then(x => console.log("test",x))
+//   return await getUsers();
+// }
+// const testUser = test().then(x => console.log("test",x))
 
 
-// // import classes
-import app from './js/app'
-
-// import data from open trivia api
-import api from './js/modules/openTriviaApi'
 // import Header from './js/components/header';
-const trivia = new api
+// const trivia = new api
 
-async function apiCall() {
-  return await trivia.getData(5)
-  // await console.log(trivia_data)
-}
+// async function apiCall() {
+//   return await trivia.getData(5)
+//   // await console.log(trivia_data)
+// }
 //const response = apiCall().then(x => console.log(x))
 
 
@@ -44,7 +42,7 @@ async function apiCall() {
 // let header = quizz.landingpage()
 
 
-const quizz = new app
+// const quizz = new app
 
 // console.log(quizz)
 
@@ -61,11 +59,9 @@ const quizz = new app
 // // block__div block__div--blue
 
 // // TODO: routing test with navigo.js
-const main = document.querySelector('main')
-const header = document.querySelector('header')
-const body = main.parentElement
+const root = document.querySelector('body')
 
-console.log(window.location.pathname)
+// console.log(window.location.pathname)
 
 router.notFound( () => {
   main.innerHTML = ''
@@ -79,20 +75,21 @@ router
     '/': () => {
       // console.log(window.location)
       console.log('jetzt in root')
-      main.innerHTML = ''
+      root.appendChild(<LoginPage/>)
+      // main.innerHTML = ''
       // Landingpage.render(root);
-      quizz.landingPage(main)
+      // quizz.landingPage(main)
     },
     'test': () => {
-
+      root.appendChild(<Header data='quiz' value='1/5'/>)
       // body.innerHTML = 'Hi'
       // body.insertBefore(quizz.header(), main)
-      quizz.header(header)
-      console.log('jetzt in test')
-      main.innerHTML = ''
-      // main.appendChild(<h1>{window.user}</h1>)
+      // quizz.header(header)
+      // console.log('jetzt in test')
+      // main.innerHTML = ''
+      // // main.appendChild(<h1>{window.user}</h1>)
 
-      main.appendChild(<h1>Test</h1>)
+      // main.appendChild(<h1>Test</h1>)
     },
     'main': () => {
       console.log('jetzt in main')
@@ -103,10 +100,10 @@ router
       main.innerHTML = ''
       console.log('jetzt in login')
       // console.log(quizz)
-      quizz.loginPage(main)
+      // quizz.loginPage(main)
     },
     'impressum': () => {
       main.innerHTML = ''
-      quizz.impressum(main)
+      // quizz.impressum(main)
     }
   }).resolve()
