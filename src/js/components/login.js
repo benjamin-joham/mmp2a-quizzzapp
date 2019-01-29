@@ -13,7 +13,7 @@ const Login = () => {
         <button className={bem('button',['login'])}
           onClick={(e) => {
             console.log('without login')
-            userLogout()
+            document.location.assign('/start')
           }}>Play without Login</button>
         </section>
     )

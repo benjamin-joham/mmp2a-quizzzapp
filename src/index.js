@@ -65,8 +65,7 @@ const body = document.querySelector('body')
 // console.log(window.location.pathname)
 
 router.notFound(() => {
-  main.innerHTML = ''
-  main.appendChild(<h1>404 Page not found</h1>)
+  body.appendChild(<h1>404 Page not found</h1>)
   console.log('404')
 })
 

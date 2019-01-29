@@ -15,74 +15,51 @@ let config = {
 // TODO: Authentication
 const provider = new firebase.auth.GoogleAuthProvider();
 firebase.initializeApp(config)
+
+const callbacks = []
+
 firebase.auth().onAuthStateChanged((user) => {
-  if (user) {
-    // User is signed in.
-    // if(window.user != user) { window.user = user }
-    console.log(user);
+  window.user = user
+  callbacks.forEach(callback => callback(user))
+})
 
-    // var isAnonymous = user.isAnonymous;
-    // var uid = user.uid;
-    // ...
-  } else {
-    // User is signed out.
-    window.user = null;
-    console.log('not logged in right now')
-    // ...
-  }
-  // ...
-});
-
-export const userLogin = () => {
-  // Anonymous
-  /*
-  firebase
-  .auth()
-  .signInAnonymously()
-  .then(() => {
-    console.log('Signed In');
-  })
-  .catch( (error) =>{
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    console.log('Sign in Error', error)
-  });
-  */
-  // google login
-  firebase.auth().signInWithPopup(provider).then(function(result) {
-    console.log(result)
-    localStorage.setItem('user', JSON.stringify(result.user))
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    var token = result.credential.accessToken;
-    // The signed-in user info.
-    var user = result.user;
-    // window.location.assign('test')
-    // ...
-  }).catch(function(error) {
-    console.log(error)
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    // The email of the user's account used.
-    var email = error.email;
-    // The firebase.auth.AuthCredential type that was used.
-    var credential = error.credential;
-    // ...
-  });
+export function subscribeToFirebaseAuth(callback) {
+  callbacks.push(callback)
 }
 
-export const userLogout = () => {
-  firebase
+// firebase.auth().onAuthStateChanged((user) => {
+//   if (user) {
+//     // User is signed in.
+//     // if(window.user != user) { window.user = user }
+//     console.log(user);
+//     window.location.reload
+
+//     // var isAnonymous = user.isAnonymous;
+//     // var uid = user.uid;
+//     // ...
+//   } else {
+//     // User is signed out.
+//     console.log('not logged in right now')
+//     // ...
+//   }
+//   // ...
+// });
+
+export const userLogin = async () => {
+  // google login
+  return firebase
+    .auth()
+    .signInWithPopup(provider)
+    .then(response => response)
+    .catch(error => error)
+}
+
+export const userLogout = async () => {
+  return firebase
   .auth()
   .signOut()
-  .then( () => {
-    localStorage.removeItem('user')
-    console.log('Signed Out');
-  })
-  .catch((error) => {
-    console.error('Sign Out Error', error);
-  });
+  .then(response => response)
+  .catch(error => error)
 }
 
 
