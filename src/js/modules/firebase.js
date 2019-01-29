@@ -52,11 +52,12 @@ export const userLogin = () => {
   // google login
   firebase.auth().signInWithPopup(provider).then(function(result) {
     console.log(result)
+    localStorage.setItem('user', result.user)
     // This gives you a Google Access Token. You can use it to access the Google API.
     var token = result.credential.accessToken;
     // The signed-in user info.
     var user = result.user;
-    window.location.assign('test')
+    // window.location.assign('test')
     // ...
   }).catch(function(error) {
     console.log(error)
@@ -76,6 +77,7 @@ export const userLogout = () => {
   .auth()
   .signOut()
   .then( () => {
+    localStorage.removeItem('user')
     console.log('Signed Out');
   })
   .catch((error) => {

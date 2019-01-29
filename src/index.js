@@ -10,6 +10,7 @@ import '@babel/polyfill'
 // pages
 import Header from './js/components/header';
 import LoginScreen from './js/partials/loginScreen';
+import StartScreen from './js/partials/startScreen';
 
 // TODO: Firebase start
 // see firebase.js
@@ -59,7 +60,7 @@ const router = new Navigo(window.location.origin)
 // // block__div block__div--blue
 
 // // TODO: routing test with navigo.js
-const root = document.querySelector('body')
+const body = document.querySelector('body')
 
 // console.log(window.location.pathname)
 
@@ -73,20 +74,16 @@ router
   .on(
   {
     '/': () => {
-      // console.log(window.location)
       console.log('jetzt in root')
       // append LoginScreen
-      root.appendChild(<LoginScreen/>)
-      // main.innerHTML = ''
-      // Landingpage.render(root);
-      // quizz.landingPage(main)
+      body.appendChild(<LoginScreen/>)
     },
     'start': () => {
       // append StartScreen
-      // root.appendChild()
+      body.appendChild(<StartScreen />)
     },
     'test': () => {
-      root.appendChild(<Header data='quiz' value='1/5'/>)
+      body.appendChild(<Header data='quiz' value='1/5'/>)
       // body.innerHTML = 'Hi'
       // body.insertBefore(quizz.header(), main)
       // quizz.header(header)
@@ -95,20 +92,5 @@ router
       // // main.appendChild(<h1>{window.user}</h1>)
 
       // main.appendChild(<h1>Test</h1>)
-    },
-    'main': () => {
-      console.log('jetzt in main')
-      main.innerHTML = ''
-      main.appendChild(<h1>Main</h1>)
-    },
-    'login': () => {
-      main.innerHTML = ''
-      console.log('jetzt in login')
-      // console.log(quizz)
-      // quizz.loginPage(main)
-    },
-    'impressum': () => {
-      main.innerHTML = ''
-      // quizz.impressum(main)
     }
   }).resolve()
