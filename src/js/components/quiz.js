@@ -7,10 +7,8 @@ const Quiz = () => {
   let score = 0
   let current_question = 1
   let question_and_answers=JSON.parse(localStorage.getItem('questions'))
-  let arr = [question_and_answers[current_question-1].correct_answer, question_and_answers[current_question-1].incorrect_answers[0], question_and_answers[current_question-1].incorrect_answers[1], question_and_answers[current_question-1].incorrect_answers[2]]
 
-  console.log(JSON.parse(localStorage.getItem('questions')))
-
+    let arr = [question_and_answers[current_question-1].correct_answer, question_and_answers[current_question-1].incorrect_answers[0], question_and_answers[current_question-1].incorrect_answers[1], question_and_answers[current_question-1].incorrect_answers[2]]
     let answer1 = 'A: ' + arr[0] // correct
     let answer2 = 'C: ' + arr[1]
     let answer3 = 'B: ' + arr[2]
@@ -43,6 +41,7 @@ const Quiz = () => {
         {
             if (buttons[i].id!= 'correct')  buttons[i].style.visibility = 'hidden';
         }
+        score++
     }
     else {
         button.id='wrong'
@@ -51,13 +50,13 @@ const Quiz = () => {
         for(let i = 0; i<4; i++)
         {
             let current_button = buttons[i]
-            console.log(current_button.textContent.substring(3, current_button.textContent.length))
-            if(current_button.textContent.substring(3, current_button.textContent.length)==question_and_answers[current_question-1].correct_answer) button.id='correct'
-            if (current_button.id!= 'wrong' && current_button.id!='correct') current_button.style.visibility = 'hidden';
+            if(current_button.textContent.substring(3, current_button.textContent.length)==question_and_answers[current_question-1].correct_answer) 
+                {current_button.id='correct'}
+            if (current_button.id!= 'wrong' && current_button.id!='correct') {current_button.style.visibility = 'hidden';}
+            console.log(current_button.id)
         }
 
     }
-    //newQuestion;
 }
 
   return (
