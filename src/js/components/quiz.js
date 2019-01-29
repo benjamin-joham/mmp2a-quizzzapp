@@ -19,11 +19,28 @@ const Quiz = () => {
             console.log(item)
         })
         question.current.innerHTML = question_and_answers[0].question
-        let n= Math.floor((Math.random() * 4) + 1);
-        answer2.current.innerHTML = question_and_answers[0].incorrect_answers[n]
-        answer3.current.innerHTML = question_and_answers[0].incorrect_answers[1]
-        answer4.current.innerHTML = question_and_answers[0].incorrect_answers[2]
-        answer1.current.innerHTML = question_and_answers[0].correct_answer
+
+        let arr = [question_and_answers[0].correct_answer,question_and_answers[0].incorrect_answers[0],question_and_answers[0].incorrect_answers[1],question_and_answers[0].incorrect_answers[2]]
+        
+        answer1.current.innerHTML = arr[0]
+        answer2.current.innerHTML = arr[1]
+        answer3.current.innerHTML = arr[2]
+        answer4.current.innerHTML = arr[3]
+        let rand=Math.floor((Math.random() * 3))
+        answer1.current.innerHTML = arr[rand]
+        switch(rand) {
+            case 1:
+            answer2.current.innerHTML = arr[0]
+                break;
+            case 2:
+            answer3.current.innerHTML = arr[0]
+                break;
+            case 3:
+            answer4.current.innerHTML = arr[0]
+                break;
+            default:
+                break;
+        }
     })
 
     return(
