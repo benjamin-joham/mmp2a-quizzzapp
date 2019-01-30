@@ -97,7 +97,7 @@ const Quiz = ({ children, ...props }) => {
   answer2= answer2.replace("&amp;", "&").replace("&quot;", '"').replace("&#039;", "'");
   answer3= answer3.replace("&amp;", "&").replace("&quot;", '"').replace("&#039;", "'");
   answer4= answer4.replace("&amp;", "&").replace("&quot;", '"').replace("&#039;", "'");
-  question= question.replace("&amp;", "&").replace("&quot;", '"').replace("&#039;", "'");
+  question= question.replace("&amp;", "&").replace("&quot;", '"').replace("&#039;", "'").replace("&amp;quot;",'"');
 
   return (
     <section className={bem('quiz')}>
