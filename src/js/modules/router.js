@@ -5,6 +5,13 @@ import StartScreen from '../partials/startScreen'
 import QuizzScreen from '../partials/quizzScreen'
 import { checkAuthState } from './firebase'
 
+
+
+import { h } from 'jsx-dom'
+import LoginScreen from '../partials/loginScreen';
+import StartScreen from '../partials/startScreen';
+import QuizzScreen from '../partials/quizzScreen';
+import ProfileScreen from '../partials/profileScreen';
 const router = new Navigo(window.location.origin)
 
 const body = document.querySelector('body')
@@ -42,6 +49,10 @@ router
         body.appendChild(<QuizzScreen query={query}/>)
       },
       'test': () => {
+      },
+      'profile':()=>{
+        body.innerHTML=''
+        body.appendChild(<ProfileScreen />)
       }
     })
 
