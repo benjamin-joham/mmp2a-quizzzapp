@@ -1,4 +1,4 @@
-import { h } from 'jsx-dom'
+import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 
 const Button = ({ children, ...props }) => {
   const isActive = (item) => {

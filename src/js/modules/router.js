@@ -1,14 +1,22 @@
 import Navigo from 'navigo'
+import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
+import LoginScreen from '../partials/loginScreen'
+import StartScreen from '../partials/startScreen'
+import QuizzScreen from '../partials/quizzScreen'
+import { checkAuthState } from './firebase'
 
-
-
-import { h } from 'jsx-dom'
-import LoginScreen from '../partials/loginScreen';
-import StartScreen from '../partials/startScreen';
-import QuizzScreen from '../partials/quizzScreen';
 const router = new Navigo(window.location.origin)
 
 const body = document.querySelector('body')
+
+// router.hooks({
+//   before: async (done, params) => {
+//     console.log('hook before')
+//     // let user = () => { return checkAuthState() }
+//     // console.log(user.then(x => x))
+//     // if (user) done()
+//   }
+// })
 
 router.notFound(() => {
   body.appendChild(<h1>404 Page not found</h1>)
@@ -26,8 +34,8 @@ router
       },
       'start': () => {
       // append StartScreen
-      body.innerHTML = ''
-      body.appendChild(<StartScreen />)
+        body.innerHTML = ''
+        body.appendChild(<StartScreen />)
       },
       'quiz/:id': (params) => {
         body.innerHTML = ''
@@ -35,6 +43,6 @@ router
       },
       'test': () => {
       }
-    });
+    })
 
-  export default router;
+export default router

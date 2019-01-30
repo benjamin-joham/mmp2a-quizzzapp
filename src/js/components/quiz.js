@@ -1,6 +1,6 @@
-import { h } from 'jsx-dom'
+import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import bem from 'bem-names'
-import router from '../modules/router';
+import router from '../modules/router'
 
 const replaceSpeciaCharsToHtml = (string) => {
   return string.replace(/&/g, '&amp;').replace(/>/g, '&gt;').replace(/</g, '&lt;').replace(/"/g, '&quot;')
@@ -67,7 +67,7 @@ const Quiz = ({ children, ...props }) => {
     } else {
       current_question++
       setTimeout(() => {
-        router.navigate('quiz/'+current_question)
+        router.navigate('quiz/' + current_question)
       }, 1500)
     }
   }

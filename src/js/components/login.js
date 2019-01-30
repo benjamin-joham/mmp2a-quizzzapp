@@ -1,6 +1,7 @@
-import { h } from 'jsx-dom'
+import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import bem from 'bem-names'
-import { userLogin, userLogout } from '../modules/firebase'
+import { userLogin } from '../modules/firebase'
+import router from '../modules/router'
 
 const Login = () => {
   return (
@@ -13,7 +14,7 @@ const Login = () => {
       <button className={bem('button', ['login'])}
         onClick={(e) => {
           console.log('without login')
-          document.location.assign('/start')
+          router.navigate('/start')
         }}>Play without Login</button>
     </section>
   )
