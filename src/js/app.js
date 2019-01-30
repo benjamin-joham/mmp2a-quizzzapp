@@ -4,19 +4,18 @@ import Impressum from './components/impressum'
 import Login from './components/login'
 import { Header } from './partials/header'
 
-
 export default class app {
   constructor () {
   // this.login = Login
     // this.login = new Login
     this.quiz = new Quiz()
   }
-  header(root) {
+  header (root) {
     root.appendChild(<Header/>)
     // if(window.user != null){
     //   root.appendChild(<a>Profile</a>)
     // }
-    //return this.test.renderLogin()
+    // return this.test.renderLogin()
   }
   footer () {
 
@@ -36,9 +35,8 @@ export default class app {
     // })
   }
 
-  landingPage(root) {
+  landingPage (root) {
     root.appendChild(<Login/>)
-
   }
   impressum (root) {
     root.appendChild(<Impressum/>)

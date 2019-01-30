@@ -1,5 +1,5 @@
 import { h } from 'jsx-dom'
-import Button from './button';
+import Button from './button'
 import bem from 'bem-names'
 
 const clickhandlerPlayers = (event) => {
@@ -7,8 +7,7 @@ const clickhandlerPlayers = (event) => {
   let elem = event.target
   if (elem.id == 'btn_players_active') {
     elem.removeAttribute('id')
-  }
-  else {
+  } else {
     document.getElementById('btn_players_active').removeAttribute('id')
     elem.id = 'btn_players_active'
   }
@@ -18,33 +17,31 @@ const clickhandlerQuestions = (event) => {
   let elem = event.target
   if (elem.id == 'btn_questions_active') {
     elem.removeAttribute('id')
-  }
-  else {
+  } else {
     document.getElementById('btn_questions_active').removeAttribute('id')
     elem.id = 'btn_questions_active'
   }
 }
 
 const Settings = () => {
-
-  return(
+  return (
     <section class={bem('settings')}>
-      <div class={bem('settings','div')}>
-        <h1 class={bem('settings','h1')}>Number of Players</h1>
-        <div class={bem('settings','div',['players'])}>
-          <button id='btn_players_active' class={bem('settings','button')} onClick={ clickhandlerPlayers } value='1'>1</button>
-          <button class={bem('settings','button')} onClick={ clickhandlerPlayers } value='2'>2</button>
-          <button class={bem('settings','button')} onClick={ clickhandlerPlayers } value='3'>3</button>
-          <button class={bem('settings','button')} onClick={ clickhandlerPlayers } value='4'>4</button>
+      <div class={bem('settings', 'div')}>
+        <h1 class={bem('settings', 'h1')}>Number of Players</h1>
+        <div class={bem('settings', 'div', ['players'])}>
+          <button id='btn_players_active' class={bem('settings', 'button')} onClick={ clickhandlerPlayers } value='1'>1</button>
+          <button class={bem('settings', 'button')} onClick={ clickhandlerPlayers } value='2'>2</button>
+          <button class={bem('settings', 'button')} onClick={ clickhandlerPlayers } value='3'>3</button>
+          <button class={bem('settings', 'button')} onClick={ clickhandlerPlayers } value='4'>4</button>
         </div>
       </div>
-      <div class={bem('settings','div')}> 
-        <h1 class={bem('settings','h1')}>Number of Questions</h1>
-        <div class={bem('settings','div',['questions'])}>
-          <button id='btn_questions_active' class={bem('settings','button')} onClick={ clickhandlerQuestions } value='5'>5</button>
-          <button class={bem('settings','button')} onClick={ clickhandlerQuestions } value='10'>10</button>
-          <button class={bem('settings','button')} onClick={ clickhandlerQuestions } value='15'>15</button>
-          <button class={bem('settings','button')} onClick={ clickhandlerQuestions } value='20'>20</button>
+      <div class={bem('settings', 'div')}>
+        <h1 class={bem('settings', 'h1')}>Number of Questions</h1>
+        <div class={bem('settings', 'div', ['questions'])}>
+          <button id='btn_questions_active' class={bem('settings', 'button')} onClick={ clickhandlerQuestions } value='5'>5</button>
+          <button class={bem('settings', 'button')} onClick={ clickhandlerQuestions } value='10'>10</button>
+          <button class={bem('settings', 'button')} onClick={ clickhandlerQuestions } value='15'>15</button>
+          <button class={bem('settings', 'button')} onClick={ clickhandlerQuestions } value='20'>20</button>
         </div>
       </div>
     </section>

@@ -9,11 +9,11 @@ let config = {
   databaseURL: 'https://mmp2a-85c2b.firebaseio.com/',
   projectId: 'mmp2a-85c2b',
   storageBucket: 'mmp2a-85c2b.appspot.com',
-  messagingSenderId: '519321050416',
+  messagingSenderId: '519321050416'
 }
 
 // TODO: Authentication
-const provider = new firebase.auth.GoogleAuthProvider();
+const provider = new firebase.auth.GoogleAuthProvider()
 firebase.initializeApp(config)
 
 const callbacks = []
@@ -23,7 +23,7 @@ firebase.auth().onAuthStateChanged((user) => {
   callbacks.forEach(callback => callback(user))
 })
 
-export function subscribeToFirebaseAuth(callback) {
+export function subscribeToFirebaseAuth (callback) {
   callbacks.push(callback)
 }
 
@@ -56,23 +56,21 @@ export const userLogin = async () => {
 
 export const userLogout = async () => {
   return firebase
-  .auth()
-  .signOut()
-  .then(response => response)
-  .catch(error => error)
+    .auth()
+    .signOut()
+    .then(response => response)
+    .catch(error => error)
 }
 
-
 // TODO: Realtime Database
-const database = firebase.database().ref();
+const database = firebase.database().ref()
 console.log('this is the realtime database', database)
-var users = database.child("users");
+var users = database.child('users')
 // users.push({
 //   'name': 'hansi',
 //   'company': 'fh'
 // })
 // console.log(users.ref())
-
 
 // users.once('value')
 //   .then((snap) => {
@@ -93,15 +91,14 @@ export const addUserToDatabase = () => {
 
 export const getUsers = () => {
   database.once('value')
-  .then((snap) => {
-    console.log(typeof snap.val())
-    let entries = Object.entries(snap.val())
-    // entries.foreach((item) => {
-    //   console.log(item)
-    // })
-    console.log(entries)
-    return entries
-    // console.log(snap.val())
-
-  })
+    .then((snap) => {
+      console.log(typeof snap.val())
+      let entries = Object.entries(snap.val())
+      // entries.foreach((item) => {
+      //   console.log(item)
+      // })
+      console.log(entries)
+      return entries
+      // console.log(snap.val())
+    })
 }

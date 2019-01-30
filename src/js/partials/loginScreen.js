@@ -1,15 +1,13 @@
 import Header from './../components/header'
 import { h } from 'jsx-dom'
-import Login from '../components/login';
-
+import Login from '../components/login'
 
 const LoginScreen = () => {
-
-  return(
+  return (
     <div id='root'>
       <Header/>
       <main>
-      <Login/>
+        <Login/>
       </main>
     </div>
   )
