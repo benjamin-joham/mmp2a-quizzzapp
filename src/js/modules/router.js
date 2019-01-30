@@ -37,9 +37,9 @@ router
         body.innerHTML = ''
         body.appendChild(<StartScreen />)
       },
-      'quiz/:id': (params) => {
+      'quiz*': (params, query) => {
         body.innerHTML = ''
-        body.appendChild(<QuizzScreen question={params.id}/>)
+        body.appendChild(<QuizzScreen query={query}/>)
       },
       'test': () => {
       }

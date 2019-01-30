@@ -9,11 +9,13 @@ const replaceSpeciaCharsToHtml = (string) => {
 const Quiz = ({ children, ...props }) => {
   let question_and_answers = JSON.parse(localStorage.getItem('questions'))
   let number_of_questions = question_and_answers.length
-  let number_of_player = 1
+  let multiplayer = true ? props.multiplayer == 'true' : false
+  let number_of_player = props.player
   let score = 0
   let current_question = props.question
-  console.log(props)
+  console.log('Quiz props: ',props)
   console.log(question_and_answers)
+  console.log('mulitplayer in quiz: ', multiplayer)
 
   let arr = [question_and_answers[current_question - 1].correct_answer, question_and_answers[current_question - 1].incorrect_answers[0], question_and_answers[current_question - 1].incorrect_answers[1], question_and_answers[current_question - 1].incorrect_answers[2]]
   let answer1 = 'A: ' + arr[0] // correct
@@ -71,6 +73,8 @@ const Quiz = ({ children, ...props }) => {
       }, 1500)
     }
   }
+
+
 
   return (
     <section className={bem('quiz')}>
