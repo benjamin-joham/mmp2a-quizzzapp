@@ -4,7 +4,6 @@ import Chart from 'chart.js';
 import router from '../modules/router';
 
 const Profile = () => {
-
     let wrong_questions_last=1
     let correct_questions_last=4
     let wrong_questions_total=9

@@ -4,7 +4,7 @@
   width: 100% !important;
   background-color: $darker_blue_100;
   min-height: 50px;
-   display: flex;
+  display: flex;
   align-items: center;
   align-self: auto;
   text-align: center;
@@ -14,6 +14,7 @@
   &__img{
     width: 20vw;
     height: auto;
+    min-width: 200px;
    }
   &__div {
     margin:auo;
@@ -32,6 +33,7 @@
 
     &--right {
       margin-right: 2vw;
+      width: 18vw;
       margin-top: auto;
       margin-bottom: auto;
       text-align: end;

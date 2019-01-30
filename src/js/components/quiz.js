@@ -13,11 +13,10 @@ const Quiz = ({ children, ...props }) => {
   // scores.length = number_of_players
   let activePlayer = props.player
   let current_question = props.question
-  // console.log('Quiz props: ',props)
-  // console.log(question_and_answers)
-  // console.log('mulitplayer in quiz: ', multiplayer)
-
-
+  console.log('Quiz props: ',props)
+  console.log(question_and_answers)
+  console.log('mulitplayer in quiz: ', multiplayer)
+  let question=question_and_answers[current_question - 1].question
   let arr = [
     question_and_answers[current_question - 1].correct_answer,
     question_and_answers[current_question - 1].incorrect_answers[0],
@@ -127,13 +126,17 @@ const Quiz = ({ children, ...props }) => {
       return response + ' | Player' + activePlayer
     }
   }
-
+  answer1= answer1.replace("&amp;", "&").replace("&quot;", '"').replace("&#039;", "'");
+  answer2= answer2.replace("&amp;", "&").replace("&quot;", '"').replace("&#039;", "'");
+  answer3= answer3.replace("&amp;", "&").replace("&quot;", '"').replace("&#039;", "'");
+  answer4= answer4.replace("&amp;", "&").replace("&quot;", '"').replace("&#039;", "'");
+  question= question.replace("&amp;", "&").replace("&quot;", '"').replace("&#039;", "'").replace("&amp;quot;",'"');
 
   return (
     <section className={bem('quiz')}>
       <article className={bem('question')}>
         <h2 className={bem('question', 'h2')}>{ displayNumberOfQuestionAndPlayer() }</h2>
-        <p className={bem('question', 'p')}>{question_and_answers[current_question - 1].question}</p>
+        <p className={bem('question', 'p')}>{question}</p>
       </article>
       <article className={bem('answers')}>
         <p className={bem('answers', 'p')}><button className={bem('answers', 'button')} onClick={checkAnswer}>{answer1}</button>
