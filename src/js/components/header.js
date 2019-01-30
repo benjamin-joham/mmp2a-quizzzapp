@@ -3,7 +3,7 @@ import logo from './../../images/QA_logo_white.svg'
 import * as React from 'jsx-dom'
 import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import * as Firebase from '../modules/firebase'
-import router from '../modules/router'
+import router, { updateHook } from '../modules/router'
 import bem from 'bem-names'
 
 
@@ -22,11 +22,16 @@ const handleSignout = async event => {
 const Header = ({ children, ...props }) => {
   const header_right = React.createRef()
 
-  Firebase.subscribeToFirebaseAuth(user => {
+  const updateHeaderAuth = (user => {
     header_right.current.innerHTML = ''
+
+    if(!user) {
+      user = window.user
+    }
+
     if (user) {
       header_right.current.appendChild(
-        <a onClick=''>Profile |</a>
+        <a onClick={() => { router.navigate('/profile')} }>Profile |</a>
       )
       header_right.current.appendChild(
         <a onClick={() => handleSignout()}> Logout</a>
@@ -42,6 +47,9 @@ const Header = ({ children, ...props }) => {
   if (props.data == 'quiz') {
     inQuiz = <h1>{props.value}</h1>
   }
+
+  Firebase.subscribeToFirebaseAuth(updateHeaderAuth)
+  updateHook(updateHeaderAuth)
 
   return (
     <header className="header">

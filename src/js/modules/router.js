@@ -8,6 +8,8 @@ import { checkAuthState } from './firebase'
 
 const router = new Navigo(window.location.origin)
 
+const callbacks = []
+
 const body = document.querySelector('body')
 
 // router.hooks({
@@ -51,5 +53,16 @@ router
         body.appendChild(<ProfileScreen />)
       }
     })
+
+
+router.hooks ({
+  after: () => {
+    callbacks.forEach(callback => callback(null))
+  }
+})
+
+export function updateHook(callback) {
+  callbacks.push(callback)
+}
 
 export default router
