@@ -1,7 +1,7 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
-import { h } from 'jsx-dom'
+import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 
 let config = {
   apiKey: 'AIzaSyCYwYxJ-Mmwz47-PpFXtdONtBjUUDR8-7E',
@@ -18,32 +18,28 @@ firebase.initializeApp(config)
 
 const callbacks = []
 
+// TODO: StateHandler for before hook Navigo
+export async function checkAuthState () {
+  firebase.auth().onAuthStateChanged((user) => {
+    window.user = user
+    console.log('firebase authstate changed fired')
+    callbacks.forEach(callback => callback(user))
+  })
+}
+
 firebase.auth().onAuthStateChanged((user) => {
   window.user = user
+  // console.log('firebase authstate changed fired')
   callbacks.forEach(callback => callback(user))
+
+  if(user) {
+    addUserToDatabase()
+  }
 })
 
 export function subscribeToFirebaseAuth (callback) {
   callbacks.push(callback)
 }
-
-// firebase.auth().onAuthStateChanged((user) => {
-//   if (user) {
-//     // User is signed in.
-//     // if(window.user != user) { window.user = user }
-//     console.log(user);
-//     window.location.reload
-
-//     // var isAnonymous = user.isAnonymous;
-//     // var uid = user.uid;
-//     // ...
-//   } else {
-//     // User is signed out.
-//     console.log('not logged in right now')
-//     // ...
-//   }
-//   // ...
-// });
 
 export const userLogin = async () => {
   // google login
@@ -86,11 +82,18 @@ var users = database.child('users')
 
 // console.log('this is the structure of the database', users.ref())
 export const addUserToDatabase = () => {
-
+  return firebase
+    .database()
+    .ref('users')
+    .child(user.uid)
+    .set({
+      name: user.displayName,
+      email: user.email
+    })
 }
 
 export const getUsers = () => {
-  database.once('value')
+  database.child('users').once('value')
     .then((snap) => {
       console.log(typeof snap.val())
       let entries = Object.entries(snap.val())
@@ -102,3 +105,5 @@ export const getUsers = () => {
       // console.log(snap.val())
     })
 }
+
+getUsers()

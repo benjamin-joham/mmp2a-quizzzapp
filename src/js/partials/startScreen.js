@@ -1,9 +1,9 @@
 import Header from './../components/header'
-import { h } from 'jsx-dom'
+import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import Login from '../components/login'
 import Settings from '../components/settings'
 import api from './../modules/openTriviaApi'
-import router from '../modules/router';
+import router from '../modules/router'
 
 const clickHandler = async (event) => {
   event.preventDefault()
@@ -22,7 +22,12 @@ const clickHandler = async (event) => {
       console.log(x)
     })
     .then(() => {
-      router.navigate('/quiz/1')
+      if(players > 1){
+        router.navigate('/quiz?mulitplayer=true&player=' + players.value + '&question=1')
+      }
+      else {
+        router.navigate('/quiz?mulitplayer=false&player=1&question=1')
+      }
     })
   )
 

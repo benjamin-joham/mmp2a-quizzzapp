@@ -1,4 +1,4 @@
-import { h } from 'jsx-dom'
+import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import bem from 'bem-names'
 import Chart from 'chart.js';
 

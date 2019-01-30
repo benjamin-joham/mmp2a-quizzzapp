@@ -1,9 +1,9 @@
 // import logo
 import logo from './../../images/QA_logo_white.svg'
 import * as React from 'jsx-dom'
-import { h } from 'jsx-dom'
+import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import * as Firebase from '../modules/firebase'
-import router from '../modules/router';
+import router from '../modules/router'
 
 const handleSignin = async event => {
   // event.preventDefault()
@@ -35,26 +35,6 @@ const Header = ({ children, ...props }) => {
       )
     }
   })
-
-  // let logged_in
-  // if (localStorage.getItem('user')) { //eingeloggt
-  //   logged_in = () => {
-  //     return(
-  //       <div id="header_right">
-  //         <a onClick=''>Profile</a>
-  //         <a onClick={userLogout}>Logout</a>
-  //       </div>
-  //     )
-  //   }
-  // } else {
-  //   logged_in = () => {
-  //     return(
-  //       <div id="header_right">
-  //         <a onClick={userLogin}>Login</a>
-  //       </div>
-  //     )
-  //   }
-  // }
 
   let inQuiz
   if (props.data == 'quiz') {
