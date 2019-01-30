@@ -69,7 +69,7 @@ const Quiz = ({ children, ...props }) => {
     } else {
       current_question++
       setTimeout(() => {
-        router.navigate('quiz/' + current_question)
+        router.navigate('quiz?mulitplayer=' + multiplayer + '&player=' + number_of_player + '&question=' + current_question)
       }, 1500)
     }
   }

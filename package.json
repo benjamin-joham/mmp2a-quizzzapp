@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint --config .eslintrc.js ./src --ext .jsx,.js",
     "lint-fix": "eslint --fix --config .eslintrc.js ./src --ext .jsx,.js",
-    "build": "npm run lint-fix && webpack --mode production",
+    "build": "webpack --mode production",
     "start": "webpack-dev-server --mode development --open"
   },
   "keywords": [],

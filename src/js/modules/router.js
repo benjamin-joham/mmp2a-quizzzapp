@@ -42,7 +42,9 @@ router
         body.innerHTML = ''
         body.appendChild(<QuizzScreen query={query}/>)
       },
-      'test': () => {
+      'end': () => {
+        body.innerHTML = ''
+        body.appendChild(<h1>End Screen not available now</h1>)
       },
       'profile':()=>{
         body.innerHTML=''
