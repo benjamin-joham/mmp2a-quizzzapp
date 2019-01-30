@@ -4,6 +4,8 @@ import * as React from 'jsx-dom'
 import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import * as Firebase from '../modules/firebase'
 import router from '../modules/router'
+import bem from 'bem-names'
+
 
 const handleSignin = async event => {
   // event.preventDefault()
@@ -24,10 +26,10 @@ const Header = ({ children, ...props }) => {
     header_right.current.innerHTML = ''
     if (user) {
       header_right.current.appendChild(
-        <a onClick=''>Profile</a>
+        <a onClick=''>Profile |</a>
       )
       header_right.current.appendChild(
-        <a onClick={() => handleSignout()}>Logout</a>
+        <a onClick={() => handleSignout()}> Logout</a>
       )
     } else {
       header_right.current.appendChild(
@@ -44,12 +46,12 @@ const Header = ({ children, ...props }) => {
   return (
     <header className="header">
       <div id="header_left">
-        <img src={logo} alt="App-Logo" id="header_logo" onClick={() => router.navigate('/')}/>
+        <img src={logo} alt="App-Logo" id="header_logo" className={bem('header','img')} onClick={() => router.navigate('/')}/>
       </div>
-      <div id="header_middle">
+      <div className={bem('header','div',['center'])}>
         {inQuiz}
       </div>
-      <div ref={header_right} id="header_right"></div>
+      <div ref={header_right} className={bem('header','div',['right'])}></div>
     </header>
   )
 }
