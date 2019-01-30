@@ -1,5 +1,4 @@
-import { h } from 'jsx-dom'
-import Button from './button'
+import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import bem from 'bem-names'
 
 const clickhandlerPlayers = (event) => {
