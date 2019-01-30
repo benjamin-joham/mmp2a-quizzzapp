@@ -78,6 +78,7 @@ const Profile = () => {
   return (
     <section className={bem('profile')}>
       <article className={bem('profile', 'article')}>
+      <a className={bem('profile__a')} onClick={() => router.navigate('/start')}><i class="fas fa-arrow-left"></i></a>
         <h1 className={bem('profile', 'h1')}>Profile of Max Mustermann</h1>
         <div className={bem('profile', 'div')}>
 
@@ -88,7 +89,6 @@ const Profile = () => {
           <canvas id="chart_total" width="400" height="400"></canvas>
         </div>
       </article>
-      <a className={bem('profile__a')} onClick={() => router.navigate('/start')}><i class="fas fa-arrow-left"></i></a>
     </section>
   )
 }
