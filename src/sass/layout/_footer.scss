@@ -1,22 +1,23 @@
 .footer{
     background-color: $darker_blue_100;
     text-align: right;
-    padding: 2%;
+    padding: 0;
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
+    height: auto;
     @media (max-width: 600px){
         position: relative;
     }
     &__a{
+        font-size: $small;
+        width: 18vw;
+        margin-bottom: 10%;
         margin-right: 2vw;
-      width: 18vw;
-      margin-top: auto;
-      margin-bottom: auto;
-      text-align: end;
-      @media(max-width: 1000px){
-        margin-top: 2%;
-      }
+        text-align: right;
+        @media(max-width: 1000px){
+            margin-top: 2%;
+        }
     }
 }
