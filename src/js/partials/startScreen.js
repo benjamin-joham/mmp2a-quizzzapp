@@ -1,11 +1,11 @@
 import Header from './../components/header'
 import { h } from 'jsx-dom'
-import Login from '../components/login';
-import Settings from '../components/settings';
+import Login from '../components/login'
+import Settings from '../components/settings'
 import api from './../modules/openTriviaApi'
+import router from '../modules/router';
 
- const clickHandler = async (event) => {
-
+const clickHandler = async (event) => {
   event.preventDefault()
   console.log(event.target)
   let players = document.getElementById('btn_players_active')
@@ -18,30 +18,28 @@ import api from './../modules/openTriviaApi'
 
   console.log(api(questions.value)
     .then(x => {
-    localStorage.setItem('questions', JSON.stringify(x))
-    console.log(x)
+      localStorage.setItem('questions', JSON.stringify(x))
+      console.log(x)
     })
-    .then(()=> {
-      window.location.assign('/quiz/1')
+    .then(() => {
+      router.navigate('/quiz/1')
     })
-    )
+  )
 
   // window.questions = await api(questions.value).then(x => x)
 
   // localStorage.setItem('questions', JSON.stringify(window.questions))
-
 }
 
 const StartScreen = () => {
-
-  return(
+  return (
     <div id='root'>
       <Header />
       <main>
-      <Settings />
-      <div id='btn'>
-        <button onClick={clickHandler}>Start</button>
-      </div>
+        <Settings />
+        <div id='btn'>
+          <button onClick={clickHandler}>Start</button>
+        </div>
       </main>
     </div>
   )
