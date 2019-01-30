@@ -7,7 +7,7 @@ import router from '../modules/router'
 const End = () => {
 let correct_questions=3;
 let questions_total=5;
-let number_of_players=2;
+let number_of_players=1;
 let button1_text
 let button2_text
 let result=''
