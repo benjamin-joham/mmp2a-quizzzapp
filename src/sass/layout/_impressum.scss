@@ -1,7 +1,16 @@
-#impressum{
+.impressum{
+    margin-top:10%;
+    padding: 10%;
     background-color: $darker_blue_60;
     text-align: center;
     height: 90vh;
     min-height: 600px;
     margin-bottom: 30px;
+    &__a{
+        text-align: right;
+    }
+    i{
+        text-align: right !important;
+        margin-top: 200px;
+    }
 }
