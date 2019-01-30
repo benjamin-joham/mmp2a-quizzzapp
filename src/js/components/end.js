@@ -4,44 +4,45 @@ import bem from 'bem-names'
 import { userLogin } from '../modules/firebase'
 import router from '../modules/router'
 
-const End = () => {
-let correct_questions=3;
-let questions_total=5;
-let number_of_players=1;
-let button1_text
-let button2_text
+const End = ({children, ...props}) => {
+let correct_questions = JSON.parse(localStorage.getItem('scores'))
+let questions_total = JSON.parse(localStorage.getItem('questions')).length;
+let number_of_players = correct_questions.length;
+let button1_text = 'View statistic!'
+let button2_text = 'Play again!'
 let result=''
-let user
-    
-if(number_of_players==1){   //singleplayer
-    result='You answered '+correct_questions+'/'+questions_total+' Questions correct.'
-    if (user) {
-        button1_text='View statistic!'
-        button2_text='Play again!'
-    } else {
-        button1_text='Save statistic!'
-        button2_text='Play again!'
-    }
-} else {    //multiplayer
-    for(let i = 0; i< number_of_players; i++)
-    {
-        result+='Player '+number_of_players+' answered '+correct_questions+'/'+questions_total+' Questions correct.'
-    }
-    if (user) {
-        button1_text='View statistic!'
-        button2_text='Play again!'
-    } else {
-        button1_text='Save statistic!'
-        button2_text='Play again!'
-    }
+
+const resultContainer = document.querySelector('.end__div')
+
+let checkIfNumber = (number) => {
+  if(number != null) { return number }
+  else { return 0 }
 }
 
-
+let getContent = () =>  {
+  if(number_of_players==1){   //singleplayer
+    result='You answered '+ checkIfNumber(correct_questions[0])  +'/'+questions_total+' Questions correct.'
+    return (
+      <div className={bem('end','div')}>
+        <h2 className={bem('end','h2')}>{result}</h2>
+      </div>
+    )
+  }
+  else {    //multiplayer
+    let content = <div className={bem('end','div')}></div>
+      for(let i = 1; i <= number_of_players; i++)
+      {
+          result = 'Player '+ i +' answered ' + checkIfNumber(correct_questions[i-1]) +'/'+questions_total+' Questions correct.'
+          content.appendChild(<h2 className={bem('end','h2')}>{result}</h2>)
+      }
+      return content
+  }
+}
 
   return (
-    <section className={bem('login')}>
-    <h1 className={bem('login','h1')}>You finished the Quiz!</h1>
-    <h2 className={bem('login','h2')}> {result}</h2>
+    <section className={bem('end')}>
+    <h1 className={bem('end','h1')}>You finished the Quiz!</h1>
+    {getContent()}
     <button className={bem('button')} onClick={() => router.navigate('/profile')}>
         {button1_text}
       </button>

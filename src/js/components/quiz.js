@@ -2,18 +2,20 @@ import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import bem from 'bem-names'
 import router from '../modules/router'
 
+let score = []
+console.log('initial scores: ', score)
 
 const Quiz = ({ children, ...props }) => {
   let question_and_answers = JSON.parse(localStorage.getItem('questions'))
   let number_of_questions = question_and_answers.length
   let multiplayer = true ? props.multiplayer == 'true' : false
-  let number_of_players = props.player
-  let activePlayer = props.activePlayer
-  let score = 0
+  let number_of_players = props.amountPlayer
+  // scores.length = number_of_players
+  let activePlayer = props.player
   let current_question = props.question
-  console.log('Quiz props: ',props)
-  console.log(question_and_answers)
-  console.log('mulitplayer in quiz: ', multiplayer)
+  // console.log('Quiz props: ',props)
+  // console.log(question_and_answers)
+  // console.log('mulitplayer in quiz: ', multiplayer)
   let question=question_and_answers[current_question - 1].question
   let arr = [
     question_and_answers[current_question - 1].correct_answer,
@@ -54,7 +56,9 @@ const Quiz = ({ children, ...props }) => {
       for (let i = 0; i < 4; i++) {
         if (buttons[i].id != 'correct') buttons[i].style.visibility = 'hidden'
       }
-      score++
+      if (score[activePlayer-1]) score[activePlayer-1]++
+      else score[activePlayer-1] = 1
+
     } else {
       button.id = 'wrong'
       let buttons = document.getElementsByTagName('button')
@@ -64,25 +68,54 @@ const Quiz = ({ children, ...props }) => {
         let current_button = buttons[i]
         if (current_button.textContent.substring(3, current_button.textContent.length) == question_and_answers[current_question - 1].correct_answer) { current_button.id = 'correct' }
         if (current_button.id != 'wrong' && current_button.id != 'correct') { current_button.style.visibility = 'hidden' }
-        console.log(current_button.id)
+        // console.log(current_button.id)
       }
     }
-    // TODO: check if all players had the question
-    // if()
-
     // TODO: check if all questions have been answered
-    if (current_question >= number_of_questions) {
+    if (current_question < number_of_questions) {
+      // TODO: check if all players had the question
+      if(activePlayer < number_of_players) {
+        // console.log('Quiz-Player: ', number_of_players)
+        activePlayer++
+        setTimeout(() => {
+          router.navigate('quiz?mulitplayer=' + multiplayer + '&amountPlayer=' + number_of_players + '&question=' + current_question + '&player=' + activePlayer)
+        }, 1500)
+      }
+      else {
+        console.log('new scores: ', score)
+        activePlayer = 1
+        current_question++
+        setTimeout(() => {
+          router.navigate('quiz?mulitplayer=' + multiplayer + '&amountPlayer=' + number_of_players + '&question=' + current_question + '&player=' + activePlayer)
+        }, 1500)
+      }
+    }
+    else if (current_question == number_of_questions) {
+      if (score.length == number_of_players){
+        localStorage.setItem('scores', JSON.stringify(score))
+      }
+      else{
+        for(let i = 0; i < number_of_players; i++) {
+          if (score[i]){
+            continue
+          }
+          else {
+            score[i] = 0
+          }
+        }
+        localStorage.setItem('scores', JSON.stringify(score))
+      }
+      console.log('quizzz ende!!!!!')
       setTimeout(() => {
         router.navigate('/end')
-      }, 1500)
-    }
-    else {
-      current_question++
-      setTimeout(() => {
-        router.navigate('quiz?mulitplayer=' + multiplayer + '&player=' + number_of_players + '&question=' + current_question)
-      }, 1500)
+      }, 3000)
     }
   }
+
+
+    // if()
+
+
 
   const displayNumberOfQuestionAndPlayer = () => {
     let response = 'Question ' + current_question

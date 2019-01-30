@@ -47,7 +47,7 @@ router
       },
       'end': () => {
         body.innerHTML = ''
-        body.appendChild(<EndScreen/>)
+        body.appendChild(<EndScreen />)
       },
       'profile':()=>{
         body.innerHTML=''
