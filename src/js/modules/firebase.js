@@ -34,6 +34,7 @@ firebase.auth().onAuthStateChanged((user) => {
 
   if(user) {
     addUserToDatabase()
+    localStorage.setItem('user-name', user.displayName)
   }
 })
 
