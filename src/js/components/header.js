@@ -20,6 +20,7 @@ const handleSignout = async event => {
 const Header = ({ children, ...props }) => {
   const header_right = React.createRef()
 
+
   const updateHeaderAuth = (user => {
     header_right.current.innerHTML = ''
 
@@ -28,21 +29,39 @@ const Header = ({ children, ...props }) => {
     }
 
     if (user) {
-      header_right.current.appendChild(
-        <a onClick={() => { router.navigate('/profile')} }>Profile |</a>
-      )
-      header_right.current.appendChild(
-        <a onClick={() => handleSignout()}> Logout</a>
-      )
+      if(props.data == 'quiz') {
+        header_right.current.appendChild(
+          <a onClick={() => router.navigate('/start')}>
+            <i class="fas fa-times"></i>
+          </a>
+        )
+      }
+      else {
+        header_right.current.appendChild(
+          <a onClick={() => { router.navigate('/profile')} }>Profile |</a>
+        )
+        header_right.current.appendChild(
+          <a onClick={() => handleSignout()}> Logout</a>
+        )
+      }
     } else {
-      header_right.current.appendChild(
-        <a onClick={
-          async (e) => {
-          let response = await Firebase.userLogin()
-          if (response) router.navigate('/start')
-          }
-        }>Login</a>
-      )
+      if(props.data == 'quiz') {
+        header_right.current.appendChild(
+          <a onClick={() => router.navigate('/start')}>
+            <i class="fas fa-times"></i>
+          </a>
+        )
+      }
+      else {
+        header_right.current.appendChild(
+          <a onClick={
+            async (e) => {
+            let response = await Firebase.userLogin()
+            if (response) router.navigate('/start')
+            }
+          }>Login</a>
+        )
+      }
     }
   })
 
@@ -62,7 +81,8 @@ const Header = ({ children, ...props }) => {
       <div className={bem('header','div',['center'])}>
         {inQuiz}
       </div>
-      <div ref={header_right} className={bem('header','div',['right'])}></div>
+      <div ref={header_right} className={bem('header','div',['right'])}>
+      </div>
     </header>
   )
 }
