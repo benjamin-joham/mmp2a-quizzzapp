@@ -22,7 +22,7 @@ import api from './../modules/openTriviaApi'
     console.log(x)
     })
     .then(()=> {
-      window.location.assign('/quiz')
+      window.location.assign('/quiz/1')
     })
     )
 

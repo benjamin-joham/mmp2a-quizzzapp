@@ -1,13 +1,20 @@
 import { h } from 'jsx-dom'
 import bem from 'bem-names'
 
+
+const replaceSpeciaCharsToHtml = (string) => {
+  return string.replace(/&/g, "&amp;").replace(/>/g, "&gt;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+}
+
 const Quiz = ({children, ...props}) => {
-  let number_of_questions = 5
+  let question_and_answers=JSON.parse(localStorage.getItem('questions'))
+  let number_of_questions = question_and_answers.length
   let number_of_player = 1
   let score = 0
   let current_question = props.question
   console.log(props)
-  let question_and_answers=JSON.parse(localStorage.getItem('questions'))
+  console.log(question_and_answers)
+
 
     let arr = [question_and_answers[current_question-1].correct_answer, question_and_answers[current_question-1].incorrect_answers[0], question_and_answers[current_question-1].incorrect_answers[1], question_and_answers[current_question-1].incorrect_answers[2]]
     let answer1 = 'A: ' + arr[0] // correct
@@ -37,6 +44,7 @@ const Quiz = ({children, ...props}) => {
     if(button_text==question_and_answers[current_question-1].correct_answer)
     {
         let buttons= document.getElementsByTagName('button');
+        document.querySelector('.question__h2').innerHTML = 'CORRECT'
         button.id='correct'
         for(let i = 0; i<4; i++)
         {
@@ -47,6 +55,7 @@ const Quiz = ({children, ...props}) => {
     else {
         button.id='wrong'
         let buttons= document.getElementsByTagName('button');
+        document.querySelector('.question__h2').innerHTML = 'WRONG'
 
         for(let i = 0; i<4; i++)
         {
@@ -56,7 +65,17 @@ const Quiz = ({children, ...props}) => {
             if (current_button.id!= 'wrong' && current_button.id!='correct') {current_button.style.visibility = 'hidden';}
             console.log(current_button.id)
         }
-        current_question++
+    }
+    if(current_question >= number_of_questions){
+      setTimeout(() => {
+        document.location.assign('/end')
+      }, 2000);
+    }
+    else{
+      current_question++
+      setTimeout(() => {
+        document.location.assign(current_question)
+      }, 2000);
     }
 }
 
@@ -64,7 +83,7 @@ const Quiz = ({children, ...props}) => {
     <section className={bem('quiz')}>
       <article className={bem('question')}>
         <h2 className={bem('question', 'h2')}>{'Question ' + current_question}</h2>
-        <p className={bem('question', 'p')}>{question_and_answers[current_question-1].question}</p>
+        <p className={bem('question', 'p')}>{replaceSpeciaCharsToHtml(question_and_answers[current_question-1].question)}</p>
       </article>
       <article className={bem('answers')}>
         <p className={bem('answers', 'p')}><button className={bem('answers', 'button')} onClick={checkAnswer}>{answer1}</button>
