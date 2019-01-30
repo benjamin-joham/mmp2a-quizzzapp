@@ -10,6 +10,7 @@ const Profile = () => {
   let correct_questions_total=55
   setTimeout(() => {
     let ctx = document.getElementById("char_lastRound");
+    Chart.defaults.global.defaultFontColor = 'white';
     let myPieChart = new Chart(ctx, {
       type: 'pie',
       data: {
@@ -17,7 +18,14 @@ const Profile = () => {
           datasets: [{
               label: '# of Questions',
               data: [wrong_questions_last, correct_questions_last],
-              
+            //   options: {
+            //     legend: {
+            //         labels: {
+            //             // This more specific font property overrides the global property
+            //             fontColor: 'white'
+            //         }
+            //     }
+            // },
               backgroundColor: [
                   'rgba(210, 0, 25, 1)',
                   'rgba(0, 190, 25, 1)'
