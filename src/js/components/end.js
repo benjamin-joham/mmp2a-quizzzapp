@@ -23,9 +23,9 @@ if(number_of_players==1){   //singleplayer
         button2_text='Play again!'
     }
 } else {    //multiplayer
-    for(let i = 0; i< number_of_players; i++)
+    for(let i = 1; i<= number_of_players; i++)
     {
-        result+='Player '+number_of_players+' answered '+correct_questions+'/'+questions_total+' Questions correct.'
+        result+='Player '+i+' answered '+correct_questions+'/'+questions_total+' Questions correct. '
     }
     if (user) {
         button1_text='View statistic!'
@@ -42,10 +42,10 @@ if(number_of_players==1){   //singleplayer
     <section className={bem('login')}>
     <h1 className={bem('login','h1')}>You finished the Quiz!</h1>
     <h2 className={bem('login','h2')}> {result}</h2>
-    <button className={bem('button')} onClick={router.navigate('/profile')}>
+    <button className={bem('button')} onClick={() => router.navigate('/profile')}>
         {button1_text}
       </button>
-      <button className={bem('button')} onClick={router.navigate('/start')}>
+      <button className={bem('button')} onClick={() => router.navigate('/start')}>
         {button2_text}
       </button>
     </section>
