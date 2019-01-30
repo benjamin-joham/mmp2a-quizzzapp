@@ -43,4 +43,8 @@ export default class app {
   impressum (root) {
     root.appendChild(<Impressum/>)
   }
+
+  profilePage (root) {
+    root.appendChild(<Profile/>)
+  }
 }

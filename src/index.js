@@ -12,6 +12,7 @@ import Header from './js/components/header';
 import LoginScreen from './js/partials/loginScreen';
 import StartScreen from './js/partials/startScreen';
 import QuizzScreen from './js/partials/quizzScreen';
+import ProfileScreen from './js/partials/profileScreen';
 
 // TODO: Firebase start
 // see firebase.js
@@ -83,6 +84,9 @@ router
     },
     'quiz/:id': (params) => {
       body.appendChild(<QuizzScreen question={params.id}/>)
+    },
+    'profile': () => {
+      body.appendChild(<ProfileScreen/>)
     },
     'test': () => {
       // body.appendChild(<Header data='quiz' value='1/5'/>)
