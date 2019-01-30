@@ -13,9 +13,9 @@ const Quiz = ({ children, ...props }) => {
   // scores.length = number_of_players
   let activePlayer = props.player
   let current_question = props.question
-  console.log('Quiz props: ',props)
-  console.log(question_and_answers)
-  console.log('mulitplayer in quiz: ', multiplayer)
+  // console.log('Quiz props: ',props)
+  // console.log(question_and_answers)
+  // console.log('mulitplayer in quiz: ', multiplayer)
   let question=question_and_answers[current_question - 1].question
   let arr = [
     question_and_answers[current_question - 1].correct_answer,
