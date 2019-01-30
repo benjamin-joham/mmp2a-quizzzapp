@@ -6,15 +6,21 @@ import Impressum from '../components/impressum';
 const Footer = () => {
     const impr = React.createRef()
     
-    const clickImpressum = (event) => {     
-        impr.current.appendChild(<Impressum/>)
+    const clickImpressum = (event) => {
+        if(/*impressum schon da */ false)  
+        {
+            //hide impressum
+        }
+        else{
+            impr.current.appendChild(<Impressum/>)
+        }
     }
 
 
   return (
-      <div className={bem('impressum')} ref={impr}>
+      <div className={bem('div')} ref={impr}>
       <footer className={bem('footer')}>
-        <a className={bem('footer', 'a')} onClick={ clickImpressum } >About</a>
+        <a className={bem('footer', 'a')} href='#impressum'onClick={ clickImpressum } >About</a>
     </footer>
     </div>
   )
