@@ -81,8 +81,8 @@ router
       // append StartScreen
       body.appendChild(<StartScreen />)
     },
-    'quiz': () => {
-      body.appendChild(<QuizzScreen/>)
+    'quiz/:id': (params) => {
+      body.appendChild(<QuizzScreen question={params.id}/>)
     },
     'test': () => {
       // body.appendChild(<Header data='quiz' value='1/5'/>)

@@ -1,11 +1,12 @@
 import { h } from 'jsx-dom'
 import bem from 'bem-names'
 
-const Quiz = () => {
+const Quiz = ({children, ...props}) => {
   let number_of_questions = 5
   let number_of_player = 1
   let score = 0
-  let current_question = 1
+  let current_question = props.question
+  console.log(props)
   let question_and_answers=JSON.parse(localStorage.getItem('questions'))
 
     let arr = [question_and_answers[current_question-1].correct_answer, question_and_answers[current_question-1].incorrect_answers[0], question_and_answers[current_question-1].incorrect_answers[1], question_and_answers[current_question-1].incorrect_answers[2]]
@@ -50,7 +51,7 @@ const Quiz = () => {
         for(let i = 0; i<4; i++)
         {
             let current_button = buttons[i]
-            if(current_button.textContent.substring(3, current_button.textContent.length)==question_and_answers[current_question-1].correct_answer) 
+            if(current_button.textContent.substring(3, current_button.textContent.length)==question_and_answers[current_question-1].correct_answer)
                 {current_button.id='correct'}
             if (current_button.id!= 'wrong' && current_button.id!='correct') {current_button.style.visibility = 'hidden';}
             console.log(current_button.id)
