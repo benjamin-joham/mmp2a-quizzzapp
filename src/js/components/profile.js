@@ -74,7 +74,7 @@ const Profile = () => {
   }, 2)
 
   return (
-    <section className={bem('profile')}>
+    <section id='profile' className={bem('profile')}>
       <article className={bem('profile', 'article')}>
       <a className={bem('profile__a')} onClick={() => router.navigate('/start')}><i class="fas fa-arrow-left"></i></a>
         <h1 className={bem('profile', 'h1')}>Profile of {localStorage.getItem('user-name')}</h1>
