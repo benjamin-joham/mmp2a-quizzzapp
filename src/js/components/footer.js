@@ -1,22 +1,22 @@
 import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import bem from 'bem-names'
-
-const clickImpressum = (event) => {
-  console.log(event.target)
-  let elem = event.target
-  if (elem.id == 'btn_players_active') {
-    elem.removeAttribute('id')
-  } else {
-    document.getElementById('btn_players_active').removeAttribute('id')
-    elem.id = 'btn_players_active'
-  }
-}
+import * as React from 'jsx-dom'
+import Impressum from '../components/impressum';
 
 const Footer = () => {
+    const impr = React.createRef()
+    
+    const clickImpressum = (event) => {     
+        impr.current.appendChild(<Impressum/>)
+    }
+
+
   return (
-      <footer class={bem('footer')}>
-        <a class={bem('footer', 'a')} onClick={ clickImpressum } >About</a>
+      <div className={bem('impressum')} ref={impr}>
+      <footer className={bem('footer')}>
+        <a className={bem('footer', 'a')} onClick={ clickImpressum } >About</a>
     </footer>
+    </div>
   )
 }
 

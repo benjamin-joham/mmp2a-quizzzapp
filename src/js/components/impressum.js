@@ -3,7 +3,7 @@ import bem from 'bem-names'
 
 const Impressum = () => {
   return (
-    <section className={bem('impressum')}>
+    <section className={bem('impressum','section')}>
       <h1 className={bem('h1')}>Impressum</h1>
       <p className={bem('p')}>Fachhochschule Salzburg</p>
       <p className={bem('p')}>MultiMediaTechnology</p>
