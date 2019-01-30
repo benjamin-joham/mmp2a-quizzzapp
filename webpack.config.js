@@ -23,7 +23,7 @@ module.exports = {
     rules: [
       // use babel for all js files
       {
-        test: /\.js$/,
+        test: /\.js|.webmanifest$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
