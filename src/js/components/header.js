@@ -8,15 +8,13 @@ import bem from 'bem-names'
 
 
 const handleSignin = async event => {
-  // event.preventDefault()
-  let msg = await Firebase.userLogin()
-  if (msg.message) return
-  // window.location.reload()
+  let response = await Firebase.userLogin()
+  if (response) router.navigate('/start')
 }
 
 const handleSignout = async event => {
-  await Firebase.userLogout()
-  // window.location.reload()
+  Firebase.userLogout()
+  router.navigate('/')
 }
 
 const Header = ({ children, ...props }) => {
@@ -38,7 +36,12 @@ const Header = ({ children, ...props }) => {
       )
     } else {
       header_right.current.appendChild(
-        <a onClick={() => handleSignin()}>Login</a>
+        <a onClick={
+          async (e) => {
+          let response = await Firebase.userLogin()
+          if (response) router.navigate('/start')
+          }
+        }>Login</a>
       )
     }
   })

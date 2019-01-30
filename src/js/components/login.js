@@ -7,16 +7,23 @@ const Login = () => {
   return (
     <section className={bem('login')}>
       <button className={bem('button', ['login'])}
-        onClick={ async(e) => {
-          // console.log('login with google')
+        onClick={
+          async (e) => {
           let response = await userLogin()
           if (response) router.navigate('/start')
-        }}>Login with Google</button>
+          }
+        }>
+        Login with Google
+      </button>
       <button className={bem('button', ['login'])}
-        onClick={(e) => {
+        onClick={
+          (e) => {
           console.log('without login')
           router.navigate('/start')
-        }}>Play without Login</button>
+          }
+        }>
+        Play without Login
+      </button>
     </section>
   )
 }
