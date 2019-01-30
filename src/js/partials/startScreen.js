@@ -22,12 +22,10 @@ const clickHandler = async (event) => {
       console.log(x)
     })
     .then(() => {
-      if(players > 1){
-        router.navigate('/quiz?mulitplayer=true&player=' + players.value + '&question=1')
-      }
-      else {
-        router.navigate('/quiz?mulitplayer=false&player=1&question=1')
-      }
+      if(players.value > 1)
+        router.navigate('/quiz?mulitplayer=true&player=' + players.value + '&question=1&activeplayer=1')
+      else
+        router.navigate('/quiz?mulitplayer=false&player=' + players.value + '&question=1&activeplayer=1')
     })
   )
 
