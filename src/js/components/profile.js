@@ -4,18 +4,18 @@ import Chart from 'chart.js';
 
 const Profile = () => {
 
-  let wrong_questions_last=1
-  let correct_questions_last=4
-  let wrong_questions_total=9
-  let correct_questions_total=55
-  setTimeout(() => {
+    let wrong_questions_last=1
+    let correct_questions_last=4
+    let wrong_questions_total=9
+    let correct_questions_total=55
+    setTimeout(() => {
     let ctx = document.getElementById("char_lastRound");
     Chart.defaults.global.defaultFontColor = 'white';
     Chart.defaults.global.legend.position='right';
     let myPieChart = new Chart(ctx, {
       type: 'pie',
       data: {
-          labels: ["Wrong last round", "Correct last round"],
+          labels: ["Wrong last", "Correct last"],
           datasets: [{
               label: '# of Questions',
               data: [wrong_questions_last, correct_questions_last],
@@ -71,7 +71,7 @@ const Profile = () => {
         }
     }
 });
-  }, 200)
+  }, 2)
   
 
   return (
