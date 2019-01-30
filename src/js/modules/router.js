@@ -4,6 +4,7 @@ import LoginScreen from '../partials/loginScreen'
 import StartScreen from '../partials/startScreen'
 import QuizzScreen from '../partials/quizzScreen'
 import ProfileScreen from '../partials/profileScreen';
+import EndScreen from '../partials/endscreen';
 import { checkAuthState } from './firebase'
 
 const router = new Navigo(window.location.origin)
@@ -46,7 +47,7 @@ router
       },
       'end': () => {
         body.innerHTML = ''
-        body.appendChild(<h1>End Screen not available now</h1>)
+        body.appendChild(<EndScreen/>)
       },
       'profile':()=>{
         body.innerHTML=''
