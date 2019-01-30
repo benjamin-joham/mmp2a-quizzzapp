@@ -1,4 +1,4 @@
-footer{
+.footer{
     background-color: $darker_blue_100;
     text-align: right;
     padding: 2%;
@@ -8,5 +8,15 @@ footer{
     width: 100%;
     @media (max-width: 600px){
         position: relative;
+    }
+    &__a{
+        margin-right: 2vw;
+      width: 18vw;
+      margin-top: auto;
+      margin-bottom: auto;
+      text-align: end;
+      @media(max-width: 1000px){
+        margin-top: 2%;
+      }
     }
 }
