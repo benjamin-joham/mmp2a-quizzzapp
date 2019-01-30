@@ -4,7 +4,7 @@ import LoginScreen from '../partials/loginScreen'
 import StartScreen from '../partials/startScreen'
 import QuizzScreen from '../partials/quizzScreen'
 import ProfileScreen from '../partials/profileScreen';
-import EndScreen from '../partials/endscreen';
+import EndScreen from '../partials/endScreen';
 import { checkAuthState } from './firebase'
 
 const router = new Navigo(window.location.origin)
