@@ -1,6 +1,6 @@
 import Header from '../components/header'
 import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
-import Login from '../components/end'
+import End from '../components/end'
 
 const EndScreen = () => {
   return (
