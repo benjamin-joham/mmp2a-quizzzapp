@@ -37,19 +37,18 @@
       }
     }
  @media(max-width: 600px){
-   display: block;
-   width: 100%;
-   margin: auto;
+  display: block;
+  width: 100%;
+  margin: auto;
  } 
 }
 #btn{
-    text-align: center;
-    margin: auto;
-    @media(max-width: 600px){
-      margin-top: 20%;
-    }
+  text-align: center;
+  margin: auto;
+  @media(max-width: 600px){
+    margin-top: 20%;
+  }
 }
-
 #btn_players_active,
 #btn_questions_active {
   background-color: $darker_blue_100;
