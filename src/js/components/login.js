@@ -6,6 +6,7 @@ import router from '../modules/router'
 const Login = () => {
   return (
     <section className={bem('login')}>
+    <h2 className={bem('login', 'h2')}>Welcome to QuizzzApp!</h2>
       <button className={bem('button', ['login'])}
         onClick={
           async (e) => {
