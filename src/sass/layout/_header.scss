@@ -1,5 +1,6 @@
 .header {
   position: fixed !important;
+  z-index: 1; 
   top: 0 !important;
   width: 100% !important;
   background-color: $darker_blue_100;
