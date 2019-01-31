@@ -13,14 +13,12 @@ const Profile = () => {
   console.log('DATA: ', window.user)
   console.log('DATA: ', window.user.answers_last_round[0,0])
   let correct_questions_last=data.answers_last_round[1]
-  let wrong_questions_last=data.answers_last_round[0]-correct_questions_last  //TODO: number aus DB
+  let wrong_questions_last=data.answers_last_round[0]-correct_questions_last
   let correct_questions_total=data.answers_total[1]
   let wrong_questions_total=data.answers_total[0]-correct_questions_total
   console.log("wrongs: ",wrong_questions_total)
   console.log("corrects: ",correct_questions_total)
 
-  // const ctx = document.querySelector('#chart_lastRound').id
-  // const ctx2 = document.querySelector('#char_total').id
   const ctx = document.getElementById('chart_lastRound')
   const ctx2 = document.getElementById('chart_total')
 
@@ -38,8 +36,21 @@ const Profile = () => {
       console.log(number_of_challenges)
       challenges.map((x) => {
         let result
+        let rival
         if(x.done == false) {
-          result = 'not yet played'
+          if(window.user !=x.players[1]){
+            result = <a href="#"> challenged you!</a>
+            //result = ' has not yet played.'
+            rival = x.players[1]
+        }
+          else {
+            result = <a href="#" onClick={() => {
+              event.preventDefault();
+              //hol fragen aus datenbank
+              router.navigate('quiz?mulitplayer=false&amountPlayer=1&question=1&player=1')
+            }}>> challenged you!</a>
+            rival = x.players[0]
+          }
         }
         else {
           result = 'You won' ? x.points[0] > x.points[1] : 'You lost'
@@ -47,16 +58,11 @@ const Profile = () => {
         console.log('mapping: ', x)
         content.appendChild(
           <li className={bem('ul','li')}>
-            {x.players[1]}
+            {rival}
             <span>{result}</span>
           </li>
           )
       })
-      // for(let i = 1; i <= number_of_challenges; i++)
-      // {
-      //     result = challenges[i-1]
-      //     content.appendChild(<li className={bem('ul','li')}>{result}</li>)
-      // }
     challenge.current.appendChild(content)
 
   }, 1000);

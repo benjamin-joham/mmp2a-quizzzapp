@@ -151,7 +151,8 @@ const Quiz = ({ children, ...props }) => {
         ['Uuml', 'Ü'],
         ['uuml', 'ü'],
         ['uuml;', 'ü'],
-        ['quot', '"']
+        ['quot', '"'],
+        ['eacute;', 'é']
     ];
 
     for (var i = 0, max = entities.length; i < max; ++i) 
