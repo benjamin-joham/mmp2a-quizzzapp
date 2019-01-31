@@ -1,7 +1,7 @@
 import Chart from 'chart.js'
 
 let RenderChart = (wrong_questions_last, correct_questions_last, wrong_questions_total, correct_questions_total, ctx, ctx2) => {
-  console.log(wrong_questions_last, ' ', correct_questions_last, ' ',wrong_questions_total, ' ',correct_questions_total, ' ', ctx, ' ', ctx2)
+  console.log('KUCHEN: ',wrong_questions_last, ' ', correct_questions_last, ' ',wrong_questions_total, ' ',correct_questions_total, ' ', ctx, ' ', ctx2)
  setTimeout(() => {
   Chart.defaults.global.defaultFontColor = 'white';
   Chart.defaults.global.legend.position='right';
