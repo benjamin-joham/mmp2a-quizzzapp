@@ -30,7 +30,7 @@ function sendChallenge(){
     questionarr=window.questions[i].question
     answerarr=[window.questions[i].correct_answers,window.questions[i].incorrect_answers[0],window.questions[i].incorrect_answers[1],window.questions[i].incorrect_answers[2]]
   }
-  let user
+  let user=window.user
   let challenger='Benjamin Joham'
   AddNewQuestionsetToFirestore = (questionarr, answerarr, user, challenger)
 }
