@@ -3,6 +3,7 @@ import * as React from 'jsx-dom'
 import bem from 'bem-names'
 import { userLogin } from '../modules/firebase'
 import router from '../modules/router'
+import ddNewQuestionsetToFirestore from '../modules/firebase'
 
 const End = ({children, ...props}) => {
 let correct_questions = JSON.parse(localStorage.getItem('scores'))
@@ -15,10 +16,23 @@ let result=''
 let logged_in=window.user;
 
 const resultContainer = document.querySelector('.end__div')
-
+console.log("BAGUETTE",window.questions)
 let checkIfNumber = (number) => {
   if(number != null) { return number }
   else { return 0 }
+}
+
+function sendChallenge(){
+  let questionarr
+  let answerarr
+  for(let i =0; i < questions_total; i++)
+  {
+    questionarr=window.questions[i].question
+    answerarr=[window.questions[i].correct_answers,window.questions[i].incorrect_answers[0],window.questions[i].incorrect_answers[1],window.questions[i].incorrect_answers[2]]
+  }
+  let user
+  let challenger='Benjamin Joham'
+  AddNewQuestionsetToFirestore = (questionarr, answerarr, user, challenger)
 }
 
 let getContent = () =>  {
@@ -51,7 +65,7 @@ let addButtons = () => {
         <button className={bem('button')} onClick={() => router.navigate('/profile')}>
         {button1_text}
       </button>
-        <button className={bem('button')} onClick={() => sendChallenge()/*TODO*/}>
+        <button className={bem('button')} onClick={() => sendChallenge()}>
         {button3_text}
       </button>
       </div>
