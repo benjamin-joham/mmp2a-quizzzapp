@@ -70,7 +70,7 @@ const Profile = () => {
           }}
           ><i class="fas fa-arrow-left"></i>
         </a>
-        <h1 className={bem('profile', 'h1')}>Profile of {}</h1>
+        <h1 className={bem('profile', 'h1')}>Profile of {window.user.name}</h1>
         <article className={bem('profile', 'article')}>
           <div className={bem('profile', 'div')}>
           <h2 className={bem('profile', 'h2')}>Last</h2>
