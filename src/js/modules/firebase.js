@@ -19,23 +19,22 @@ firebase.initializeApp(config)
 
 const callbacks = []
 
+
 // TODO: StateHandler for before hook Navigo
 export async function checkAuthState () {
   firebase.auth().onAuthStateChanged((user) => {
-    window.user = user
     console.log('firebase authstate changed fired')
     callbacks.forEach(callback => callback(user))
   })
 }
 
 firebase.auth().onAuthStateChanged((user) => {
-  window.user = user
-  // console.log('firebase authstate changed fired')
   callbacks.forEach(callback => callback(user))
 
   if(user) {
-    addUserToDatabase()
-    localStorage.setItem('user-name', user.displayName)
+    console.log('User is logged in successful')
+    AddUserToFirestore(user.displayName, user.email, '')
+    // console.log(userData)
   }
 })
 
@@ -60,119 +59,67 @@ export const userLogout = async () => {
     .catch(error => error)
 }
 
-/*
-// TODO: Realtime Database
-const database = firebase.database().ref()
-console.log('this is the realtime database', database)
-var users = database.child('users')
-// users.push({
-//   'name': 'hansi',
-//   'company': 'fh'
-// })
-// console.log(users.ref())
-
-// users.once('value')
-//   .then((snap) => {
-//     console.log(typeof snap.val())
-//     let entries = Object.entries(snap.val())
-//     // entries.foreach((item) => {
-//     //   console.log(item)
-//     // })
-//     console.log(entries)
-//     // console.log(snap.val())
-
-//   })
-
-// console.log('this is the structure of the database', users.ref())
-export const addUserToDatabase = () => {
-  return firebase
-    .database()
-    .ref('users')
-    .child(user.uid)
-    .set({
-      name: user.displayName,
-      email: user.email
-    })
-}
-
-export const getUsers = () => {
-  database.child('users').once('value')
-    .then((snap) => {
-      console.log(typeof snap.val())
-      let entries = Object.entries(snap.val())
-      // entries.foreach((item) => {
-      //   console.log(item)
-      // })
-      console.log(entries)
-      return entries
-      // console.log(snap.val())
-    })
-}
-
-getUsers()
-*/ //FIXME: Database Ende
 
 // TODO: Firebase Firestore
 const db = firebase.firestore()
-// db.settings({
-//   timestampsInSnapshots: true
-// })
 
-// Add Data to Firestore Collection 'users'
-// db.collection("users").add({
-//   name: "Viktoria Maurer",
-//   email: "xx@x.at",
-//   nickname: 'Viki'
-// })
-// .then(function(docRef) {
-//   console.log("Document written with ID: ", docRef.id);
-// })
-// .catch(function(error) {
-//   console.error("Error adding document: ", error);
-// });
+const AddUserToFirestore = (name, email, nickname) => {
+  let checkUser = db.collection('users').doc(email) //.doc(email)
+  checkUser
+    .get()
+    .then(user => {
+      if(!user.exists) {
+        console.log('User not existing')
+        let userData = {
+          name: name,
+          email: email,
+          nickname: nickname,
+          answers_last_round: [0,0],
+          answers_total: [0,0]
+        }
+        checkUser.set(userData)
+        window.user = userData
+      }
+      else {
+        console.log('User already exists: ', user.data())
+        window.user = user.data()
+        // test()
+        // let questions = ['eins','zwei']
+        // let answers = ['a','b']
+        // console.log( Object.values(questions))
+        // AddNewQuestionsetToFirestore(Object.values(questions), Object.values(answers), window.user.name, 'Sepp')
+      }
+    })
+    .catch(error => {
+      console.log('Error: ', error)
+    })
+}
 
-// Add Doc to Collection 'users'
-// db.collection("users").doc("test").set({
-//   name: "Los Angeles",
-//   state: "CA",
-//   country: "USA"
-// })
-// .then(function() {
-//   console.log("Document successfully written!");
-// })
-// .catch(function(error) {
-//   console.error("Error writing document: ", error);
-// });
+// TODO: Add a new questionset
+export const AddNewQuestionsetToFirestore = (questions, answers, User, Challenger) => {
+  console.log('Add new questionset?')
+  let qSet = db.collection('questionset')
+  qSet.add({
+  amountOfQuestions: questions.length,
+  questions: questions,
+  answers: answers,
+  players: [User, Challenger],
+  done: false
+  })
+}
 
-// Add/Change data to existing Doc 'test' in Collection 'users'
-// var cityRef = db.collection('users').doc('test');
+// TODO: get all questionsets for the user
+// let test = () => { db.collection('questionset').where("players", 'array-contains', window.user.name).get().then(e => e.forEach(i => console.log(i.data()))) }
 
-// var setWithMerge = cityRef.set({
-//     capital: true
-// }, { merge: true });
+// const CheckIfChallenge = () => {
 
-db.collection("users")
-  .doc("test")
-  .set(
-    {
-      foo:'bar',
-      test: 'hi',
-      age: 12
-    }
-  );
+// }
 
 
 
-// Read Data from Firestore Collection 'users'
-var docRef = db.collection("users").doc("SF");
-
-// docRef.get().then(function(doc) {
-//     if (doc.exists) {
-//         console.log("Document data:", doc.data());
-//     } else {
-//         // doc.data() will be undefined in this case
-//         console.log("No such document!");
-//     }
-// }).catch(function(error) {
-//     console.log("Error getting document:", error);
+// TODO: update status of Doc whenever local or server changes happen
+// db.collection("users").doc(window.user.name)
+//     .onSnapshot(function(doc) {
+//         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+//         console.log(source, " data: ", doc.data());
 // });
