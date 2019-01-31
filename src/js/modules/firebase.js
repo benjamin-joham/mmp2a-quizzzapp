@@ -30,12 +30,13 @@ export async function checkAuthState () {
   })
 }
 
-firebase.auth().onAuthStateChanged((user) => {
+firebase.auth().onAuthStateChanged(async (user) => {
   window.user = user
   callbacks.forEach(callback => callback(user))
 
   if(user) {
     console.log('User is logged in successful')
+    GetAllUsers()
     AddUserToFirestore(user.displayName, user.email, '')
     // console.log(userData)
   }
@@ -101,20 +102,24 @@ const AddUserToFirestore = (name, email, nickname) => {
 }
 
 // TODO: Add a new questionset
-export const AddNewQuestionsetToFirestore = (questions, answers, User, Challenger) => {
+export const AddNewQuestionsetToFirestore = (questions, answers, User, Challenger, userPoints) => {
   console.log('Add new questionset?')
   let qSet = db.collection('questionset')
   qSet.add({
   amountOfQuestions: questions.length,
   questions: questions,
-  answers: answers,
+  answers: {
+    correct: [answers[0]],
+    wrong: [answers[1], answers[2], answers[3]]
+  },
   players: [User, Challenger],
-  done: false
+  done: false,
+  points: [userPoints, 0]
   })
 }
 
 // TODO: get all questionsets for the user
-export const GetQuestionsets = (name) => {
+const GetQuestionsets = (name) => {
   let response = []
   let result = []
   db.collection('questionset')
@@ -129,10 +134,22 @@ export const GetQuestionsets = (name) => {
       allQuestionSets = result
     })
     .catch(err => console.log(err))
-  }
-// const CheckIfChallenge = () => {
+}
 
-// }
+export const GetAllUsers = () => {
+  return Promise((resolve, reject) => {
+    let allUsers = []
+    db.collection('users')
+      .get()
+      .then( snapshot => {
+        snapshot.forEach(user => {
+          allUsers.push(user.data().name)
+        })
+        console.log('Challenger: ',allUsers)
+        resolve(allUsers)
+      })
+  })
+}
 
 // Update scores of SinglePlayer
 export const UpdateScoresOfSP = (name, total, correct) => {
@@ -161,6 +178,5 @@ db.collection("users").doc('benjamin.joham@gmail.com')
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
         console.log(source, " data: ", doc.data());
         if(window.user){
-
         }
 });
