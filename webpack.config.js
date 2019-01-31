@@ -5,6 +5,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const globImporter = require('node-sass-glob-importer')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const Dotenv = require('dotenv-webpack')
 
 module.exports = {
   entry: { main: './src/index.js' },
@@ -136,6 +137,7 @@ module.exports = {
       filename: 'index.html',
     }),
 
+    // copy _redirect & webmanifest
     new CopyWebpackPlugin([
       {
         from: './src/_redirects',
@@ -145,7 +147,13 @@ module.exports = {
         from: './src/images/site.webmanifest',
         to: './'
       }
-    ])
+    ]),
+
+    // dotenv
+    new Dotenv({
+      path: './.env',
+      systemvars: true,
+    }),
   ],
 
   optimization: {

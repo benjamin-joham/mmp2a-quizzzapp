@@ -1,6 +1,7 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
-import 'firebase/database'
+// import 'firebase/database'
+import 'firebase/firestore'
 import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 
 let config = {
@@ -59,6 +60,7 @@ export const userLogout = async () => {
     .catch(error => error)
 }
 
+/*
 // TODO: Realtime Database
 const database = firebase.database().ref()
 console.log('this is the realtime database', database)
@@ -108,3 +110,69 @@ export const getUsers = () => {
 }
 
 getUsers()
+*/ //FIXME: Database Ende
+
+// TODO: Firebase Firestore
+const db = firebase.firestore()
+// db.settings({
+//   timestampsInSnapshots: true
+// })
+
+// Add Data to Firestore Collection 'users'
+// db.collection("users").add({
+//   name: "Viktoria Maurer",
+//   email: "xx@x.at",
+//   nickname: 'Viki'
+// })
+// .then(function(docRef) {
+//   console.log("Document written with ID: ", docRef.id);
+// })
+// .catch(function(error) {
+//   console.error("Error adding document: ", error);
+// });
+
+// Add Doc to Collection 'users'
+// db.collection("users").doc("test").set({
+//   name: "Los Angeles",
+//   state: "CA",
+//   country: "USA"
+// })
+// .then(function() {
+//   console.log("Document successfully written!");
+// })
+// .catch(function(error) {
+//   console.error("Error writing document: ", error);
+// });
+
+// Add/Change data to existing Doc 'test' in Collection 'users'
+// var cityRef = db.collection('users').doc('test');
+
+// var setWithMerge = cityRef.set({
+//     capital: true
+// }, { merge: true });
+
+db.collection("users")
+  .doc("test")
+  .set(
+    {
+      foo:'bar',
+      test: 'hi',
+      age: 12
+    }
+  );
+
+
+
+// Read Data from Firestore Collection 'users'
+var docRef = db.collection("users").doc("SF");
+
+// docRef.get().then(function(doc) {
+//     if (doc.exists) {
+//         console.log("Document data:", doc.data());
+//     } else {
+//         // doc.data() will be undefined in this case
+//         console.log("No such document!");
+//     }
+// }).catch(function(error) {
+//     console.log("Error getting document:", error);
+// });
