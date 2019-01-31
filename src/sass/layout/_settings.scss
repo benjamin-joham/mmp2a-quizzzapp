@@ -32,6 +32,9 @@
       border-radius: 2%;
       margin: 40px;
       max-width: 100px;
+      @media (max-width:400px){
+      margin: 10px;
+      }
     }
  @media(max-width: 600px){
    display: block;

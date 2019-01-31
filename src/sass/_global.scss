@@ -27,6 +27,7 @@ html {
     cursor: pointer;
     @media(max-width: 600px){
       min-width: 300px;
+      height: auto;
     }
     @media(max-width: 400){
       width: 90%;
@@ -68,7 +69,7 @@ html {
   @media (max-width: 996px) {
     font-size: 20px;
   }
-  
+
 }
 
 
