@@ -6,12 +6,12 @@ import router from '../modules/router'
 
 const End = ({children, ...props}) => {
 let correct_questions = JSON.parse(localStorage.getItem('scores'))
-let questions_total = JSON.parse(localStorage.getItem('questions')).length;
+let questions_total = window.questions.length;
 let number_of_players = correct_questions.length;
 let button1_text = 'View statistic!'
 let button2_text = 'Play again!'
 let button3_text = 'Challenge a friend!'
-let result='' 
+let result=''
 let logged_in=window.user;
 
 const resultContainer = document.querySelector('.end__div')
@@ -49,7 +49,7 @@ let addButtons = () => {
       return (
         <div>
         <button className={bem('button')} onClick={() => router.navigate('/profile')}>
-        {button2_text}
+        {button1_text}
       </button>
         <button className={bem('button')} onClick={() => sendChallenge()/*TODO*/}>
         {button3_text}
@@ -63,7 +63,12 @@ let addButtons = () => {
     <section className={bem('end')}>
     <h1 className={bem('end','h1')}>You finished the Quiz!</h1>
     {getContent()}
-      <button className={bem('button')} onClick={() => router.navigate('/start')}>
+      <button className={bem('button')}
+        onClick={() => {
+        localStorage.removeItem('scores')
+        router.navigate('/start')
+        }
+      }>
         {button2_text}
       </button>
     </section>

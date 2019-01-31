@@ -3,7 +3,7 @@ import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import Quiz from '../components/quiz'
 
 const QuizzScreen = (params) => {
-  let amountOfQuestions = JSON.parse(localStorage.getItem('questions')).length
+  let amountOfQuestions = window.questions.length
   // console.log(amountOfQuestions)
   // console.log('params: ',params)
 
