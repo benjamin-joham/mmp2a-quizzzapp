@@ -8,9 +8,12 @@
     margin-bottom: 30px;
     &__a{
         text-align: right;
-    }
-    i{
-        text-align: right !important;
-        margin-top: 200px;
+        text-decoration: underline;
+       
+        &--i:focus, :hover{font-size: $xlarge;}
+        i{
+            text-align: right !important;
+            margin-top: 200px;
+        }
     }
 }
