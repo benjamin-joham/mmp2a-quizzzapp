@@ -1,12 +1,13 @@
 import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import bem from 'bem-names'
-import router from '../modules/router'
+import router from './../modules/router'
+import { UpdateScoresOfSP } from './../modules/firebase'
 
 let score = []
 console.log('initial scores: ', score)
 
 const Quiz = ({ children, ...props }) => {
-  let question_and_answers = JSON.parse(localStorage.getItem('questions'))
+  let question_and_answers = window.questions
   let number_of_questions = question_and_answers.length
   let multiplayer = true ? props.multiplayer == 'true' : false
   let number_of_players = props.amountPlayer
@@ -45,6 +46,9 @@ const Quiz = ({ children, ...props }) => {
     let button = event.target
     button_text = button_text.substring(3, button_text.length)
 
+    let total = 0
+    let correct = 1
+
     if (button_text == question_and_answers[current_question - 1].correct_answer) {
       let button_id=button.id;
       document.getElementById(button_id).disabled = true;
@@ -54,6 +58,8 @@ const Quiz = ({ children, ...props }) => {
       for (let i = 0; i < 4; i++) {
         if (buttons[i].id != 'correct') buttons[i].style.visibility = 'hidden'
       }
+      // Update Scores in Firestore
+      UpdateScoresOfSP(window.user.email, 5, 2)
       if (score[activePlayer-1]) score[activePlayer-1]++
       else score[activePlayer-1] = 1
 
@@ -76,7 +82,7 @@ const Quiz = ({ children, ...props }) => {
       if(activePlayer < number_of_players) {
         // console.log('Quiz-Player: ', number_of_players)
         activePlayer++
-        
+
         setTimeout(() => {
           console.log("active player",activePlayer)
         console.log("question",current_question)

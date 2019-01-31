@@ -18,7 +18,8 @@ const clickHandler = async (event) => {
 
   console.log(api(questions.value)
     .then(x => {
-      localStorage.setItem('questions', JSON.stringify(x))
+      window.questions = x
+      // localStorage.setItem('questions', JSON.stringify(x))
       console.log(x)
     })
     .then(() => {

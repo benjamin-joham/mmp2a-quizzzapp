@@ -134,11 +134,33 @@ export const GetQuestionsets = (name) => {
 
 // }
 
+// Update scores of SinglePlayer
+export const UpdateScoresOfSP = (name, total, correct) => {
+  let update = db.collection('users').doc(name)
+  let total_total
+  let correct_total
+  update
+    .get()
+    .then(data => {
+      total_total = data.data().answers_total[0] + total
+      correct_total = data.data().answers_total[1] + correct
+      console.log('total ', total_total)
+      console.log('correct ', correct_total)
+      update.update({
+          answers_last_round: [total, correct],
+          answers_total: [total_total, correct_total]
+      })
+    })
+    .catch(err => console.log('Can not update Score - ', err))
+}
 
 
 // TODO: update status of Doc whenever local or server changes happen
-// db.collection("users").doc(window.user.name)
-//     .onSnapshot(function(doc) {
-//         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-//         console.log(source, " data: ", doc.data());
-// });
+db.collection("users").doc('benjamin.joham@gmail.com')
+    .onSnapshot(function(doc) {
+        var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+        console.log(source, " data: ", doc.data());
+        if(window.user){
+
+        }
+});
