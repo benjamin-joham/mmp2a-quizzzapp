@@ -42,7 +42,10 @@
         margin-top: 2%;
       }
       a:nth-of-type(2)::before{
-        content:"|"
+        content:"|";
+        @media(max-width:400px){
+          content: none;
+        }
       }
     }
   }
