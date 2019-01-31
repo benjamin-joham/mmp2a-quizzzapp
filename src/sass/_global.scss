@@ -28,6 +28,9 @@ html {
     @media(max-width: 600px){
       min-width: 300px;
     }
+    @media(max-width: 360){
+      width: 90%;
+    }
   }
   button:hover, button:focus{
     background-color: $darker_blue_100;
