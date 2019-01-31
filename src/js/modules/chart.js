@@ -1,17 +1,16 @@
 import Chart from 'chart.js'
 
-let RenderChart = (wrong_questions_last, correct_questions_last, wrong_questions_total, correct_questions_total, ctx, ctx2) => {
-  console.log('KUCHEN: ',wrong_questions_last, ' ', correct_questions_last, ' ',wrong_questions_total, ' ',correct_questions_total, ' ', ctx, ' ', ctx2)
- setTimeout(() => {
+let RenderChart = (data, ctx, labels) => {
+  // console.log('KUCHEN: ',wrong_questions_last, ' ', correct_questions_last, ' ',wrong_questions_total, ' ',correct_questions_total, ' ', ctx, ' ')
   Chart.defaults.global.defaultFontColor = 'white';
-  Chart.defaults.global.legend.position='right';
-  let myPieChart = new Chart(ctx, {
+  Chart.defaults.global.legend.position='top';
+  new Chart(ctx, {
     type: 'pie',
     data: {
-        labels: ["Wrong last", "Correct last"],
+        labels: labels,
         datasets: [{
             label: '# of Questions',
-            data: [wrong_questions_last, correct_questions_last],
+            data: data,
             backgroundColor: [
                 'rgba(210, 0, 25, 1)',
                 'rgba(0, 190, 25, 1)'
@@ -34,36 +33,6 @@ let RenderChart = (wrong_questions_last, correct_questions_last, wrong_questions
         }
     }
   });
-  let myPieChart2 = new Chart(ctx2, {
-    type: 'pie',
-    data: {
-        labels: ["Wrong total", "Correct total"],
-        datasets: [{
-            label: '# of Questions',
-            data: [wrong_questions_total, correct_questions_total],
-            backgroundColor: [
-                'rgba(210, 0, 25, 1)',
-                'rgba(0, 190, 25, 1)'
-            ],
-            borderColor: [
-                'rgba(255,255,255,1)',
-                'rgba(255, 255, 255, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true,
-                    display:false
-                }
-            }]
-        }
-    }
-  });
-  }, 2)
 }
 
 export default RenderChart
