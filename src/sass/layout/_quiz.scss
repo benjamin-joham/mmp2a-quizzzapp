@@ -4,9 +4,13 @@
 }
 .question{
         background-color: $darker_blue_60;
-        padding-top: 5vh;
+        padding: 5vh;
         padding-bottom: 5vh;
         margin-bottom: 20px;
+        &__h2{
+            padding-bottom: 2%;
+            font-size: $medium;
+        }
     }
 .answers{
         display: flex;
@@ -18,7 +22,11 @@
             width: 45vw;
             margin: auto;
             margin-top: 5%;
+            @media(max-width: 400px){
+                height: auto;
+                min-height: 70px;
             }
+        }
         @media(max-width: 600px){
             display: block;
             margin-bottom: 5%;
