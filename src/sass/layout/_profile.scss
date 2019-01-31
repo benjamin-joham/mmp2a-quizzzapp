@@ -1,11 +1,12 @@
 .profile{
   margin-top: 0;
-  article{
+  &__article{
     display: flex; 
     @media (max-width: 600px) {
       display: block;
     }
-    h1{
+  }
+    &__h1{
       background-color: $darker_blue_60;
       text-align: center;
       width: 50vw;
@@ -21,7 +22,7 @@
         position: relative;
       }
     }
-  div{
+  &__div{
       background-color: $darker_blue_60;
       flex-direction: column;
       padding: 5%;
@@ -38,9 +39,12 @@
         position:relative;
       }
   }
-  a{
+  &__a{
     display: block;
     margin-bottom: 50%;
+  
+  &--i:focus, :hover{
+    font-size: $xlarge;
   }
-  }
+}
 }
