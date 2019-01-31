@@ -137,7 +137,7 @@ const GetQuestionsets = (name) => {
 }
 
 export const GetAllUsers = () => {
-  return Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     let allUsers = []
     db.collection('users')
       .get()

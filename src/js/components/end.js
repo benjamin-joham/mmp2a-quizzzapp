@@ -1,7 +1,7 @@
 import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import * as React from 'jsx-dom'
 import bem from 'bem-names'
-import { userLogin } from '../modules/firebase'
+import { GetAllUsers } from '../modules/firebase'
 import router from '../modules/router'
 
 const End = ({children, ...props}) => {
@@ -42,6 +42,28 @@ let add
       }
       return content
   }
+}
+// AddNewQuestionsetToFirestore
+
+const sendChallenge = async () => {
+  let users = await GetAllUsers()
+  console.log(users)
+  // console.log(users.then(i => console.log(i)))
+  let container = document.querySelector('section.end')
+  let select = <select name="challenger" size="5"></select>
+  {users.forEach(i => {
+    select.appendChild(<option value={i}>{i}</option>)
+  })}
+
+  let content = container.appendChild(
+    <div className={bem('end', 'div',['challenge'])}>
+      <form action={}>
+      {select}
+      <input type="submit" value="Challenge!" />
+      </form>
+    </div>
+  )
+  return content
 }
 
 let addButtons = () => {
