@@ -23,7 +23,16 @@ const body = document.querySelector('body')
 // })
 
 router.notFound(() => {
-  body.appendChild(<h1>404 Page not found</h1>)
+  body.appendChild(
+    <div>
+  <h1>404 Page not found :(</h1>
+  <a href='#' onClick={() => {
+              event.preventDefault();
+              //hol fragen aus datenbank
+              router.navigate('/')}}>Back to the beginning...
+              </a>
+  </div>
+  )
   console.log('404')
 })
 

@@ -46,6 +46,10 @@ html {
     line-height: 1.3rem;
     letter-spacing: auto;
     background-image: url('../assets/background/background.png');
+    & > div {
+      text-align: center;
+      margin-top: 20%;
+    }
   }
   h1 {
     font-size: 1.5em;

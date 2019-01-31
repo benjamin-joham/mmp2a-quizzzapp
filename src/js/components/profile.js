@@ -50,7 +50,7 @@ const Profile = () => {
               event.preventDefault();
               //hol fragen aus datenbank
               router.navigate('quiz?mulitplayer=false&amountPlayer=1&question=1&player=1')
-            }}>> challenged you!</a>
+            }}> challenged you!</a>
             rival = x.players[0]
           }
         }
