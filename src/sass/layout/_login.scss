@@ -11,6 +11,12 @@
   -ms-transform: translate(-50%, -50%);
   min-width: 360px;
   &__h2{
-margin-bottom: 5%;
+    margin-bottom: 5%;
   }
+}
+
+.button--login{
+  @media(max-width: 400px){
+    margin-top: 5%;
+    }
 }
