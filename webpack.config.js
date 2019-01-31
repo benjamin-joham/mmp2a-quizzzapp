@@ -140,6 +140,10 @@ module.exports = {
       {
         from: './src/_redirects',
         to: './'
+      },
+      {
+        from: './src/images/site.webmanifest',
+        to: './'
       }
     ])
   ],
