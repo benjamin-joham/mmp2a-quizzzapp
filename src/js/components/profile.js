@@ -4,10 +4,14 @@ import Chart from 'chart.js';
 import router from '../modules/router';
 
 const Profile = () => {
-    let wrong_questions_last=1
+    let wrong_questions_last=1  //TODO: number aus DB
     let correct_questions_last=4
     let wrong_questions_total=9
     let correct_questions_total=55
+    let challenges=['Thomas: You lost','Eva: You won', 'Magda: You won'] //TODO: challenges aus DB
+    let number_of_challenges=challenges.length;
+    let result='' 
+
     setTimeout(() => {
     let ctx = document.getElementById("char_lastRound");
     Chart.defaults.global.defaultFontColor = 'white';
@@ -73,6 +77,16 @@ const Profile = () => {
 });
   }, 2)
 
+  let getContent = () =>  {
+    let content = <ul className={bem('ul')}></ul>
+    for(let i = 1; i <= number_of_challenges; i++)
+    {
+        result = challenges[i-1]
+        content.appendChild(<li className={bem('ul','li')}>{result}</li>)
+    }
+    return content
+  }
+
   return (
     <section id='profile' className={bem('profile')}>
       <a href='#' className={bem('profile','a', ['i'])} onClick={() => {
@@ -90,14 +104,7 @@ const Profile = () => {
         </div>
         <div className={bem('profile', 'div',['challenge'])}>
         <h2 className={bem('profile', 'h2')}>Challenges</h2>
-        <ul>
-            <li>Benni: Open Challenge</li>
-            <li>Thomas: You lost</li>
-            <li>Eva: You won</li>
-            <li>Magda: You won</li>
-            <li>David: You won</li>
-            <li>Thomas: You lost</li>
-        </ul>
+        {getContent()}
         </div>
       </article>
     </section>
