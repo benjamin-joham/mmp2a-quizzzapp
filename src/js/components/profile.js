@@ -37,8 +37,10 @@ const Profile = () => {
       challenges.map((x) => {
         let result
         let rival
+        let player_points
+        let rival_points
         if(x.done == false) {
-          if(window.user !=x.players[1]){
+          if(window.user != x.players[1]){
             result = <a href="#"> challenged you!</a>
             //result = ' has not yet played.'
             rival = x.players[1]
@@ -53,7 +55,17 @@ const Profile = () => {
           }
         }
         else {
-          result = 'You won' ? x.points[0] > x.points[1] : 'You lost'
+          if(window.user != x.players[1]){
+            rival = x.players[1]
+            player_points = x.points[0]
+            rival_points = x.points[1]
+          }
+          else {
+            rival = x.players[0]
+            player_points = x.points[1]
+            frival_points = x.points[1]
+          }
+          result = rival + ' : You won' + player_points + ':' + rival_points ? player_points > rival_points : rival + ': You lost' + player_points + ':' + rival_points
         }
         console.log('mapping: ', x)
         content.appendChild(
