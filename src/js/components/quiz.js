@@ -147,6 +147,10 @@ const Quiz = ({ children, ...props }) => {
         ['lt', '<'],
         ['gt', '>'],
         ['nbsp', ' '],
+        ['Uuml;', 'Ü'],
+        ['Uuml', 'Ü'],
+        ['uuml', 'ü'],
+        ['uuml;', 'ü'],
         ['quot', '"']
     ];
 

@@ -3,7 +3,7 @@ import * as React from 'jsx-dom'
 import bem from 'bem-names'
 import { userLogin } from '../modules/firebase'
 import router from '../modules/router'
-import ddNewQuestionsetToFirestore from '../modules/firebase'
+import {AddNewQuestionsetToFirestore} from '../modules/firebase'
 
 const End = ({children, ...props}) => {
 let correct_questions = JSON.parse(localStorage.getItem('scores'))
@@ -23,16 +23,28 @@ let checkIfNumber = (number) => {
 }
 
 function sendChallenge(){
-  let questionarr
+  let questionarr =[]
+  let answers ={}
   let answerarr
+  
   for(let i =0; i < questions_total; i++)
   {
-    questionarr=window.questions[i].question
-    answerarr=[window.questions[i].correct_answers,window.questions[i].incorrect_answers[0],window.questions[i].incorrect_answers[1],window.questions[i].incorrect_answers[2]]
+    answerarr = []
+    questionarr.push(window.questions[i].question)
+    answerarr.push(window.questions[i].correct_answer)
+    window.questions[i].incorrect_answers.forEach(wrong => {
+      answerarr.push(wrong)
+    })
+    // console.log(answerarr)
+    answers.correct = answerarr[0]
+    answers.wrong = [answerarr[1], answerarr[2], answerarr[3]]
   }
   let user=window.user
   let challenger='Benjamin Joham'
-  AddNewQuestionsetToFirestore = (questionarr, answerarr, user, challenger)
+  // console.log(questionarr)
+  // console.log(answerarr)
+  // console.log(answers)
+  AddNewQuestionsetToFirestore(questionarr, answers, user.name, challenger, localStorage.getItem('scores')[0])
 }
 
 let getContent = () =>  {
