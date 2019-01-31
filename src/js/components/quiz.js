@@ -10,12 +10,8 @@ const Quiz = ({ children, ...props }) => {
   let number_of_questions = question_and_answers.length
   let multiplayer = true ? props.multiplayer == 'true' : false
   let number_of_players = props.amountPlayer
-  // scores.length = number_of_players
   let activePlayer = props.player
   let current_question = props.question
-  // console.log('Quiz props: ',props)
-  // console.log(question_and_answers)
-  // console.log('mulitplayer in quiz: ', multiplayer)
   let question=question_and_answers[current_question - 1].question
   let arr = [
     question_and_answers[current_question - 1].correct_answer,
@@ -50,6 +46,8 @@ const Quiz = ({ children, ...props }) => {
     button_text = button_text.substring(3, button_text.length)
 
     if (button_text == question_and_answers[current_question - 1].correct_answer) {
+      let button_id=button.id;
+      document.getElementById(button_id).disabled = true;
       let buttons = document.getElementsByTagName('button')
       document.querySelector('.question__h2').innerHTML = 'CORRECT'
       button.id = 'correct'
@@ -66,9 +64,10 @@ const Quiz = ({ children, ...props }) => {
 
       for (let i = 0; i < 4; i++) {
         let current_button = buttons[i]
+        let button_id=current_button.id;
+        document.getElementById(button_id).disabled = true;
         if (current_button.textContent.substring(3, current_button.textContent.length) == question_and_answers[current_question - 1].correct_answer) { current_button.id = 'correct' }
         if (current_button.id != 'wrong' && current_button.id != 'correct') { current_button.style.visibility = 'hidden' }
-        // console.log(current_button.id)
       }
     }
     // TODO: check if all questions have been answered
@@ -139,10 +138,10 @@ const Quiz = ({ children, ...props }) => {
         <p className={bem('question', 'p')}>{question}</p>
       </article>
       <article className={bem('answers')}>
-        <p className={bem('answers', 'p')}><button className={bem('answers', 'button')} onClick={checkAnswer}>{answer1}</button>
-          <button className={bem('answers', 'button')} onClick={checkAnswer}>{answer2}</button></p>
-        <p className={bem('answers', 'p')}><button className={bem('answers', 'button')} onClick={checkAnswer}>{answer3}</button>
-          <button className={bem('answers', 'button')} onClick={checkAnswer}>{answer4}</button></p>
+        <p className={bem('answers', 'p')}><button id='button1' className={bem('answers', 'button')} onClick={checkAnswer}>{answer1}</button>
+          <button id='button2' className={bem('answers', 'button')} onClick={checkAnswer}>{answer2}</button></p>
+        <p className={bem('answers', 'p')}><button id='button3' className={bem('answers', 'button')} onClick={checkAnswer}>{answer3}</button>
+          <button id='button4' className={bem('answers', 'button')} onClick={checkAnswer}>{answer4}</button></p>
       </article>
     </section>
   )
