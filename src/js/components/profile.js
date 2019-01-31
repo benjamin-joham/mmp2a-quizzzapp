@@ -75,20 +75,29 @@ const Profile = () => {
 
   return (
     <section id='profile' className={bem('profile')}>
-      <article className={bem('profile', 'article')}>
       <a href='#' className={bem('profile','a', ['i'])} onClick={() => {
           event.preventDefault();
           router.navigate('/start')
           }}
           ><i class="fas fa-arrow-left"></i></a>
         <h1 className={bem('profile', 'h1')}>Profile of {localStorage.getItem('user-name')}</h1>
+        <article className={bem('profile', 'article')}>
         <div className={bem('profile', 'div')}>
-
-          <canvas id="char_lastRound" width="400" height="400"></canvas>
+          <canvas id="char_lastRound" width="350" height="350"></canvas>
         </div>
         <div className={bem('profile', 'div')}>
-
-          <canvas id="chart_total" width="400" height="400"></canvas>
+          <canvas id="chart_total" width="350" height="350"></canvas>
+        </div>
+        <div className={bem('profile', 'div',['challenge'])}>
+        <h2 className={bem('profile', 'h2')}>Challenges</h2>
+        <ul>
+            <li>Benni: Open Challenge</li>
+            <li>Thomas: You lost</li>
+            <li>Eva: You won</li>
+            <li>Magda: You won</li>
+            <li>David: You won</li>
+            <li>Thomas: You lost</li>
+        </ul>
         </div>
       </article>
     </section>
