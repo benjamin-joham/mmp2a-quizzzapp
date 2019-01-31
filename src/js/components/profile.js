@@ -76,7 +76,11 @@ const Profile = () => {
   return (
     <section id='profile' className={bem('profile')}>
       <article className={bem('profile', 'article')}>
-      <a className={bem('profile__a')} onClick={() => router.navigate('/start')}><i class="fas fa-arrow-left"></i></a>
+      <a href='#' className={bem('profile','a', ['i'])} onClick={() => {
+          event.preventDefault();
+          router.navigate('/start')
+          }}
+          ><i class="fas fa-arrow-left"></i></a>
         <h1 className={bem('profile', 'h1')}>Profile of {localStorage.getItem('user-name')}</h1>
         <div className={bem('profile', 'div')}>
 

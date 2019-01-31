@@ -6,12 +6,6 @@ import * as Firebase from '../modules/firebase'
 import router, { updateHook } from '../modules/router'
 import bem from 'bem-names'
 
-
-const handleSignin = async event => {
-  let response = await Firebase.userLogin()
-  if (response) router.navigate('/start')
-}
-
 const handleSignout = async event => {
   Firebase.userLogout()
   router.navigate('/')
@@ -31,32 +25,45 @@ const Header = ({ children, ...props }) => {
     if (user) {
       if(props.data == 'quiz') {
         header_right.current.appendChild(
-          <a onClick={() => router.navigate('/start')}>
+          <a href='#' onClick={() => {
+            event.preventDefault();
+            router.navigate('/start')
+          }}>
             <i class="fas fa-times"></i>
           </a>
         )
       }
       else {
         header_right.current.appendChild(
-          <a onClick={() => { router.navigate('/profile')} }>Profile |</a>
+          <a href='#' onClick={() => { 
+            event.preventDefault(); 
+            router.navigate('/profile')
+          } }>Profile |</a>
         )
         header_right.current.appendChild(
-          <a onClick={() => handleSignout()}> Logout</a>
+          <a href='#' onClick={() => {
+            event.preventDefault();
+            handleSignout()
+          }}> Logout</a>
         )
       }
     } else {
       if(props.data == 'quiz') {
         header_right.current.appendChild(
-          <a onClick={() => router.navigate('/start')}>
+          <a href='#' onClick={() => {
+            event.preventDefault();
+            router.navigate('/start')
+            }}>
             <i class="fas fa-times"></i>
           </a>
         )
       }
       else {
         header_right.current.appendChild(
-          <a onClick={
+          <a href='#' onClick={
             async (e) => {
             let response = await Firebase.userLogin()
+            event.preventDefault();
             if (response) router.navigate('/start')
             }
           }>Login</a>
