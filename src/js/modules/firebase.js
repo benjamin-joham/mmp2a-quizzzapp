@@ -18,17 +18,20 @@ const provider = new firebase.auth.GoogleAuthProvider()
 firebase.initializeApp(config)
 
 const callbacks = []
+export let allQuestionSets
 
 
 // TODO: StateHandler for before hook Navigo
 export async function checkAuthState () {
   firebase.auth().onAuthStateChanged((user) => {
+    window.user = user
     console.log('firebase authstate changed fired')
     callbacks.forEach(callback => callback(user))
   })
 }
 
 firebase.auth().onAuthStateChanged((user) => {
+  window.user = user
   callbacks.forEach(callback => callback(user))
 
   if(user) {
@@ -79,10 +82,12 @@ const AddUserToFirestore = (name, email, nickname) => {
         }
         checkUser.set(userData)
         window.user = userData
+        allQuestionSets = GetQuestionsets(window.user.name)
       }
       else {
         console.log('User already exists: ', user.data())
         window.user = user.data()
+        GetQuestionsets(window.user.name)
         // test()
         // let questions = ['eins','zwei']
         // let answers = ['a','b']
@@ -109,8 +114,22 @@ export const AddNewQuestionsetToFirestore = (questions, answers, User, Challenge
 }
 
 // TODO: get all questionsets for the user
-// let test = () => { db.collection('questionset').where("players", 'array-contains', window.user.name).get().then(e => e.forEach(i => console.log(i.data()))) }
-
+export const GetQuestionsets = (name) => {
+  let response = []
+  let result = []
+  db.collection('questionset')
+    .where("players", 'array-contains', name)
+    .get()
+    .then( (e) => {
+      e.forEach((i) => {
+        response.push(i.data())
+      })
+      console.log('questionssets:' ,response)
+      console.log(response.forEach(i => result.push(i)))
+      allQuestionSets = result
+    })
+    .catch(err => console.log(err))
+  }
 // const CheckIfChallenge = () => {
 
 // }
