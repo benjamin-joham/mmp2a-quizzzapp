@@ -71,12 +71,15 @@ const Quiz = ({ children, ...props }) => {
       }
     }
     // TODO: check if all questions have been answered
-    if (current_question < number_of_questions) {
+    if (current_question < number_of_questions||activePlayer < number_of_players) {
       // TODO: check if all players had the question
       if(activePlayer < number_of_players) {
         // console.log('Quiz-Player: ', number_of_players)
         activePlayer++
+        
         setTimeout(() => {
+          console.log("active player",activePlayer)
+        console.log("question",current_question)
           router.navigate('quiz?mulitplayer=' + multiplayer + '&amountPlayer=' + number_of_players + '&question=' + current_question + '&player=' + activePlayer)
         }, 1500)
       }
@@ -125,10 +128,10 @@ const Quiz = ({ children, ...props }) => {
       return response + ' | Player' + activePlayer
     }
   }
-  answer1= answer1.replace("&amp;", "&").replace("&quot;", '"').replace("&#039;", "'");
-  answer2= answer2.replace("&amp;", "&").replace("&quot;", '"').replace("&#039;", "'");
-  answer3= answer3.replace("&amp;", "&").replace("&quot;", '"').replace("&#039;", "'");
-  answer4= answer4.replace("&amp;", "&").replace("&quot;", '"').replace("&#039;", "'");
+  answer1= answer1.replace("&amp;", "&").replace("&quot;", '"').replace("&#039;", "'").replace("&amp;quot;",'"');
+  answer2= answer2.replace("&amp;", "&").replace("&quot;", '"').replace("&#039;", "'").replace("&amp;quot;",'"');
+  answer3= answer3.replace("&amp;", "&").replace("&quot;", '"').replace("&#039;", "'").replace("&amp;quot;",'"');
+  answer4= answer4.replace("&amp;", "&").replace("&quot;", '"').replace("&#039;", "'").replace("&amp;quot;",'"');
   question= question.replace("&amp;", "&").replace("&quot;", '"').replace("&#039;", "'").replace("&amp;quot;",'"');
 
   return (
