@@ -7,7 +7,6 @@ import router, { updateHook } from '../modules/router'
 import bem from 'bem-names'
 
 const handleSignout = async event => {
-  event.preventDefault();
   Firebase.userLogout()
   router.navigate('/')
 }
