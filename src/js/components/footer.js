@@ -7,20 +7,16 @@ const Footer = () => {
     const impr = React.createRef()
     
     const clickImpressum = (event) => {
-        if(/*impressum schon da */ false)  
-        {
-            //hide impressum
-        }
-        else{
             impr.current.appendChild(<Impressum/>)
-        }
+            let link = document.getElementById('footer_link')
+            link.style.visibility = 'hidden'
     }
 
 
   return (
       <div className={bem('div')} ref={impr}>
       <footer className={bem('footer')}>
-        <a className={bem('footer', 'a')} href='#impressum'onClick={ clickImpressum } >About</a>
+        <a id='footer_link' className={bem('footer', 'a')} href='#impressum' onClick={ clickImpressum } >About</a>
     </footer>
     </div>
   )
