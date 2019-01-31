@@ -38,7 +38,7 @@ const Header = ({ children, ...props }) => {
           <a href='#' onClick={() => { 
             event.preventDefault(); 
             router.navigate('/profile')
-          } }>Profile |</a>
+          } }>Profile </a>
         )
         header_right.current.appendChild(
           <a href='#' onClick={() => {
