@@ -10,7 +10,9 @@
         text-align: right;
         text-decoration: underline;
        
-        &--i:focus, :hover{font-size: $xlarge;}
+        // &--i:focus, :hover{
+        //     font-size: $xlarge;
+        // }
         i{
             text-align: right !important;
             margin-top: 200px;

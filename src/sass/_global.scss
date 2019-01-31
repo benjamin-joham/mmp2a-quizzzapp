@@ -29,9 +29,12 @@ html {
       min-width: 300px;
     }
   }
-  button:hover, :focus{
+  button:hover, button:focus{
     background-color: $darker_blue_100;
     color: white;
+  }
+  i:hover, a:focus i {
+      font-size: $xlarge;
   }
   body {
     line-height: 1.3rem;

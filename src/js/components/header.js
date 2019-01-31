@@ -52,7 +52,6 @@ const Header = ({ children, ...props }) => {
         header_right.current.appendChild(
           <a href='#' onClick={() => {
             event.preventDefault();
-            event.preventDefault();
             router.navigate('/start')
             }}>
             <i class="fas fa-times"></i>
