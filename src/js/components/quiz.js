@@ -134,7 +134,7 @@ const Quiz = ({ children, ...props }) => {
   return (
     <section className={bem('quiz')}>
       <article className={bem('question')}>
-        <h2 className={bem('question', 'h2')}>{ displayNumberOfQuestionAndPlayer() }</h2>
+        <h2 role="alert" className={bem('question', 'h2')}>{ displayNumberOfQuestionAndPlayer() }</h2>
         <p className={bem('question', 'p')}>{question}</p>
       </article>
       <article className={bem('answers')}>
