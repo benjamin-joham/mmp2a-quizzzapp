@@ -4,10 +4,14 @@ import Chart from 'chart.js';
 import router from '../modules/router';
 
 const Profile = () => {
-    let wrong_questions_last=1
+    let wrong_questions_last=1  //TODO: number aus DB
     let correct_questions_last=4
     let wrong_questions_total=9
     let correct_questions_total=55
+    let challenges=['Thomas: You lost','Eva: You won', 'Magda: You won'] //TODO: challenges aus DB
+    let number_of_challenges=challenges.length;
+    let result='' 
+
     setTimeout(() => {
     let ctx = document.getElementById("char_lastRound");
     Chart.defaults.global.defaultFontColor = 'white';
@@ -73,22 +77,34 @@ const Profile = () => {
 });
   }, 2)
 
+  let getContent = () =>  {
+    let content = <ul className={bem('ul')}></ul>
+    for(let i = 1; i <= number_of_challenges; i++)
+    {
+        result = challenges[i-1]
+        content.appendChild(<li className={bem('ul','li')}>{result}</li>)
+    }
+    return content
+  }
+
   return (
     <section id='profile' className={bem('profile')}>
-      <article className={bem('profile', 'article')}>
       <a href='#' className={bem('profile','a', ['i'])} onClick={() => {
           event.preventDefault();
           router.navigate('/start')
           }}
           ><i class="fas fa-arrow-left"></i></a>
         <h1 className={bem('profile', 'h1')}>Profile of {localStorage.getItem('user-name')}</h1>
+        <article className={bem('profile', 'article')}>
         <div className={bem('profile', 'div')}>
-
-          <canvas id="char_lastRound" width="400" height="400"></canvas>
+          <canvas id="char_lastRound" width="350" height="350"></canvas>
         </div>
         <div className={bem('profile', 'div')}>
-
-          <canvas id="chart_total" width="400" height="400"></canvas>
+          <canvas id="chart_total" width="350" height="350"></canvas>
+        </div>
+        <div className={bem('profile', 'div',['challenge'])}>
+        <h2 className={bem('profile', 'h2')}>Challenges</h2>
+        {getContent()}
         </div>
       </article>
     </section>
