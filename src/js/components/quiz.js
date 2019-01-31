@@ -128,12 +128,31 @@ const Quiz = ({ children, ...props }) => {
       return response + ' | Player' + activePlayer
     }
   }
-  answer1= answer1.replace("&amp;", "&").replace("&quot;", '"').replace("&#039;", "'").replace("&amp;quot;",'"');
-  answer2= answer2.replace("&amp;", "&").replace("&quot;", '"').replace("&#039;", "'").replace("&amp;quot;",'"');
-  answer3= answer3.replace("&amp;", "&").replace("&quot;", '"').replace("&#039;", "'").replace("&amp;quot;",'"');
-  answer4= answer4.replace("&amp;", "&").replace("&quot;", '"').replace("&#039;", "'").replace("&amp;quot;",'"');
-  question= question.replace("&amp;", "&").replace("&quot;", '"').replace("&#039;", "'").replace("&amp;quot;",'"');
 
+  function decodeHTMLEntities(text) {
+    var entities = [
+        ['amp', '&'],
+        ['apos', '\''],
+        ['#x27', '\''],
+        ['#x2F', '/'],
+        ['#39', '\''],
+        ['#47', '/'],
+        ['lt', '<'],
+        ['gt', '>'],
+        ['nbsp', ' '],
+        ['quot', '"']
+    ];
+
+    for (var i = 0, max = entities.length; i < max; ++i) 
+        text = text.replace(new RegExp('&'+entities[i][0]+';', 'g'), entities[i][1]);
+
+    return text;
+}
+answer1=decodeHTMLEntities(answer1);
+answer2=decodeHTMLEntities(answer2);
+answer3=decodeHTMLEntities(answer3);
+answer4=decodeHTMLEntities(answer4);
+question=decodeHTMLEntities(question);
   return (
     <section className={bem('quiz')}>
       <article className={bem('question')}>
