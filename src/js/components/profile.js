@@ -1,16 +1,19 @@
 import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import bem from 'bem-names'
 import Chart from 'chart.js';
-import router from '../modules/router';
+import router from './../modules/router';
+import { allQuestionSets } from './../modules/firebase'
 
 const Profile = () => {
-    let wrong_questions_last=1  //TODO: number aus DB
-    let correct_questions_last=4
-    let wrong_questions_total=9
-    let correct_questions_total=55
-    let challenges=['Thomas: You lost','Eva: You won', 'Magda: You won'] //TODO: challenges aus DB
-    let number_of_challenges=challenges.length;
-    let result='' 
+  let data = window.user
+  let correct_questions_last=data.answers_last_round[1]
+    let wrong_questions_last=data.answers_last_round[0]-correct_questions_last  //TODO: number aus DB
+    let correct_questions_total=data.answers_last_round[1]
+    let wrong_questions_total=data.answers_last_round[0]-correct_questions_total
+    let challenges = allQuestionSets //TODO: challenges aus DB
+    console.log('challenges: ', challenges)
+    let number_of_challenges= challenges.length;
+    let result=''
 
     setTimeout(() => {
     let ctx = document.getElementById("char_lastRound");
@@ -79,11 +82,24 @@ const Profile = () => {
 
   let getContent = () =>  {
     let content = <ul className={bem('ul')}></ul>
-    for(let i = 1; i <= number_of_challenges; i++)
-    {
-        result = challenges[i-1]
-        content.appendChild(<li className={bem('ul','li')}>{result}</li>)
-    }
+    console.log('getcontent wird gerufen')
+    console.log(number_of_challenges)
+    challenges.map((x) => {
+      let result
+      if(x.done == false) {
+        result = 'not yet played'
+      }
+      else {
+        result = 'You won' ? x.points[0] > x.points[1] : 'You lost'
+      }
+      console.log('mapping: ', x)
+      content.appendChild(<li className={bem('ul','li')}>{x.players[1]}<span>{result}</span></li>)
+    })
+    // for(let i = 1; i <= number_of_challenges; i++)
+    // {
+    //     result = challenges[i-1]
+    //     content.appendChild(<li className={bem('ul','li')}>{result}</li>)
+    // }
     return content
   }
 
