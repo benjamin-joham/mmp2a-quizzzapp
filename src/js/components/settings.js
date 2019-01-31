@@ -26,7 +26,7 @@ const Settings = () => {
   return (
     <section class={bem('settings')}>
       <div class={bem('settings', 'div')}>
-        <h1 class={bem('settings', 'h1')}>Number of Players</h1>
+        <h2 class={bem('settings', 'h2')}>Number of Players</h2>
         <div class={bem('settings', 'div', ['players'])}>
           <button id='btn_players_active' class={bem('settings', 'button')} onClick={ clickhandlerPlayers } value='1'>1</button>
           <button class={bem('settings', 'button')} onClick={ clickhandlerPlayers } value='2'>2</button>
@@ -35,7 +35,7 @@ const Settings = () => {
         </div>
       </div>
       <div class={bem('settings', 'div')}>
-        <h1 class={bem('settings', 'h1')}>Number of Questions</h1>
+        <h2 class={bem('settings', 'h2')}>Number of Questions</h2>
         <div class={bem('settings', 'div', ['questions'])}>
           <button id='btn_questions_active' class={bem('settings', 'button')} onClick={ clickhandlerQuestions } value='5'>5</button>
           <button class={bem('settings', 'button')} onClick={ clickhandlerQuestions } value='10'>10</button>

@@ -16,10 +16,11 @@
       justify-content: space-around;
     }
   }
-  &__h1{
+  &__h2{
       background-color: $darker_blue_70;
       padding: 5%;
       border-radius: 2%;
+      text-align: center;
     }
     .settings__div{
       display: flex;
