@@ -28,7 +28,6 @@ router.notFound(() => {
   <h1>404 Page not found :(</h1>
   <a href='#' onClick={() => {
               event.preventDefault();
-              //hol fragen aus datenbank
               router.navigate('/')}}>Back to the beginning...
               </a>
   </div>
