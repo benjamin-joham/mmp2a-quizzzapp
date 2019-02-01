@@ -211,7 +211,7 @@ export const updateFirestore = async () => {
           })
 
       db.collection('questionset')
-        .where("players", 'array-contains', window.user.displayName)
+        .where("players", 'array-contains', window.user.name)
         .get()
         .then( (e) => {
           e.forEach((i) => {
