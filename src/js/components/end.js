@@ -14,36 +14,12 @@ let button3_text = 'Challenge a friend!'
 let result=''
 let logged_in=window.user;
 
-const resultContainer = document.querySelector('.end__div')
-console.log("BAGUETTE",window.questions)
+// const resultContainer = document.querySelector('.end__div')
+// console.log("BAGUETTE",window.questions)
+
 let checkIfNumber = (number) => {
   if(number != null) { return number }
   else { return 0 }
-}
-
-function sendChallenge(){
-  let questionarr =[]
-  let answers ={}
-  let answerarr
-
-  for(let i =0; i < questions_total; i++)
-  {
-    answerarr = []
-    questionarr.push(window.questions[i].question)
-    answerarr.push(window.questions[i].correct_answer)
-    window.questions[i].incorrect_answers.forEach(wrong => {
-      answerarr.push(wrong)
-    })
-    // console.log(answerarr)
-    answers.correct = answerarr[0]
-    answers.wrong = [answerarr[1], answerarr[2], answerarr[3]]
-  }
-  let user=window.user
-  let challenger='Benjamin Joham'
-  // console.log(questionarr)
-  // console.log(answerarr)
-  // console.log(answers)
-  AddNewQuestionsetToFirestore(questionarr, answers, user.name, challenger, localStorage.getItem('scores')[0])
 }
 
 let getContent = () =>  {
@@ -94,12 +70,12 @@ let sendChallenge = async (challenger) =>{
     answers.wrong = [answerarr[1], answerarr[2], answerarr[3]]
     data[i] = {
       question: window.questions[i].question,
-      answer_correct: answerarr[0],
-      answers_wrong: [answerarr[1], answerarr[2], answerarr[3]]
+      correct_answer: answerarr[0],
+      incorrect_answers: [answerarr[1], answerarr[2], answerarr[3]]
     }
   }
-  console.log('q&a', data)
-  console.log(Object.values(data).length)
+  // console.log('q&a', data)
+  // console.log(Object.values(data).length)
   // console.log(questionarr)
   // console.log(answerarr)
   // console.log(answers)
@@ -111,11 +87,14 @@ let sendChallenge = async (challenger) =>{
   container.innerHTML = ''
 
   container.appendChild(<h1>{response}</h1>)
+  setTimeout(() => {
+    router.navigate('/profile')
+  }, 1000);
 }
 
 const showChallenger = async () => {
   let users = await GetAllUsers()
-  console.log(users)
+  // console.log(users)
   // console.log(users.then(i => console.log(i)))
   let container  = document.querySelector('section.end')
   let select = <select id='challenger' name="challenger" size="5" onClick={(e) => console.log(e.target)}></select>
@@ -152,7 +131,7 @@ let addButtons = () => {
         <button className={bem('button')} onClick={() => router.navigate('/profile')}>
         {button1_text}
       </button>
-        <button className={bem('button')} onClick={() => sendChallenge()}>
+        <button className={bem('button')} onClick={() => showChallenger()}>
         {button3_text}
       </button>
       </div>

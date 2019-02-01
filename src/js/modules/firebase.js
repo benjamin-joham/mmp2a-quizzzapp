@@ -88,7 +88,7 @@ const AddUserToFirestore = (name, email, nickname) => {
       else {
         console.log('User already exists: ', user.data())
         window.user = user.data()
-        GetQuestionsets(window.user.name)
+        allQuestionSets = GetQuestionsets(window.user.name)
         // test()
         // let questions = ['eins','zwei']
         // let answers = ['a','b']
@@ -112,10 +112,11 @@ export const AddNewQuestionsetToFirestore = async (data, User, Challenger, userP
     q_a_total: data,
     players: [User, Challenger],
     done: false,
-    points: [userPoints, 0]
+    points: [userPoints, 0],
+    challenged_on: new Date().getTime()
     })
     .then(() => {
-      resolve(Challenger + 'has been challenged')
+      resolve(Challenger + ' has been challenged')
     })
     .catch(err => {
       console.log('error', err)
@@ -179,10 +180,22 @@ export const UpdateScoresOfSP = (name, total, correct) => {
 
 
 // TODO: update status of Doc whenever local or server changes happen
-db.collection("users").doc('benjamin.joham@gmail.com')
-    .onSnapshot(function(doc) {
-        var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-        console.log(source, " data: ", doc.data());
-        if(window.user){
-        }
-});
+if(window.user) {
+  db.collection("users").doc(window.user.email)
+      .onSnapshot((doc) => {
+          let source = doc.metadata.hasPendingWrites ? "Local" : "Server"
+          console.log(source, " data: ", doc.data())
+          if(window.user){
+            window.user = doc.data()
+          }
+  });
+
+  db.collection('users')
+    .where('player','array-contains', window.user.name)
+    .onSnapshot((coll) => {
+      let source = coll.metadata.hasPendingWrites ? 'Local' : 'Server'
+      console.log(source, " data: ", coll.data())
+      allQuestionSets = coll.data()
+    })
+}
+

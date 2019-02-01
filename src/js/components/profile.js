@@ -39,39 +39,60 @@ const Profile = () => {
         let rival
         let player_points
         let rival_points
-        if(x.done == false) {
-          if(window.user != x.players[1]){
-            result = <a href="#"> challenged you!</a>
-            //result = ' has not yet played.'
-            rival = x.players[1]
-        }
-          else {
-            result = <a href="#" onClick={() => {
-              event.preventDefault();
-              //hol fragen aus datenbank
-              router.navigate('quiz?mulitplayer=false&amountPlayer=1&question=1&player=1')
-            }}> challenged you!</a>
-            rival = x.players[0]
+        // check if Challenger is not current user
+        if(x.players[0] == window.user.name){
+          rival = x.players[1]
+          player_points = x.points[0]
+          rival_points = x.points[1]
+          // check if challenge is still false
+          if(!x.done) {
+            result = <p className={bem('challenge','result',['pending'])}>pending ...</p>
+          }
+          else { // challenge is already done
+            // check if player won
+            if(player_points > rival_points) {
+              result = <p className={bem('challenge','result',['done'])}>WIN - {player_points}/{rival_points}</p>
+            }
+            else if(player_points < rival_points) {
+              result = <p className={bem('challenge','result',['done'])}>Loss - {player_points}/{rival_points}</p>
+            }
+            else {
+              result = <p className={bem('challenge','result',['done'])}>Draw - {player_points}/{rival_points}</p>
+            }
           }
         }
         else {
-          if(window.user != x.players[1]){
-            rival = x.players[1]
-            player_points = x.points[0]
-            rival_points = x.points[1]
+          rival = x.players[0]
+          player_points = x.points[1]
+          rival_points = x.points[0]
+          if(!x.done) {
+            result = <p><a href='#'className={bem('challenge','result',['challenge'])} onClick={(e) => {
+              e.preventDefault()
+              window.questions = x.q_a_total
+              router.navigate('/quiz?mulitplayer=false&amountPlayer=1&question=1&player=1')
+            }}>Play Challenge</a></p>
           }
           else {
-            rival = x.players[0]
-            player_points = x.points[1]
-            frival_points = x.points[1]
+            // check if player won
+            if(player_points > rival_points) {
+              result = <p className={bem('challenge','result',['done'])}>WIN - {player_points}/{rival_points}</p>
+            }
+            else if(player_points < rival_points) {
+              result = <p className={bem('challenge','result',['done'])}>Loss - {player_points}/{rival_points}</p>
+            }
+            else {
+              result = <p className={bem('challenge','result',['done'])}>Draw - {player_points}/{rival_points}</p>
+            }
           }
-          result = rival + ' : You won' + player_points + ':' + rival_points ? player_points > rival_points : rival + ': You lost' + player_points + ':' + rival_points
         }
+        // TODO: Show profile correct and route to correct challenge
         console.log('mapping: ', x)
+
+        // append content
         content.appendChild(
           <li className={bem('ul','li')}>
-            {rival}
-            <span>{result}</span>
+            <h3>{rival}</h3>
+            {result}
           </li>
           )
       })
