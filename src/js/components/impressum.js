@@ -8,7 +8,7 @@ const Impressum = () => {
       <p className={bem('p')}>Fachhochschule Salzburg</p>
       <p className={bem('p')}>MultiMediaTechnology</p>
       <p className={bem('p')}>This single page application was built by Benjamin Joham and Viktoria Maurer during the studio week for the MulitMediaProject 2a.</p>
-      <p className={bem('p')}>The Questions are from <a className={bem('impressum', 'a',['api'])}href="https://opentdb.com/">Open Trivia DB</a>.</p>
+      <p className={bem('p')}>The Questions are from <a className={bem('impressum', 'a',['api'])} href="https://opentdb.com/" target="_blank">Open Trivia DB</a>.</p>
       <a href='#profile' className={bem('impressum', 'a',['i'])}><i class="fas fa-arrow-up"></i></a>
     </section>
   )
