@@ -193,8 +193,8 @@ export const UpdateScoresOfChallenge = (id, pointsOld, pointsNew) => {
     })
 }
 
-let testUpdate = (name) => {
-  let update = db.collection('questionset')
+let updateChallenges  = (name) => {
+  let update = db.collection('questionset').doc(id)
   let arr = []
     update.where('players','array-contains', name)
     .get()

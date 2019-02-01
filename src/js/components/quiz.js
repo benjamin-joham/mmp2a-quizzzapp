@@ -1,14 +1,15 @@
 import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import bem from 'bem-names'
 import router from './../modules/router'
-import { UpdateScoresOfSP, UpdateScoresOfChallenge } from './../modules/firebase'
+import { UpdateScoresOfSP, UpdateScoresOfChallenge, updateFirestore } from './../modules/firebase'
 
 let score = []
 console.log('initial scores: ', score)
 
 const Quiz = ({ children, ...props }) => {
   let question_and_answers = window.questions
-  let number_of_questions = question_and_answers.length
+  let number_of_questions = Object.values(question_and_answers).length
+  console.log(number_of_questions)
   let multiplayer = true ? props.multiplayer == 'true' : false
   let number_of_players = props.amountPlayer
   let activePlayer = props.player
@@ -40,6 +41,8 @@ const Quiz = ({ children, ...props }) => {
     default:
       break
   }
+  console.log("active player",activePlayer)
+  console.log("question",current_question)
 
   const checkAnswer = (event) => {
     let button_text = event.target.textContent
@@ -77,6 +80,7 @@ const Quiz = ({ children, ...props }) => {
         if (current_button.id != 'wrong' && current_button.id != 'correct') { current_button.style.visibility = 'hidden' }
       }
     }
+
     // TODO: check if all questions have been answered
     if (current_question < number_of_questions||activePlayer < number_of_players) {
       // TODO: check if all players had the question
@@ -85,8 +89,7 @@ const Quiz = ({ children, ...props }) => {
         activePlayer++
 
         setTimeout(() => {
-          console.log("active player",activePlayer)
-          console.log("question",current_question)
+          console.log('next question')
           router.navigate('quiz?mulitplayer=' + multiplayer + '&amountPlayer=' + number_of_players + '&question=' + current_question + '&player=' + activePlayer)
         }, 1500)
       }
@@ -94,6 +97,7 @@ const Quiz = ({ children, ...props }) => {
         console.log('new scores: ', score)
         activePlayer = 1
         current_question++
+        console.log('next question')
         setTimeout(() => {
           router.navigate('quiz?mulitplayer=' + multiplayer + '&amountPlayer=' + number_of_players + '&question=' + current_question + '&player=' + activePlayer)
         }, 1500)
@@ -115,19 +119,21 @@ const Quiz = ({ children, ...props }) => {
         localStorage.setItem('scores', JSON.stringify(score))
       }
       let scores = JSON.parse(localStorage.getItem('scores'))
+
+      console.log('quizzz ende!!!!!')
       if(scores.length < 2) {
         // Update Scores in Firestore
         if(window.challenge == true) {
           UpdateScoresOfChallenge(window.questionsId, window.challengeScore, score[0])
+          updateFirestore()
+          setTimeout(() => {
+            router.navigate('/profile')
+          }, 1000);
         }
         else {
           UpdateScoresOfSP(window.user.email, number_of_questions, score[0])
         }
       }
-      // if(window.challenge) {
-
-      // }
-      console.log('quizzz ende!!!!!')
       setTimeout(() => {
         router.navigate('/end')
       }, 3000)

@@ -37,7 +37,6 @@ const QuizzScreen = (params) => {
   let header = () => {
     if(window.challenge) {
       amountOfQuestions = Object.values(window.questions).length
-      console.log(window.questions.length)
       return <Header data='quiz' value={question + '/' + amountOfQuestions}/>
     }
     else {

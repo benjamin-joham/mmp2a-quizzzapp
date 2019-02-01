@@ -76,7 +76,7 @@ const Profile = () => {
               window.questions = x.q_a_total
               window.questionsId = id
               window.challenge = true
-              window.challengeScore = x.q_a_total[0]
+              window.challengeScore = x.points[0]
               console.log(window.questions)
               router.navigate('/quiz?mulitplayer=false&amountPlayer=1&question=1&player=1')
             }}>Play Challenge</a></p>
