@@ -102,19 +102,25 @@ const AddUserToFirestore = (name, email, nickname) => {
 }
 
 // TODO: Add a new questionset
-export const AddNewQuestionsetToFirestore = (questions, answers, User, Challenger, userPoints) => {
-  console.log('Add new questionset?')
-  let qSet = db.collection('questionset')
-  qSet.add({
-  amountOfQuestions: questions.length,
-  questions: questions,
-  answers: {
-    correct: [answers[0]],
-    wrong: [answers[1], answers[2], answers[3]]
-  },
-  players: [User, Challenger],
-  done: false,
-  points: [userPoints, 0]
+export const AddNewQuestionsetToFirestore = async (data, User, Challenger, userPoints) => {
+  return new Promise((resolve, reject) => {
+    console.log('Add new questionset?')
+    console.log('q&a',data, 'u', User, 'c', Challenger, 'p', userPoints)
+    let qSet = db.collection('questionset')
+    qSet.add({
+    amountOfQuestions: Object.values(data).length,
+    q_a_total: data,
+    players: [User, Challenger],
+    done: false,
+    points: [userPoints, 0]
+    })
+    .then(() => {
+      resolve(Challenger + 'has been challenged')
+    })
+    .catch(err => {
+      console.log('error', err)
+      reject('Challenge failed')
+    })
   })
 }
 
