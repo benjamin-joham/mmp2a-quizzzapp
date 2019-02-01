@@ -13,12 +13,13 @@ const Quiz = ({ children, ...props }) => {
   let number_of_players = props.amountPlayer
   let activePlayer = props.player
   let current_question = props.question
-  let question=question_and_answers[current_question - 1].question
+  let question=decodeHTMLEntities(question_and_answers[current_question - 1].question)
+  let correct_ans=decodeHTMLEntities(question_and_answers[current_question - 1].correct_answer)
   let arr = [
-    question_and_answers[current_question - 1].correct_answer,
-    question_and_answers[current_question - 1].incorrect_answers[0],
-    question_and_answers[current_question - 1].incorrect_answers[1],
-    question_and_answers[current_question - 1].incorrect_answers[2]
+    correct_ans,
+    decodeHTMLEntities(question_and_answers[current_question - 1].incorrect_answers[0]),
+    decodeHTMLEntities(question_and_answers[current_question - 1].incorrect_answers[1]),
+    decodeHTMLEntities(question_and_answers[current_question - 1].incorrect_answers[2])
   ]
   let answer1 = 'A: ' + arr[0] // correct
   let answer2 = 'C: ' + arr[1]
@@ -49,7 +50,7 @@ const Quiz = ({ children, ...props }) => {
     let total = 0
     let correct = 1
 
-    if (button_text == question_and_answers[current_question - 1].correct_answer) {
+    if (button_text == correct_ans) {
       let button_id=button.id;
       document.getElementById(button_id).disabled = true;
       let buttons = document.getElementsByTagName('button')
@@ -74,7 +75,7 @@ const Quiz = ({ children, ...props }) => {
         let current_button = buttons[i]
         let button_id=current_button.id;
         document.getElementById(button_id).disabled = true;
-        if (current_button.textContent.substring(3, current_button.textContent.length) == question_and_answers[current_question - 1].correct_answer) { current_button.id = 'correct' }
+        if (current_button.textContent.substring(3, current_button.textContent.length) == correct_ans) { current_button.id = 'correct' }
         if (current_button.id != 'wrong' && current_button.id != 'correct') { current_button.style.visibility = 'hidden' }
       }
     }
@@ -138,7 +139,7 @@ const Quiz = ({ children, ...props }) => {
   }
 
   function decodeHTMLEntities(text) {
-    var entities = [
+    let entities = [
         ['amp', '&'],
         ['apos', '\''],
         ['#x27', '\''],
@@ -154,27 +155,27 @@ const Quiz = ({ children, ...props }) => {
         ['uuml', 'ü'],
         ['uuml;', 'ü'],
         ['quot', '"'],
-        ['eacute;', 'é'],
+        ['eacute', 'é'],
+        ['Eacute', 'É'],
         ['ntilde', 'ñ'],
         ['ntilde;', 'ñ'],
         ['Ntilde', 'ñ'],
         ['Ntilde;', 'ñ'],
         ['oslash', 'ø'],
-        ['szlig', 'ß'],
-        
-
+        ['szlig', 'ß']
     ];
 
-    for (var i = 0, max = entities.length; i < max; ++i) 
+    for (let i = 0, max = entities.length; i < max; ++i) 
         text = text.replace(new RegExp('&'+entities[i][0]+';', 'g'), entities[i][1]);
 
     return text;
 }
-answer1=decodeHTMLEntities(answer1);
-answer2=decodeHTMLEntities(answer2);
-answer3=decodeHTMLEntities(answer3);
-answer4=decodeHTMLEntities(answer4);
-question=decodeHTMLEntities(question);
+
+// answer1=decodeHTMLEntities(answer1);
+// answer2=decodeHTMLEntities(answer2);
+// answer3=decodeHTMLEntities(answer3);
+// answer4=decodeHTMLEntities(answer4);
+// question=decodeHTMLEntities(question);
   return (
     <section className={bem('quiz')}>
       <article className={bem('question')}>

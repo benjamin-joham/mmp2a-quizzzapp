@@ -37,6 +37,8 @@
       }
     }
     &--challenge {
+      max-height: 60vh;
+      overflow: scroll;
       ul {
         padding: 10px;
         margin: 0;
