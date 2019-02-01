@@ -1,12 +1,18 @@
 import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import * as React from 'jsx-dom'
 import bem from 'bem-names'
-import { GetAllUsers, AddNewQuestionsetToFirestore } from '../modules/firebase'
+import { GetAllUsers, AddNewQuestionsetToFirestore, updateFirestore } from '../modules/firebase'
 import router from '../modules/router'
 
 const End = ({children, ...props}) => {
 let correct_questions = JSON.parse(localStorage.getItem('scores'))
-let questions_total = window.questions.length;
+let questions_total
+if(window.challenge){
+  questions_total = Object.values(window.questions).length
+}
+else {
+  questions_total = window.questions.length;
+}
 let number_of_players = correct_questions.length;
 let button1_text = 'View statistic!'
 let button2_text = 'Play again!'
@@ -88,7 +94,7 @@ let sendChallenge = async (challenger) =>{
 
   container.appendChild(<h1>{response}</h1>)
   setTimeout(() => {
-    router.navigate('/profile')
+  router.navigate('/profile')
   }, 1000);
 }
 
@@ -128,7 +134,10 @@ let addButtons = () => {
     if(logged_in){
       return (
         <div>
-        <button className={bem('button')} onClick={() => router.navigate('/profile')}>
+        <button className={bem('button')} onClick={() => {
+          updateFirestore()
+          router.navigate('/profile')
+        }}>
         {button1_text}
       </button>
         <button className={bem('button')} onClick={() => showChallenger()}>

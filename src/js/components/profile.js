@@ -2,13 +2,14 @@ import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import bem from 'bem-names'
 import RenderChart from './../modules/chart';
 import router from './../modules/router';
-import { allQuestionSets } from './../modules/firebase'
+import { allQuestionSets, updateFirestore } from './../modules/firebase'
 import * as React from 'jsx-dom'
 
 const Profile = () => {
   let challenge= React.createRef()
 
-  setTimeout(() => {
+  setTimeout(async () => {
+  let res = await updateFirestore()
   let data = window.user
   console.log('DATA: ', window.user)
   console.log('DATA: ', window.user.answers_last_round[0,0])
@@ -27,18 +28,22 @@ const Profile = () => {
   RenderChart([wrong_questions_total, correct_questions_total], ctx2, ['wrong', 'correct'])
 
   setTimeout(() => {
-    let challenges = allQuestionSets //TODO: challenges aus DB
-    console.log('challenges: ', challenges)
-    let number_of_challenges= challenges.length;
+    let challenges = [] //TODO: challenges aus DB
+    let id = []
+    let result
+    let rival
+    let player_points
+    let rival_points
+
+    console.log('challenges: ', allQuestionSets)
+    let number_of_challenges= allQuestionSets.data.length;
 
       let content = <ul className={bem('ul')}></ul>
       console.log('getcontent wird gerufen')
       console.log(number_of_challenges)
-      challenges.map((x) => {
-        let result
-        let rival
-        let player_points
-        let rival_points
+
+      allQuestionSets.data.map((x, i) => {
+        const id = allQuestionSets.id[i]
         // check if Challenger is not current user
         if(x.players[0] == window.user.name){
           rival = x.players[1]
@@ -66,9 +71,13 @@ const Profile = () => {
           player_points = x.points[1]
           rival_points = x.points[0]
           if(!x.done) {
-            result = <p><a href='#'className={bem('challenge','result',['challenge'])} onClick={(e) => {
+            result = <p><a href='#' className={bem('challenge','result',['challenge'])} onClick={(e) => {
               e.preventDefault()
               window.questions = x.q_a_total
+              window.questionsId = id
+              window.challenge = true
+              window.challengeScore = x.points[0]
+              console.log(window.questions)
               router.navigate('/quiz?mulitplayer=false&amountPlayer=1&question=1&player=1')
             }}>Play Challenge</a></p>
           }
