@@ -126,17 +126,21 @@ const Quiz = ({ children, ...props }) => {
         if(window.challenge == true) {
           UpdateScoresOfChallenge(window.questionsId, window.challengeScore, score[0])
           updateFirestore()
-          setTimeout(() => {
-            router.navigate('/profile')
-          }, 1000);
         }
         else {
           UpdateScoresOfSP(window.user.email, number_of_questions, score[0])
         }
       }
-      setTimeout(() => {
-        router.navigate('/end')
-      }, 3000)
+      if(window.challenge) {
+        setTimeout(() => {
+          router.navigate('/profile')
+        }, 1000);
+      }
+      else {
+        setTimeout(() => {
+          router.navigate('/end')
+        }, 3000)
+      }
     }
   }
 

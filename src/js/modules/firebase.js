@@ -193,24 +193,14 @@ export const UpdateScoresOfChallenge = (id, pointsOld, pointsNew) => {
     })
 }
 
-let updateChallenges  = (name) => {
-  let update = db.collection('questionset').doc(id)
-  let arr = []
-    update.where('players','array-contains', name)
-    .get()
-    .then(x => {
-      x.forEach(i => {
-        arr.push(i.data().q_a_total)
-        console.log('single questionset', i.data())
-      })
-    })
-    update.where()
-}
 
 // TODO: update status of Doc
 export const updateFirestore = async () => {
+  let response = []
+  let id = []
+  let result = []
+  if(window.user) {
   return new Promise((resolve, reject) => {
-    if(window.user) {
       db.collection("users").doc(window.user.email)
         .get()
         .then(doc => {
@@ -219,21 +209,24 @@ export const updateFirestore = async () => {
               window.user = doc.data()
             }
           })
-        resolve('updated')
-      }
-      db.collection('users')
-        .where('player','array-contains', window.user.name)
+
+      db.collection('questionset')
+        .where("players", 'array-contains', window.user.displayName)
         .get()
-        .then(coll => {
-          coll.forEach(i => {
-            console.log(" data: ", i.data())
-            allQuestionSets.data.push(i.data())
-            allQuestionSets.id.push(i.id)
+        .then( (e) => {
+          e.forEach((i) => {
+            response.push(i.data())
+            id.push(i.id)
           })
-          // allQuestionSets = coll.data()
+          console.log('questionssets:' ,response, id)
+          console.log(response.forEach(i => result.push(i)))
+          allQuestionSets = {
+            id: id,
+            data: result
+          }
         })
-      resolve('updated')
-  })
+        .catch(err => console.log(err))
+        resolve('updated')
+    })
+  }
 }
-
-
