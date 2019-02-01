@@ -1,8 +1,9 @@
 import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import * as React from 'jsx-dom'
 import bem from 'bem-names'
-import { GetAllUsers } from '../modules/firebase'
+import { GetAllUsers, AddNewQuestionsetToFirestore } from '../modules/firebase'
 import router from '../modules/router'
+import { stringLength } from '@firebase/util';
 
 const End = ({children, ...props}) => {
 let correct_questions = JSON.parse(localStorage.getItem('scores'))
@@ -43,23 +44,77 @@ let add
       return content
   }
 }
-// AddNewQuestionsetToFirestore
+// q_a = {
+//   0: {
+//     q: string,
+//     corr: string,
+//     wrong: [a,b,c],
+//   }
+// }
+let sendChallenge = async (challenger) =>{
+  let questionarr =[]
+  let answers ={}
+  let answerarr
+  let data = {}
 
-const sendChallenge = async () => {
+  for(let i =0; i < questions_total; i++)
+  {
+    answerarr = []
+    questionarr.push(window.questions[i].question)
+    answerarr.push(window.questions[i].correct_answer)
+    window.questions[i].incorrect_answers.forEach(wrong => {
+      answerarr.push(wrong)
+    })
+    // console.log(answerarr)
+    answers.correct = answerarr[0]
+    answers.wrong = [answerarr[1], answerarr[2], answerarr[3]]
+    data[i] = {
+      question: window.questions[i].question,
+      answer_correct: answerarr[0],
+      answers_wrong: [answerarr[1], answerarr[2], answerarr[3]]
+    }
+  }
+  console.log('q&a', data)
+  console.log(Object.values(data).length)
+  // console.log(questionarr)
+  // console.log(answerarr)
+  // console.log(answers)
+  let points = JSON.parse(localStorage.getItem('scores'))
+
+  let response = await AddNewQuestionsetToFirestore(data, window.user.name, challenger, points[0])
+  let container
+  container = document.getElementsByClassName('end__div--challenge')[0]
+  container.innerHTML = ''
+
+  container.appendChild(<h1>{response}</h1>)
+}
+
+const showChallenger = async () => {
   let users = await GetAllUsers()
   console.log(users)
   // console.log(users.then(i => console.log(i)))
-  let container = document.querySelector('section.end')
-  let select = <select name="challenger" size="5"></select>
+  let container  = document.querySelector('section.end')
+  let select = <select id='challenger' name="challenger" size="5" onClick={(e) => console.log(e.target)}></select>
   {users.forEach(i => {
+    if(i != window.user.name)
     select.appendChild(<option value={i}>{i}</option>)
   })}
-
   let content = container.appendChild(
     <div className={bem('end', 'div',['challenge'])}>
-      <form action={}>
-      {select}
-      <input type="submit" value="Challenge!" />
+      <h1>Choose your Challenger</h1>
+      <form>
+        {select}
+        <button onClick={
+          (e) => {
+          e.preventDefault()
+          let element
+          element = document.getElementById('challenger')
+          let challenger = element.value
+          sendChallenge(challenger)
+          }
+        }>
+        Challenge!
+        </button>
       </form>
     </div>
   )
@@ -73,7 +128,7 @@ let addButtons = () => {
         <button className={bem('button')} onClick={() => router.navigate('/profile')}>
         {button1_text}
       </button>
-        <button className={bem('button')} onClick={() => sendChallenge()/*TODO*/}>
+        <button className={bem('button')} onClick={() => showChallenger()/*TODO*/}>
         {button3_text}
       </button>
       </div>
