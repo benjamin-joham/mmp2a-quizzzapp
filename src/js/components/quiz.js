@@ -59,7 +59,9 @@ const Quiz = ({ children, ...props }) => {
         if (buttons[i].id != 'correct') buttons[i].style.visibility = 'hidden'
       }
       // Update Scores in Firestore
+      if(window.user){
       UpdateScoresOfSP(window.user.email, 5, 2)
+      }
       if (score[activePlayer-1]) score[activePlayer-1]++
       else score[activePlayer-1] = 1
 
@@ -152,7 +154,10 @@ const Quiz = ({ children, ...props }) => {
         ['uuml', 'ü'],
         ['uuml;', 'ü'],
         ['quot', '"'],
-        ['eacute;', 'é']
+        ['eacute;', 'é'],
+        ['&ntilde', 'ñ'],
+        ['&ntilde;', 'ñ']
+
     ];
 
     for (var i = 0, max = entities.length; i < max; ++i) 
