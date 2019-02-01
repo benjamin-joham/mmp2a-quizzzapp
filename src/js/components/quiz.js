@@ -14,8 +14,8 @@ const Quiz = ({ children, ...props }) => {
   let number_of_players = props.amountPlayer
   let activePlayer = props.player
   let current_question = props.question
-  let question=decodeHTMLEntities(question_and_answers[current_question - 1].question)
-  let correct_ans=decodeHTMLEntities(question_and_answers[current_question - 1].correct_answer)
+  let question = decodeHTMLEntities(question_and_answers[current_question - 1].question)
+  let correct_ans = decodeHTMLEntities(question_and_answers[current_question - 1].correct_answer)
   let arr = [
     correct_ans,
     decodeHTMLEntities(question_and_answers[current_question - 1].incorrect_answers[0]),
@@ -42,8 +42,8 @@ const Quiz = ({ children, ...props }) => {
     default:
       break
   }
-  console.log("active player",activePlayer)
-  console.log("question",current_question)
+  console.log('active player', activePlayer)
+  console.log('question', current_question)
 
   const checkAnswer = (event) => {
     let button_text = event.target.textContent
@@ -54,8 +54,8 @@ const Quiz = ({ children, ...props }) => {
     let correct = 1
 
     if (button_text == correct_ans) {
-      let button_id=button.id;
-      document.getElementById(button_id).disabled = true;
+      let button_id = button.id
+      document.getElementById(button_id).disabled = true
       let buttons = document.getElementsByTagName('button')
       document.querySelector('.question__h2').innerHTML = 'CORRECT'
       button.id = 'correct'
@@ -63,29 +63,28 @@ const Quiz = ({ children, ...props }) => {
         if (buttons[i].id != 'correct') buttons[i].style.visibility = 'hidden'
       }
 
-      if (score[activePlayer-1]) score[activePlayer-1]++
+      if (score[activePlayer - 1]) score[activePlayer - 1]++
       else {
-        score[activePlayer-1] = 1
+        score[activePlayer - 1] = 1
       }
-    }
-    else {
+    } else {
       button.id = 'wrong'
       let buttons = document.getElementsByTagName('button')
       document.querySelector('.question__h2').innerHTML = 'WRONG'
 
       for (let i = 0; i < 4; i++) {
         let current_button = buttons[i]
-        let button_id=current_button.id;
-        document.getElementById(button_id).disabled = true;
+        let button_id = current_button.id
+        document.getElementById(button_id).disabled = true
         if (current_button.textContent.substring(3, current_button.textContent.length) == correct_ans) { current_button.id = 'correct' }
         if (current_button.id != 'wrong' && current_button.id != 'correct') { current_button.style.visibility = 'hidden' }
       }
     }
 
     // TODO: check if all questions have been answered
-    if (current_question < number_of_questions||activePlayer < number_of_players) {
+    if (current_question < number_of_questions || activePlayer < number_of_players) {
       // TODO: check if all players had the question
-      if(activePlayer < number_of_players) {
+      if (activePlayer < number_of_players) {
         // console.log('Quiz-Player: ', number_of_players)
         activePlayer++
 
@@ -93,8 +92,7 @@ const Quiz = ({ children, ...props }) => {
           console.log('next question')
           router.navigate('quiz?mulitplayer=' + multiplayer + '&amountPlayer=' + number_of_players + '&question=' + current_question + '&player=' + activePlayer)
         }, 1500)
-      }
-      else {
+      } else {
         console.log('new scores: ', score)
         activePlayer = 1
         current_question++
@@ -103,17 +101,14 @@ const Quiz = ({ children, ...props }) => {
           router.navigate('quiz?mulitplayer=' + multiplayer + '&amountPlayer=' + number_of_players + '&question=' + current_question + '&player=' + activePlayer)
         }, 1500)
       }
-    }
-    else if (current_question == number_of_questions) {
-      if (score.length == number_of_players){
+    } else if (current_question == number_of_questions) {
+      if (score.length == number_of_players) {
         localStorage.setItem('scores', JSON.stringify(score))
-      }
-      else{
-        for(let i = 0; i < number_of_players; i++) {
-          if (score[i]){
+      } else {
+        for (let i = 0; i < number_of_players; i++) {
+          if (score[i]) {
             continue
-          }
-          else {
+          } else {
             score[i] = 0
           }
         }
@@ -122,22 +117,25 @@ const Quiz = ({ children, ...props }) => {
       let scores = JSON.parse(localStorage.getItem('scores'))
 
       console.log('quizzz ende!!!!!')
-      if(scores.length < 2) {
+      if (scores.length < 2) {
         // Update Scores in Firestore
-        if(window.challenge == true) {
+        if (window.challenge == true) {
           UpdateScoresOfChallenge(window.questionsId, window.challengeScore, score[0])
           updateFirestore()
-        }
-        else {
-          UpdateScoresOfSP(window.user.email, number_of_questions, score[0])
+        } else {
+          if(window.user) {
+            UpdateScoresOfSP(window.user.email, number_of_questions, score[0])
+          }
+          else {
+            router.navigate('/end')
+          }
         }
       }
-      if(window.challenge) {
+      if (window.challenge) {
         setTimeout(() => {
           router.navigate('/profile')
-        }, 1000);
-      }
-      else {
+        }, 1000)
+      } else {
         setTimeout(() => {
           router.navigate('/end')
         }, 3000)
@@ -145,71 +143,67 @@ const Quiz = ({ children, ...props }) => {
     }
   }
 
-
-    // if()
-
-
+  // if()
 
   const displayNumberOfQuestionAndPlayer = () => {
     let response = 'Question ' + current_question
-    if(multiplayer == false) {
+    if (multiplayer == false) {
       return response
-    }
-    else {
+    } else {
       return response + ' | Player' + activePlayer
     }
   }
 
   const displayChallenge = (props) => {
     let challenge
-    if(props == true) {
-      challenge = <h1 className={bem('quiz','h1',['challenge'])} >Challenge</h1>
+    if (props == true) {
+      challenge = <h1 className={bem('quiz', 'h1', ['challenge'])} >Challenge</h1>
       return challenge
     }
     return challenge
   }
 
-  function decodeHTMLEntities(text) {
+  function decodeHTMLEntities (text) {
     let entities = [
-        ['amp', '&'],
-        ['apos', '\''],
-        ['#x27', '\''],
-        ['#x2F', '/'],
-        ['#39', '\''],
-        ['#039', '\''],
-        ['#47', '/'],
-        ['lt', '<'],
-        ['gt', '>'],
-        ['nbsp', ' '],
-        ['Uuml;', 'Ü'],
-        ['Uuml', 'Ü'],
-        ['uuml', 'ü'],
-        ['uuml;', 'ü'],
-        ['quot', '"'],
-        ['eacute', 'é'],
-        ['Eacute', 'É'],
-        ['ntilde', 'ñ'],
-        ['ntilde;', 'ñ'],
-        ['Ntilde', 'ñ'],
-        ['Ntilde;', 'ñ'],
-        ['oslash', 'ø'],
-        ['szlig', 'ß']
-    ];
+      ['amp', '&'],
+      ['apos', '\''],
+      ['#x27', '\''],
+      ['#x2F', '/'],
+      ['#39', '\''],
+      ['#039', '\''],
+      ['#47', '/'],
+      ['lt', '<'],
+      ['gt', '>'],
+      ['nbsp', ' '],
+      ['Uuml;', 'Ü'],
+      ['Uuml', 'Ü'],
+      ['uuml', 'ü'],
+      ['uuml;', 'ü'],
+      ['quot', '"'],
+      ['eacute', 'é'],
+      ['Eacute', 'É'],
+      ['ntilde', 'ñ'],
+      ['ntilde;', 'ñ'],
+      ['Ntilde', 'ñ'],
+      ['Ntilde;', 'ñ'],
+      ['oslash', 'ø'],
+      ['szlig', 'ß']
+    ]
 
     for (let i = 0, max = entities.length; i < max; ++i) {
-        text = text.replace(new RegExp('&'+entities[i][0]+';', 'g'), entities[i][1]);
+      text = text.replace(new RegExp('&' + entities[i][0] + ';', 'g'), entities[i][1])
     }
-    return text;
-}
+    return text
+  }
 
-// answer1=decodeHTMLEntities(answer1);
-// answer2=decodeHTMLEntities(answer2);
-// answer3=decodeHTMLEntities(answer3);
-// answer4=decodeHTMLEntities(answer4);
-// question=decodeHTMLEntities(question);
+  // answer1=decodeHTMLEntities(answer1);
+  // answer2=decodeHTMLEntities(answer2);
+  // answer3=decodeHTMLEntities(answer3);
+  // answer4=decodeHTMLEntities(answer4);
+  // question=decodeHTMLEntities(question);
   return (
     <section className={bem('quiz')}>
-    {displayChallenge(props.challenge)}
+      {displayChallenge(props.challenge)}
       <article className={bem('question')}>
         <h2 role="alert" className={bem('question', 'h2')}>{ displayNumberOfQuestionAndPlayer() }</h2>
         <p className={bem('question', 'p')}>{question}</p>

@@ -3,11 +3,10 @@ import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import LoginScreen from '../partials/loginScreen'
 import StartScreen from '../partials/startScreen'
 import QuizzScreen from '../partials/quizzScreen'
-import ProfileScreen from '../partials/profileScreen';
-import EndScreen from '../partials/endScreen';
-import { checkAuthState } from './firebase';
+import ProfileScreen from '../partials/profileScreen'
+import EndScreen from '../partials/endScreen'
+import { checkAuthState } from './firebase'
 import bem from 'bem-names'
-
 
 const router = new Navigo(window.location.origin)
 
@@ -27,12 +26,13 @@ const body = document.querySelector('body')
 router.notFound(() => {
   body.appendChild(
     <div className={bem('notfound', 'div')}>
-  <h1>404 Page not found :(</h1>
-  <a href='#' onClick={() => {
-              event.preventDefault();
-              router.navigate('/')}}>Back to the beginning...
-              </a>
-  </div>
+      <h1>404 Page not found :(</h1>
+      <a href='#' onClick={() => {
+        event.preventDefault()
+        router.navigate('/')
+      }}>Back to the beginning...
+      </a>
+    </div>
   )
   console.log('404')
 })
@@ -59,20 +59,19 @@ router
         body.innerHTML = ''
         body.appendChild(<EndScreen />)
       },
-      'profile':()=>{
-        body.innerHTML=''
+      'profile': () => {
+        body.innerHTML = ''
         body.appendChild(<ProfileScreen />)
       }
     })
 
-
-router.hooks ({
+router.hooks({
   after: () => {
     callbacks.forEach(callback => callback(null))
   }
 })
 
-export function updateHook(callback) {
+export function updateHook (callback) {
   callbacks.push(callback)
 }
 

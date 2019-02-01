@@ -25,21 +25,19 @@ const QuizzScreen = (params) => {
 
   // console.log(queryData[0])
   let quiz = () => {
-    if(window.challenge) {
+    if (window.challenge) {
       amountOfQuestions = window.challenge.length
       return <Quiz challenge={true} multiplayer={multiplayer} amountPlayer={player} question={question} player={activePlayer}/>
-    }
-    else {
+    } else {
       return <Quiz challenge = {false} multiplayer={multiplayer} amountPlayer={player} question={question} player={activePlayer}/>
     }
   }
 
   let header = () => {
-    if(window.challenge) {
+    if (window.challenge) {
       amountOfQuestions = Object.values(window.questions).length
       return <Header data='quiz' value={question + '/' + amountOfQuestions}/>
-    }
-    else {
+    } else {
       return <Header data='quiz' value={question + '/' + amountOfQuestions}/>
     }
   }
@@ -50,7 +48,7 @@ const QuizzScreen = (params) => {
     <div id='root'>
       {header()}
       <main className={window.challenge == true ? 'quiz--challenge' : ''}>
-      {quiz()}
+        {quiz()}
       </main>
     </div>
   )

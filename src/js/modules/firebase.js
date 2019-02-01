@@ -20,7 +20,6 @@ firebase.initializeApp(config)
 const callbacks = []
 export let allQuestionSets
 
-
 // TODO: StateHandler for before hook Navigo
 export async function checkAuthState () {
   firebase.auth().onAuthStateChanged((user) => {
@@ -34,7 +33,7 @@ firebase.auth().onAuthStateChanged(async (user) => {
   window.user = user
   callbacks.forEach(callback => callback(user))
 
-  if(user) {
+  if (user) {
     console.log('User is logged in successful')
     // testUpdate(user.displayName)
     GetAllUsers()
@@ -64,29 +63,27 @@ export const userLogout = async () => {
     .catch(error => error)
 }
 
-
 // TODO: Firebase Firestore
 const db = firebase.firestore()
 
 const AddUserToFirestore = (name, email, nickname) => {
-  let checkUser = db.collection('users').doc(email) //.doc(email)
+  let checkUser = db.collection('users').doc(email) // .doc(email)
   checkUser
     .get()
     .then(user => {
-      if(!user.exists) {
+      if (!user.exists) {
         console.log('User not existing')
         let userData = {
           name: name,
           email: email,
           nickname: nickname,
-          answers_last_round: [0,0],
-          answers_total: [0,0]
+          answers_last_round: [0, 0],
+          answers_total: [0, 0]
         }
         checkUser.set(userData)
         window.user = userData
         allQuestionSets = GetQuestionsets(window.user.name)
-      }
-      else {
+      } else {
         console.log('User already exists: ', user.data())
         window.user = user.data()
         allQuestionSets = GetQuestionsets(window.user.name)
@@ -106,23 +103,23 @@ const AddUserToFirestore = (name, email, nickname) => {
 export const AddNewQuestionsetToFirestore = async (data, User, Challenger, userPoints) => {
   return new Promise((resolve, reject) => {
     console.log('Add new questionset?')
-    console.log('q&a',data, 'u', User, 'c', Challenger, 'p', userPoints)
+    console.log('q&a', data, 'u', User, 'c', Challenger, 'p', userPoints)
     let qSet = db.collection('questionset')
     qSet.add({
-    amountOfQuestions: Object.values(data).length,
-    q_a_total: data,
-    players: [User, Challenger],
-    done: false,
-    points: [userPoints, 0],
-    challenged_on: new Date().getTime()
+      amountOfQuestions: Object.values(data).length,
+      q_a_total: data,
+      players: [User, Challenger],
+      done: false,
+      points: [userPoints, 0],
+      challenged_on: new Date().getTime()
     })
-    .then(() => {
-      resolve(Challenger + ' has been challenged')
-    })
-    .catch(err => {
-      console.log('error', err)
-      reject('Challenge failed')
-    })
+      .then(() => {
+        resolve(Challenger + ' has been challenged')
+      })
+      .catch(err => {
+        console.log('error', err)
+        reject('Challenge failed')
+      })
   })
 }
 
@@ -132,14 +129,14 @@ const GetQuestionsets = (name) => {
   let id = []
   let result = []
   db.collection('questionset')
-    .where("players", 'array-contains', name)
+    .where('players', 'array-contains', name)
     .get()
-    .then( (e) => {
+    .then((e) => {
       e.forEach((i) => {
         response.push(i.data())
         id.push(i.id)
       })
-      console.log('questionssets:' ,response, id)
+      console.log('questionssets:', response, id)
       console.log(response.forEach(i => result.push(i)))
       allQuestionSets = {
         id: id,
@@ -154,11 +151,11 @@ export const GetAllUsers = () => {
     let allUsers = []
     db.collection('users')
       .get()
-      .then( snapshot => {
+      .then(snapshot => {
         snapshot.forEach(user => {
           allUsers.push(user.data().name)
         })
-        console.log('Challenger: ',allUsers)
+        console.log('Challenger: ', allUsers)
         resolve(allUsers)
       })
   })
@@ -177,8 +174,8 @@ export const UpdateScoresOfSP = (name, total, correct) => {
       console.log('total ', total_total)
       console.log('correct ', correct_total)
       update.update({
-          answers_last_round: [total, correct],
-          answers_total: [total_total, correct_total]
+        answers_last_round: [total, correct],
+        answers_total: [total_total, correct_total]
       })
     })
     .catch(err => console.log('Can not update Score - ', err))
@@ -193,32 +190,31 @@ export const UpdateScoresOfChallenge = (id, pointsOld, pointsNew) => {
     })
 }
 
-
 // TODO: update status of Doc
 export const updateFirestore = async () => {
   let response = []
   let id = []
   let result = []
-  if(window.user) {
-  return new Promise((resolve, reject) => {
-      db.collection("users").doc(window.user.email)
+  if (window.user) {
+    return new Promise((resolve, reject) => {
+      db.collection('users').doc(window.user.email)
         .get()
         .then(doc => {
-            console.log(" data: ", doc.data())
-            if(window.user){
-              window.user = doc.data()
-            }
-          })
+          console.log(' data: ', doc.data())
+          if (window.user) {
+            window.user = doc.data()
+          }
+        })
 
       db.collection('questionset')
-        .where("players", 'array-contains', window.user.name)
+        .where('players', 'array-contains', window.user.name)
         .get()
-        .then( (e) => {
+        .then((e) => {
           e.forEach((i) => {
             response.push(i.data())
             id.push(i.id)
           })
-          console.log('questionssets:' ,response, id)
+          console.log('questionssets:', response, id)
           console.log(response.forEach(i => result.push(i)))
           allQuestionSets = {
             id: id,
@@ -226,7 +222,7 @@ export const updateFirestore = async () => {
           }
         })
         .catch(err => console.log(err))
-        resolve('updated')
+      resolve('updated')
     })
   }
 }

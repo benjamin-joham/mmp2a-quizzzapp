@@ -14,63 +14,60 @@ const handleSignout = async event => {
 const Header = ({ children, ...props }) => {
   const header_right = React.createRef()
 
-
-  const updateHeaderAuth = (user => {
+  const updateHeaderAuth = user => {
     header_right.current.innerHTML = ''
 
-    if(!user) {
+    if (!user) {
       user = window.user
     }
 
     if (user) {
-      if(props.data == 'quiz') {
+      if (props.data == 'quiz') {
         header_right.current.appendChild(
           <a href='#' onClick={() => {
-            event.preventDefault();
+            event.preventDefault()
             router.navigate('/start')
           }}>
             <i class="fas fa-times"></i>
           </a>
         )
-      }
-      else {
+      } else {
         header_right.current.appendChild(
-          <a href='#' onClick={() => { 
-            event.preventDefault(); 
+          <a href='#' onClick={() => {
+            event.preventDefault()
             router.navigate('/profile')
           } }>Profile </a>
         )
         header_right.current.appendChild(
           <a href='#' onClick={() => {
-            event.preventDefault();
+            event.preventDefault()
             handleSignout()
           }}> Logout</a>
         )
       }
     } else {
-      if(props.data == 'quiz') {
+      if (props.data == 'quiz') {
         header_right.current.appendChild(
           <a href='#' onClick={() => {
-            event.preventDefault();
+            event.preventDefault()
             router.navigate('/start')
-            }}>
+          }}>
             <i class="fas fa-times"></i>
           </a>
         )
-      }
-      else {
+      } else {
         header_right.current.appendChild(
           <a href='#' onClick={
             async (e) => {
-            let response = await Firebase.userLogin()
-            event.preventDefault();
-            if (response) router.navigate('/start')
+              let response = await Firebase.userLogin()
+              event.preventDefault()
+              if (response) router.navigate('/start')
             }
           }>Login</a>
         )
       }
     }
-  })
+  }
 
   let inQuiz
   if (props.data == 'quiz') {
@@ -83,12 +80,12 @@ const Header = ({ children, ...props }) => {
   return (
     <header className="header">
       <div id="header_left">
-        <img src={logo} alt="App-Logo" id="header_logo" className={bem('header','img')} />
+        <img src={logo} alt="App-Logo" id="header_logo" className={bem('header', 'img')} />
       </div>
-      <div className={bem('header','div',['center'])}>
+      <div className={bem('header', 'div', ['center'])}>
         {inQuiz}
       </div>
-      <div ref={header_right} className={bem('header','div',['right'])}>
+      <div ref={header_right} className={bem('header', 'div', ['right'])}>
       </div>
     </header>
   )

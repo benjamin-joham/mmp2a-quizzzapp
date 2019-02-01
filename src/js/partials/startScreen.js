@@ -24,10 +24,7 @@ const clickHandler = async (event) => {
     })
     .then(() => {
       localStorage.removeItem('scores')
-      if(players.value > 1)
-        router.navigate('/quiz?mulitplayer=true&amountPlayer=' + players.value + '&question=1&player=1')
-      else
-        router.navigate('/quiz?mulitplayer=false&amountPlayer=' + players.value + '&question=1&player=1')
+      if (players.value > 1) { router.navigate('/quiz?mulitplayer=true&amountPlayer=' + players.value + '&question=1&player=1') } else { router.navigate('/quiz?mulitplayer=false&amountPlayer=' + players.value + '&question=1&player=1') }
     })
   )
 
