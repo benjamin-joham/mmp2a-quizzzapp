@@ -1,7 +1,7 @@
 import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import bem from 'bem-names'
 import router from './../modules/router'
-import { UpdateScoresOfSP } from './../modules/firebase'
+import { UpdateScoresOfSP, UpdateScoresOfChallenge } from './../modules/firebase'
 
 let score = []
 console.log('initial scores: ', score)
@@ -58,12 +58,13 @@ const Quiz = ({ children, ...props }) => {
       for (let i = 0; i < 4; i++) {
         if (buttons[i].id != 'correct') buttons[i].style.visibility = 'hidden'
       }
-      // Update Scores in Firestore
-      UpdateScoresOfSP(window.user.email, 5, 2)
-      if (score[activePlayer-1]) score[activePlayer-1]++
-      else score[activePlayer-1] = 1
 
-    } else {
+      if (score[activePlayer-1]) score[activePlayer-1]++
+      else {
+        score[activePlayer-1] = 1
+      }
+    }
+    else {
       button.id = 'wrong'
       let buttons = document.getElementsByTagName('button')
       document.querySelector('.question__h2').innerHTML = 'WRONG'
@@ -85,7 +86,7 @@ const Quiz = ({ children, ...props }) => {
 
         setTimeout(() => {
           console.log("active player",activePlayer)
-        console.log("question",current_question)
+          console.log("question",current_question)
           router.navigate('quiz?mulitplayer=' + multiplayer + '&amountPlayer=' + number_of_players + '&question=' + current_question + '&player=' + activePlayer)
         }, 1500)
       }
@@ -113,6 +114,19 @@ const Quiz = ({ children, ...props }) => {
         }
         localStorage.setItem('scores', JSON.stringify(score))
       }
+      let scores = JSON.parse(localStorage.getItem('scores'))
+      if(scores.length < 2) {
+        // Update Scores in Firestore
+        if(window.challenge == true) {
+          UpdateScoresOfChallenge(window.questionsId, window.challengeScore, score[0])
+        }
+        else {
+          UpdateScoresOfSP(window.user.email, number_of_questions, score[0])
+        }
+      }
+      // if(window.challenge) {
+
+      // }
       console.log('quizzz ende!!!!!')
       setTimeout(() => {
         router.navigate('/end')
@@ -135,6 +149,15 @@ const Quiz = ({ children, ...props }) => {
     }
   }
 
+  const displayChallenge = (props) => {
+    let challenge
+    if(props == true) {
+      challenge = <h1 className={bem('quiz','h1',['challenge'])} >Challenge</h1>
+      return challenge
+    }
+    return challenge
+  }
+
   function decodeHTMLEntities(text) {
     var entities = [
         ['amp', '&'],
@@ -155,9 +178,9 @@ const Quiz = ({ children, ...props }) => {
         ['eacute;', 'é']
     ];
 
-    for (var i = 0, max = entities.length; i < max; ++i) 
+    for (let i = 0, max = entities.length; i < max; ++i) {
         text = text.replace(new RegExp('&'+entities[i][0]+';', 'g'), entities[i][1]);
-
+    }
     return text;
 }
 answer1=decodeHTMLEntities(answer1);
@@ -167,6 +190,7 @@ answer4=decodeHTMLEntities(answer4);
 question=decodeHTMLEntities(question);
   return (
     <section className={bem('quiz')}>
+    {displayChallenge(props.challenge)}
       <article className={bem('question')}>
         <h2 role="alert" className={bem('question', 'h2')}>{ displayNumberOfQuestionAndPlayer() }</h2>
         <p className={bem('question', 'p')}>{question}</p>

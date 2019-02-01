@@ -19,15 +19,39 @@ const QuizzScreen = (params) => {
   // console.log('question: ', question)
 
   let activePlayer = queryData[3].split('=')[1]
+
+  // if(queryData.length > )
   // console.log('ActivePlayer: ', activePlayer)
 
   // console.log(queryData[0])
+  let quiz = () => {
+    if(window.challenge) {
+      amountOfQuestions = window.challenge.length
+      return <Quiz challenge={true} multiplayer={multiplayer} amountPlayer={player} question={question} player={activePlayer}/>
+    }
+    else {
+      return <Quiz challenge = {false} multiplayer={multiplayer} amountPlayer={player} question={question} player={activePlayer}/>
+    }
+  }
+
+  let header = () => {
+    if(window.challenge) {
+      amountOfQuestions = Object.values(window.questions).length
+      console.log(window.questions.length)
+      return <Header data='quiz' value={question + '/' + amountOfQuestions}/>
+    }
+    else {
+      return <Header data='quiz' value={question + '/' + amountOfQuestions}/>
+    }
+  }
+
+  // console.log(window.challenge)
 
   return (
     <div id='root'>
-      <Header data='quiz' value={question + '/' + amountOfQuestions}/>
-      <main>
-        <Quiz multiplayer={multiplayer} amountPlayer={player} question={question} player={activePlayer}/>
+      {header()}
+      <main className={window.challenge == true ? 'quiz--challenge' : ''}>
+      {quiz()}
       </main>
     </div>
   )

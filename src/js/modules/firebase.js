@@ -36,6 +36,7 @@ firebase.auth().onAuthStateChanged(async (user) => {
 
   if(user) {
     console.log('User is logged in successful')
+    // testUpdate(user.displayName)
     GetAllUsers()
     AddUserToFirestore(user.displayName, user.email, '')
     // console.log(userData)
@@ -128,6 +129,7 @@ export const AddNewQuestionsetToFirestore = async (data, User, Challenger, userP
 // TODO: get all questionsets for the user
 const GetQuestionsets = (name) => {
   let response = []
+  let id = []
   let result = []
   db.collection('questionset')
     .where("players", 'array-contains', name)
@@ -135,10 +137,14 @@ const GetQuestionsets = (name) => {
     .then( (e) => {
       e.forEach((i) => {
         response.push(i.data())
+        id.push(i.id)
       })
-      console.log('questionssets:' ,response)
+      console.log('questionssets:' ,response, id)
       console.log(response.forEach(i => result.push(i)))
-      allQuestionSets = result
+      allQuestionSets = {
+        id: id,
+        data: result
+      }
     })
     .catch(err => console.log(err))
 }
@@ -177,25 +183,57 @@ export const UpdateScoresOfSP = (name, total, correct) => {
     })
     .catch(err => console.log('Can not update Score - ', err))
 }
-
-
-// TODO: update status of Doc whenever local or server changes happen
-if(window.user) {
-  db.collection("users").doc(window.user.email)
-      .onSnapshot((doc) => {
-          let source = doc.metadata.hasPendingWrites ? "Local" : "Server"
-          console.log(source, " data: ", doc.data())
-          if(window.user){
-            window.user = doc.data()
-          }
-  });
-
-  db.collection('users')
-    .where('player','array-contains', window.user.name)
-    .onSnapshot((coll) => {
-      let source = coll.metadata.hasPendingWrites ? 'Local' : 'Server'
-      console.log(source, " data: ", coll.data())
-      allQuestionSets = coll.data()
+// Update scores of SinglePlayer
+export const UpdateScoresOfChallenge = (id, pointsOld, pointsNew) => {
+  let update = db.collection('questionset').doc(id)
+  update
+    .update({
+      done: true,
+      points: [pointsOld, pointsNew]
     })
 }
+
+let testUpdate = (name) => {
+  let update = db.collection('questionset')
+  let arr = []
+    update.where('players','array-contains', name)
+    .get()
+    .then(x => {
+      x.forEach(i => {
+        arr.push(i.data().q_a_total)
+        console.log('single questionset', i.data())
+      })
+    })
+    update.where()
+}
+
+// TODO: update status of Doc
+export const updateFirestore = async () => {
+  return new Promise((resolve, reject) => {
+    if(window.user) {
+      db.collection("users").doc(window.user.email)
+        .get()
+        .then(doc => {
+            console.log(" data: ", doc.data())
+            if(window.user){
+              window.user = doc.data()
+            }
+          })
+        resolve('updated')
+      }
+      db.collection('users')
+        .where('player','array-contains', window.user.name)
+        .get()
+        .then(coll => {
+          coll.forEach(i => {
+            console.log(" data: ", i.data())
+            allQuestionSets.data.push(i.data())
+            allQuestionSets.id.push(i.id)
+          })
+          // allQuestionSets = coll.data()
+        })
+      resolve('updated')
+  })
+}
+
 

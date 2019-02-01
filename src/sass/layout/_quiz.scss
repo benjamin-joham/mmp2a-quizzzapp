@@ -1,6 +1,12 @@
 .quiz{
     text-align: center;
     padding-top:0;
+    &__h1--challenge {
+      margin-bottom: 5px;
+    }
+    &--challenge {
+      margin-top: 12vh;
+    }
 }
 .question{
         background-color: $darker_blue_60;
