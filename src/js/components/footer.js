@@ -9,21 +9,21 @@ const Footer = () => {
     
     const clickImpressum = (event) => {
             f.current.appendChild(<Impressum/>)
-            let link = document.getElementById('footer_link_impr')
-            link.style.visibility = 'hidden'
+            let link_impr = document.getElementById('footer_link_impr')
+            link_impr.style.visibility = 'hidden'
     }
 
     const clickPrivacy = (event) => {
       f.current.appendChild(<Privacy/>)
-      let link = document.getElementById('footer_link_priv')
-      link.style.visibility = 'hidden'
+      let link_priv = document.getElementById('footer_link_priv')
+      link_priv.style.visibility = 'hidden'
 }
 
 
   return (
       <div className={bem('div')} ref={f}>
       <footer className={bem('footer')}>
-        <a id='footer_link_ipmr' className={bem('footer', 'a')} href='#impressum' onClick={ clickImpressum } >About</a>
+        <a id='footer_link_impr' className={bem('footer', 'a')} href='#impressum' onClick={ clickImpressum } >About</a>
         <a id='footer_link_priv' className={bem('footer', 'a')} href='#privacy' onClick={ clickPrivacy} >Privacy</a>
     </footer>
     </div>
