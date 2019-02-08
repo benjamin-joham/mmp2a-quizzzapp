@@ -17,6 +17,11 @@
             padding-bottom: 2%;
             font-size: $medium;
         }
+        &__p{
+            @media (max-width: 360px) {
+                font-size: $large;
+            }
+        }
     }
 .answers{
         display: flex;
