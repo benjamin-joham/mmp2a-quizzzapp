@@ -4,22 +4,14 @@ import bem from 'bem-names'
 const clickhandlerPlayers = (event) => {
   console.log(event.target)
   let elem = event.target
-  if (elem.id == 'btn_players_active') {
-    elem.removeAttribute('id')
-  } else {
     document.getElementById('btn_players_active').removeAttribute('id')
     elem.id = 'btn_players_active'
-  }
 }
 const clickhandlerQuestions = (event) => {
   console.log(event.target)
   let elem = event.target
-  if (elem.id == 'btn_questions_active') {
-    elem.removeAttribute('id')
-  } else {
     document.getElementById('btn_questions_active').removeAttribute('id')
     elem.id = 'btn_questions_active'
-  }
 }
 
 const Settings = () => {
