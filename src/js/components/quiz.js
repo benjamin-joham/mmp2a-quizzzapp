@@ -187,6 +187,7 @@ const Quiz = ({ children, ...props }) => {
       ['Ntilde', 'ñ'],
       ['Ntilde;', 'ñ'],
       ['oslash', 'ø'],
+      ['rsquo', '\''],
       ['szlig', 'ß']
     ]
 
