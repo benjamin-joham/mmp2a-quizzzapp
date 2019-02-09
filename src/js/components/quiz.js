@@ -95,10 +95,11 @@ const Quiz = ({ children, ...props }) => {
       } else {
         console.log('new scores: ', score)
         activePlayer = 1
-        current_question++
         console.log('next question')
         setTimeout(() => {
+          current_question++
           router.navigate('quiz?mulitplayer=' + multiplayer + '&amountPlayer=' + number_of_players + '&question=' + current_question + '&player=' + activePlayer)
+          console.log('hieeeeeeer')
         }, 1500)
       }
     } else if (current_question == number_of_questions) {
@@ -120,26 +121,40 @@ const Quiz = ({ children, ...props }) => {
       if (scores.length < 2) {
         // Update Scores in Firestore
         if (window.challenge == true) {
-          UpdateScoresOfChallenge(window.questionsId, window.challengeScore, score[0])
-          updateFirestore()
+          setTimeout(() => {
+            UpdateScoresOfChallenge(window.questionsId, window.challengeScore, score[0])
+            updateFirestore()
+            console.log('vor profiiiiiiil')
+            router.navigate('/profile')
+          }, 1000);
         } else {
           if(window.user) {
             UpdateScoresOfSP(window.user.email, number_of_questions, score[0])
+            setTimeout(() => {
+              console.log('vor endeeeeeee mit login')
+              router.navigate('/end')
+            }, 3000)
           }
           else {
-            router.navigate('/end')
+            setTimeout(() => {
+              console.log('vor endeeeeeee ohne login')
+              router.navigate('/end')
+            }, 3000)
+            // router.navigate('/end')
           }
         }
       }
-      if (window.challenge) {
-        setTimeout(() => {
-          router.navigate('/profile')
-        }, 1000)
-      } else {
-        setTimeout(() => {
-          router.navigate('/end')
-        }, 3000)
-      }
+      // if (window.challenge) {
+      //   setTimeout(() => {
+      //     console.log('vor profiiiiiiil')
+      //     router.navigate('/profile')
+      //   }, 1000)
+      // } else {
+      //   setTimeout(() => {
+      //     console.log('vor endeeeeeee')
+      //     router.navigate('/end')
+      //   }, 3000)
+      // }
     }
   }
 
