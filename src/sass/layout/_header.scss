@@ -1,6 +1,6 @@
 .header {
   position: fixed !important;
-  z-index: 1; 
+  z-index: 1;
   top: 0 !important;
   width: 100% !important;
   background-color: $darker_blue_100;
@@ -16,6 +16,7 @@
     width: 20vw;
     height: auto;
     min-width: 200px;
+    cursor: pointer;
    }
   &__div {
     margin:auo;

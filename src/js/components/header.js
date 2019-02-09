@@ -80,7 +80,9 @@ const Header = ({ children, ...props }) => {
   return (
     <header className="header">
       <div id="header_left">
-        <img src={logo} alt="App-Logo" id="header_logo" className={bem('header', 'img')} />
+        <img src={logo} alt="App-Logo" id="header_logo" className={bem('header', 'img')} onClick={(e) => {
+          router.navigate('/')
+        }}/>
       </div>
       <div className={bem('header', 'div', ['center'])}>
         {inQuiz}
