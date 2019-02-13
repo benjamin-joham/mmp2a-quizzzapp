@@ -57,9 +57,9 @@ const Profile = () => {
             if (player_points > rival_points) {
               result = <p className={bem('challenge', 'result', ['done'])}>WIN - {player_points}/{rival_points}</p>
             } else if (player_points < rival_points) {
-              result = <p className={bem('challenge', 'result', ['done'])}>Loss - {player_points}/{rival_points}</p>
+              result = <p className={bem('challenge', 'result', ['done'])}>LOSS - {player_points}/{rival_points}</p>
             } else {
-              result = <p className={bem('challenge', 'result', ['done'])}>Draw - {player_points}/{rival_points}</p>
+              result = <p className={bem('challenge', 'result', ['done'])}>DRAW - {player_points}/{rival_points}</p>
             }
           }
         } else {
