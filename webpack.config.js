@@ -4,6 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const globImporter = require('node-sass-glob-importer')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const Dotenv = require('dotenv-webpack')
 
 module.exports = {
   entry: { main: './src/index.js' },
@@ -22,7 +24,7 @@ module.exports = {
     rules: [
       // use babel for all js files
       {
-        test: /\.js$/,
+        test: /\.js|.webmanifest$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -48,7 +50,7 @@ module.exports = {
           }
         ]
       },
-  
+
       // include fonts in your build
       {
         test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
@@ -62,7 +64,7 @@ module.exports = {
           },
         ],
       },
-  
+
       // include images in your build
       {
         test: /\.(png|svg|jpg|gif)$/,
@@ -79,7 +81,7 @@ module.exports = {
             loader: 'image-webpack-loader',
             options: {
               // best image compression settings: https://gist.github.com/LoyEgor/e9dba0725b3ddbb8d1a68c91ca5452b5
-  
+
               // png
               pngquant: {
                 speed: 1,
@@ -126,13 +128,31 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: './style.[contenthash].css',
     }),
-  
+
     // use index.html as a template
     new HtmlWebpackPlugin({
       inject: false,
       hash: true,
       template: './src/index.html',
       filename: 'index.html',
+    }),
+
+    // copy _redirect & webmanifest
+    new CopyWebpackPlugin([
+      {
+        from: './src/_redirects',
+        to: './'
+      },
+      {
+        from: './src/images/site.webmanifest',
+        to: './'
+      }
+    ]),
+
+    // dotenv
+    new Dotenv({
+      path: './.env',
+      systemvars: true,
     }),
   ],
 

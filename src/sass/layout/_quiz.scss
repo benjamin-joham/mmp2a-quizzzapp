@@ -1,23 +1,48 @@
-#quiz{
-    text-align: center; 
-    background-color: $darker_blue_60;
-    padding-top: 5vh;
-    padding-bottom: 5vh;
-    margin-bottom: 20px;
-}
-#answers{
-    display: flex;
-    padding-top:0;
-    margin: auto;
+.quiz{
     text-align: center;
-    button{
-        height: 25vh;
-        width: 45vw;
-        margin: auto;
-        margin-top: 5%;
+    padding-top:0;
+    &__h1--challenge {
+      margin-bottom: 5px;
     }
-    @media(max-width: 600px){
-        display: block;
-        margin-bottom: 5%;
+    &--challenge {
+      margin-top: 12vh;
     }
 }
+.question{
+        background-color: $darker_blue_60;
+        padding: 5vh;
+        padding-bottom: 5vh;
+        margin-bottom: 20px;
+        &__h2{
+            padding-bottom: 2%;
+            font-size: $medium;
+        }
+    }
+.answers{
+        display: flex;
+        padding-top:0;
+        margin: auto;
+        text-align: center;
+        &__button{
+            height: 25vh;
+            width: 45vw;
+            margin: auto;
+            margin-bottom: 5%;
+            @media(max-width: 400px){
+                height: auto;
+                min-height: 70px;
+            }
+        }
+        @media(max-width: 600px){
+            display: block;
+            margin-bottom: 5%;
+        }
+    }
+    #correct{
+        background-color: $green;
+        color:white;
+    }
+    #wrong{
+        background-color: $red;
+        color:white;
+    }

@@ -1,18 +1,15 @@
 main {
-  margin-top: 10vh;
+  margin-top: 15vh;
   width: 100vw;
-  background-image: url('../assets/background/background.svg');
   background-size: cover;
-  position: absolute;
-  min-height: 90vh;
   color: white;
-
   section {
     margin: 30px;
     margin-bottom: 0px;
-    padding-top: 13vh;
     border-radius: 5px;
-    
+    @media(max-width: 400px){
+      padding-top: 0;
+    }
     h1 {
       width: 100%;
       text-align: center;
@@ -27,11 +24,9 @@ main {
     height: 30%;
   }
 }
-
 #logo .flex-row img {
   width: 100%;
 }
-
 #component-buttons-links {
   .flex-row {
     div {
@@ -44,7 +39,6 @@ main {
     }
   }
 }
-
 iframe {
   margin: 0 auto;
   align-self: center;

@@ -1,39 +1,47 @@
-import { h } from 'jsx-dom'
-import bem from 'bem-names'
-// import header from './partials/header'
+import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
+import Impressum from './components/impressum'
 import Login from './components/login'
-// import login from './partials/login'
-
-
+import { Header } from './partials/header'
 
 export default class app {
-  constructor() {
-  //this.login = Login
+  constructor () {
+  // this.login = Login
     // this.login = new Login
+    this.quiz = new Quiz()
   }
-  header() {
-    //return this.test.renderLogin()
+  header (root) {
+    root.appendChild(<Header/>)
+    // if(window.user != null){
+    //   root.appendChild(<a>Profile</a>)
+    // }
+    // return this.test.renderLogin()
   }
-  footer() {
+  footer () {
 
   }
-  firebase() {
+  firebase () {
     // this.login
   }
 
-  loginPage(root) {
+  loginPage (root) {
     root.appendChild(<Login/>)
-    let google = document.getElementsByClassName('button--login')[0]
-    console.log(google)
-    google.addEventListener('click', (e) => {
-      e.preventDefault()
-      firebase()
-      console.log('login with google')
-    })
+    // let google = document.getElementsByClassName('button--login')[0]
+    // console.log(google)
+    // google.addEventListener('click', (e) => {
+    //   e.preventDefault()
+    //   // firebase()
+    //   console.log('login with google')
+    // })
   }
 
-  landingPage(root) {
-    root.appendChild(<h1>Root</h1>)
+  landingPage (root) {
+    root.appendChild(<Login/>)
+  }
+  impressum (root) {
+    root.appendChild(<Impressum/>)
+  }
 
+  profilePage (root) {
+    root.appendChild(<Profile/>)
   }
 }

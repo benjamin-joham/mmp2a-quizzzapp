@@ -1,21 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>QuizzzApp</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="<%= require('./images/apple-touch-icon.png') %>">
+  <link rel="icon" type="image/png" sizes="32x32" href="<%= require('./images/favicon-32x32.png') %>">
+  <link rel="icon" type="image/png" sizes="192x192" href="<%= require('./images/android-chrome-192x192.png') %>">
+  <link rel="icon" type="image/png" sizes="16x16" href="<%= require('./images/favicon-16x16.png') %>">
+  <link rel="mask-icon" href="<%= require('./images/safari-pinned-tab.svg') %>" color="#0051a8">
+  <link rel="icon" href="<%= require('./images/favicon.png') %>">
+  <link rel="manifest" href="./site.webmanifest">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#0051a8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="QuizzzApp: Play in single- and multiplayer mode or challenge someone else!"/>
   <!-- <link rel="stylesheet" href="webfontkit-20181225-061723/stylesheet.css"> -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
   <link rel="stylesheet" href="<%=htmlWebpackPlugin.files.chunks.main.css %>">
 </head>
 <body>
-    <%= require('./partials/_header.html') %>
-  
-  <main>
-    <!--<div id="root"></div>-->
-    <%= require('./partials/_login.html') %>
-  </main>
   <script src="<%= htmlWebpackPlugin.files.chunks.main.entry %>"></script>
 </body>
 </html>

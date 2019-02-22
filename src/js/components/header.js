@@ -1,21 +1,96 @@
-import { h } from 'jsx-dom'
+// import logo
 import logo from './../../images/QA_logo_white.svg'
+import * as React from 'jsx-dom'
+import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
+import * as Firebase from '../modules/firebase'
+import router, { updateHook } from '../modules/router'
 import bem from 'bem-names'
 
-const Header = () => {
-  return (
-    <header className='header'>
-      <div id='header_left' className={bem('header','div',['left'])}>
-        <img src={logo} alt='App-Logo' id='header_logo' className={bem('header','img')}></img>
-      </div>
-      </header>
-      )
-    }
-    export default Header
+const handleSignout = async event => {
+  Firebase.userLogout()
+  router.navigate('/')
+}
 
-    // <div id='header_middle' className={bem('header','div',['center'])}>
-    //   <span className={bem('header','span')}>1/5</span>
-    // </div>
-    // <div id='header_right' className={bem('header','div',['right'])}>
-    //   <a href='#'><i className='fas fa-times'></i></a>
-    // </div>
+const Header = ({ children, ...props }) => {
+  const header_right = React.createRef()
+
+  const updateHeaderAuth = user => {
+    header_right.current.innerHTML = ''
+
+    if (!user) {
+      user = window.user
+    }
+
+    if (user) {
+      if (props.data == 'quiz') {
+        header_right.current.appendChild(
+          <a href='#' onClick={() => {
+            event.preventDefault()
+            router.navigate('/start')
+          }}>
+            <i class="fas fa-times"></i>
+          </a>
+        )
+      } else {
+        header_right.current.appendChild(
+          <a href='#' onClick={() => {
+            event.preventDefault()
+            router.navigate('/profile')
+          } }>Profile </a>
+        )
+        header_right.current.appendChild(
+          <a href='#' onClick={() => {
+            event.preventDefault()
+            handleSignout()
+          }}> Logout</a>
+        )
+      }
+    } else {
+      if (props.data == 'quiz') {
+        header_right.current.appendChild(
+          <a href='#' onClick={() => {
+            event.preventDefault()
+            router.navigate('/start')
+          }}>
+            <i class="fas fa-times"></i>
+          </a>
+        )
+      } else {
+        header_right.current.appendChild(
+          <a href='#' onClick={
+            async (e) => {
+              let response = await Firebase.userLogin()
+              event.preventDefault()
+              if (response) router.navigate('/start')
+            }
+          }>Login</a>
+        )
+      }
+    }
+  }
+
+  let inQuiz
+  if (props.data == 'quiz') {
+    inQuiz = <h1>{props.value}</h1>
+  }
+
+  Firebase.subscribeToFirebaseAuth(updateHeaderAuth)
+  updateHook(updateHeaderAuth)
+
+  return (
+    <header className="header">
+      <div id="header_left">
+        <img src={logo} alt="App-Logo" id="header_logo" className={bem('header', 'img')} onClick={(e) => {
+          router.navigate('/')
+        }}/>
+      </div>
+      <div className={bem('header', 'div', ['center'])}>
+        {inQuiz}
+      </div>
+      <div ref={header_right} className={bem('header', 'div', ['right'])}>
+      </div>
+    </header>
+  )
+}
+
+export default Header

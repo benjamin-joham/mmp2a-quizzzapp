@@ -1,0 +1,26 @@
+{
+    "name": "QuizzzApp - MMP2A",
+    "short_name": "QuizzzApp",
+    "start_url": "./",
+    "lang": "en-US",
+    "icons": [
+        {
+            "src": "./images/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "./images/android-chrome-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+          "src": "./images/apple-touch-icon.png",
+          "sizes": "180x180",
+          "type": "image/png"
+        }
+    ],
+    "theme_color": "#0051a8",
+    "background_color": "#0051a8",
+    "display": "standalone"
+}
