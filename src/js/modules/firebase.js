@@ -5,7 +5,7 @@ import 'firebase/firestore'
 import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 
 let config = {
-  apiKey: 'AIzaSyCYwYxJ-Mmwz47-PpFXtdONtBjUUDR8-7E',
+  apiKey: process.env.FIREBASE_KEY,
   authDomain: 'mmp2a-85c2b.firebaseapp.com',
   databaseURL: 'https://mmp2a-85c2b.firebaseio.com/',
   projectId: 'mmp2a-85c2b',
