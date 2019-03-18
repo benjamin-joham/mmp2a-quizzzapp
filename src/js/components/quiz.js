@@ -53,16 +53,18 @@ const Quiz = ({ children, ...props }) => {
     let button = event.target
     let buttons = document.getElementsByTagName('button')
     let correctAnswer=decodeHTMLEntities(completeQuestion[currentQuestion - 1].correct_answer)
+
     if (buttonText == correctAnswer) {
       let buttonID = button.id
       document.getElementById(buttonID).disabled = true
       document.querySelector('.question__h2').innerHTML = 'CORRECT'
       button.id = 'correct'
 
-      if (score[activePlayer - 1]) score[activePlayer - 1]++
-      else {
-        score[activePlayer - 1] = 1
-      }
+      score[activePlayer - 1] ? score[activePlayer - 1]++ : score[activePlayer - 1] = 1
+      // if (score[activePlayer - 1]) score[activePlayer - 1]++
+      // else {
+      //   score[activePlayer - 1] = 1
+      // }
     } else {
       button.id = 'wrong'
       document.querySelector('.question__h2').innerHTML = 'WRONG'
