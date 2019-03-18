@@ -5,12 +5,10 @@ import decodeHTMLEntities from './../modules/decoder'
 import { UpdateScoresOfSP, UpdateScoresOfChallenge, updateFirestore } from './../modules/firebase'
 
 let score = []
-console.log('initial scores: ', score)
 
 const Quiz = ({ children, ...props }) => {
   let completeQuestion = window.questions
   let numberOfQuestions = Object.values(completeQuestion).length
-  console.log(numberOfQuestions)
   let multiplayer = true ? props.multiplayer == 'true' : false
   let numberOfPlayers = props.amountPlayer
   let activePlayer = props.player
@@ -22,35 +20,38 @@ const Quiz = ({ children, ...props }) => {
     decodeHTMLEntities(completeQuestion[currentQuestion - 1].incorrect_answers[1]),
     decodeHTMLEntities(completeQuestion[currentQuestion - 1].incorrect_answers[2])
   ]
-  let answer1 = 'A: ' + answersArray[0] // correct
-  let answer2 = 'C: ' + answersArray[1]
-  let answer3 = 'B: ' + answersArray[2]
-  let answer4 = 'D: ' + answersArray[3]
+  answersArray = mixAnswers(answersArray)
 
-  let rand = Math.floor((Math.random() * 3))
-  answer1 = 'A: ' + answersArray[rand]
-  switch (rand) {
-    case 1:
-      answer2 = 'C: ' + answersArray[0] // correct
-      break
-    case 2:
-      answer3 = 'B: ' + answersArray[0]
-      break
-    case 3:
-      answer4 = 'D: ' + answersArray[0]
-      break
-    default:
-      break
+  function mixAnswers(answersArray){
+    answersArray[0] = 'A: ' + answersArray[0] // correct
+    answersArray[1]= 'C: ' + answersArray[1]
+    answersArray[2]= 'B: ' + answersArray[2]
+    answersArray[3] = 'D: ' + answersArray[3]
+  
+    let rand = Math.floor((Math.random() * 3))
+    answersArray[0] = 'A: ' + answersArray[rand]
+    switch (rand) {
+      case 1:
+      answersArray[1] = 'C: ' + answersArray[0] // correct
+        break
+      case 2:
+      answersArray[2] = 'B: ' + answersArray[0]
+        break
+      case 3:
+      answersArray[3] = 'D: ' + answersArray[0]
+        break
+      default:
+        break
+    }
+      return answersArray  
   }
-  console.log('active player', activePlayer)
-  console.log('question', currentQuestion)
 
   const checkAnswer = (event) => {
     let buttonText = event.target.textContent
     let button = event.target
     buttonText = buttonText.substring(3, buttonText.length)
-
-    if (buttonText == correct_answer) {
+    let correctAnswer=decodeHTMLEntities(completeQuestion[currentQuestion - 1].correct_answer)
+    if (buttonText == correctAnswer) {
       let buttonID = button.id
       document.getElementById(buttonID).disabled = true
       let buttons = document.getElementsByTagName('button')
@@ -73,29 +74,23 @@ const Quiz = ({ children, ...props }) => {
         let currenButton = buttons[i]
         let buttonID = currenButton.id
         document.getElementById(buttonID).disabled = true
-        if (currenButton.textContent.substring(3, currenButton.textContent.length) == correct_answer) { currenButton.id = 'correct' }
+        if (currenButton.textContent.substring(3, currenButton.textContent.length) == correctAnswer) { currenButton.id = 'correct' }
         if (currenButton.id != 'wrong' && currenButton.id != 'correct') { currenButton.style.visibility = 'hidden' }
       }
     }
 
-    // TODO: check if all questions have been answered
     if (currentQuestion < numberOfQuestions || activePlayer < numberOfPlayers) {
-      // TODO: check if all players had the question
       if (activePlayer < numberOfPlayers) {
         activePlayer++
 
         setTimeout(() => {
-          console.log('next question')
           router.navigate('quiz?mulitplayer=' + multiplayer + '&amountPlayer=' + numberOfPlayers + '&question=' + currentQuestion + '&player=' + activePlayer)
         }, 1500)
       } else {
-        console.log('new scores: ', score)
         activePlayer = 1
-        console.log('next question')
         setTimeout(() => {
           currentQuestion++
           router.navigate('quiz?mulitplayer=' + multiplayer + '&amountPlayer=' + numberOfPlayers + '&question=' + currentQuestion + '&player=' + activePlayer)
-          console.log('hieeeeeeer')
         }, 1500)
       }
     } else if (currentQuestion == numberOfQuestions) {
@@ -113,26 +108,22 @@ const Quiz = ({ children, ...props }) => {
       }
       let scores = JSON.parse(localStorage.getItem('scores'))
 
-      console.log('quizzz ende!!!!!')
       if (scores.length < 2) {
         if (window.challenge == true) {
           setTimeout(() => {
             UpdateScoresOfChallenge(window.questionsId, window.challengeScore, score[0])
             updateFirestore()
-            console.log('vor profiiiiiiil')
             router.navigate('/profile')
           }, 1000);
         } else {
           if(window.user) {
             UpdateScoresOfSP(window.user.email, numberOfQuestions, score[0])
             setTimeout(() => {
-              console.log('vor endeeeeeee mit login')
               router.navigate('/end')
             }, 3000)
           }
           else {
             setTimeout(() => {
-              console.log('vor endeeeeeee ohne login')
               router.navigate('/end')
             }, 3000)
           }
@@ -140,6 +131,7 @@ const Quiz = ({ children, ...props }) => {
       }
     }
   }
+
 
   const displayNumberOfQuestionAndPlayer = () => {
     let response = 'Question ' + currentQuestion
@@ -167,10 +159,10 @@ const Quiz = ({ children, ...props }) => {
         <p className={bem('question', 'p')}>{question}</p>
       </article>
       <article className={bem('answers')}>
-        <p className={bem('answers', 'p')}><button id='button1' className={bem('answers', 'button')} onClick={checkAnswer}>{answer1}</button>
-          <button id='button2' className={bem('answers', 'button')} onClick={checkAnswer}>{answer2}</button></p>
-        <p className={bem('answers', 'p')}><button id='button3' className={bem('answers', 'button')} onClick={checkAnswer}>{answer3}</button>
-          <button id='button4' className={bem('answers', 'button')} onClick={checkAnswer}>{answer4}</button></p>
+        <p className={bem('answers', 'p')}><button id='button1' className={bem('answers', 'button')} onClick={checkAnswer}>{answersArray[0]}</button>
+          <button id='button2' className={bem('answers', 'button')} onClick={checkAnswer}>{answersArray[1]}</button></p>
+        <p className={bem('answers', 'p')}><button id='button3' className={bem('answers', 'button')} onClick={checkAnswer}>{answersArray[2]}</button>
+          <button id='button4' className={bem('answers', 'button')} onClick={checkAnswer}>{answersArray[3]}</button></p>
       </article>
     </section>
   )
