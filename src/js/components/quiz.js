@@ -54,8 +54,8 @@ const Quiz = ({ children, ...props }) => {
     let correct = 1
 
     if (buttonText == correctAnswerDecoded) {
-      let button_id = button.id
-      document.getElementById(button_id).disabled = true
+      let buttonID = button.id
+      document.getElementById(buttonID).disabled = true
       let buttons = document.getElementsByTagName('button')
       document.querySelector('.question__h2').innerHTML = 'CORRECT'
       button.id = 'correct'
@@ -73,11 +73,11 @@ const Quiz = ({ children, ...props }) => {
       document.querySelector('.question__h2').innerHTML = 'WRONG'
 
       for (let i = 0; i < 4; i++) {
-        let current_button = buttons[i]
-        let button_id = current_button.id
-        document.getElementById(button_id).disabled = true
-        if (current_button.textContent.substring(3, current_button.textContent.length) == correctAnswerDecoded) { current_button.id = 'correct' }
-        if (current_button.id != 'wrong' && current_button.id != 'correct') { current_button.style.visibility = 'hidden' }
+        let currenButton = buttons[i]
+        let buttonID = currenButton.id
+        document.getElementById(buttonID).disabled = true
+        if (currenButton.textContent.substring(3, currenButton.textContent.length) == correctAnswerDecoded) { currenButton.id = 'correct' }
+        if (currenButton.id != 'wrong' && currenButton.id != 'correct') { currenButton.style.visibility = 'hidden' }
       }
     }
 
@@ -140,25 +140,11 @@ const Quiz = ({ children, ...props }) => {
               console.log('vor endeeeeeee ohne login')
               router.navigate('/end')
             }, 3000)
-            // router.navigate('/end')
           }
         }
       }
-      // if (window.challenge) {
-      //   setTimeout(() => {
-      //     console.log('vor profiiiiiiil')
-      //     router.navigate('/profile')
-      //   }, 1000)
-      // } else {
-      //   setTimeout(() => {
-      //     console.log('vor endeeeeeee')
-      //     router.navigate('/end')
-      //   }, 3000)
-      // }
     }
   }
-
-  // if()
 
   const displayNumberOfQuestionAndPlayer = () => {
     let response = 'Question ' + currentQuestion
@@ -211,11 +197,6 @@ const Quiz = ({ children, ...props }) => {
     return text
   }
 
-  // answer1=decodeHTMLEntities(answer1);
-  // answer2=decodeHTMLEntities(answer2);
-  // answer3=decodeHTMLEntities(answer3);
-  // answer4=decodeHTMLEntities(answer4);
-  // question=decodeHTMLEntities(question);
   return (
     <section className={bem('quiz')}>
       {displayChallenge(props.challenge)}
