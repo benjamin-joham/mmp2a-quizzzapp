@@ -49,9 +49,6 @@ const Quiz = ({ children, ...props }) => {
     let button = event.target
     buttonText = buttonText.substring(3, buttonText.length)
 
-    let total = 0
-    let correct = 1
-
     if (buttonText == correctAnswer) {
       let buttonID = button.id
       document.getElementById(buttonID).disabled = true
