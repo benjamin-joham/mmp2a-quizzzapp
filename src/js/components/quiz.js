@@ -53,22 +53,18 @@ const Quiz = ({ children, ...props }) => {
     let button = event.target
     let buttons = document.getElementsByTagName('button')
     let correctAnswer=decodeHTMLEntities(completeQuestion[currentQuestion - 1].correct_answer)
+    let buttonID = button.id
+    document.getElementById(buttonID).disabled = true
 
     if (buttonText == correctAnswer) {
-      let buttonID = button.id
-      document.getElementById(buttonID).disabled = true
-      document.querySelector('.question__h2').innerHTML = 'CORRECT'
       button.id = 'correct'
-
+      document.querySelector('.question__h2').innerHTML = 'CORRECT'
       score[activePlayer - 1] ? score[activePlayer - 1]++ : score[activePlayer - 1] = 1
-      // if (score[activePlayer - 1]) score[activePlayer - 1]++
-      // else {
-      //   score[activePlayer - 1] = 1
-      // }
     } else {
       button.id = 'wrong'
       document.querySelector('.question__h2').innerHTML = 'WRONG'
     }
+
     for (let i = 0; i < 4; i++) {
       let currenButton = buttons[i]
       let buttonID = currenButton.id
@@ -77,6 +73,10 @@ const Quiz = ({ children, ...props }) => {
       if (currenButton.id != 'wrong' && currenButton.id != 'correct') { currenButton.style.visibility = 'hidden' }
     }
 
+    displayNextQuestion()
+  }
+
+  const displayNextQuestion = function(){
     if (currentQuestion < numberOfQuestions || activePlayer < numberOfPlayers) {
       if (activePlayer < numberOfPlayers) {
         activePlayer++
