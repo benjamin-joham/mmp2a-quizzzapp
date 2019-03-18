@@ -72,18 +72,12 @@ const Quiz = ({ children, ...props }) => {
       if (currenButton.textContent.substring(3, currenButton.textContent.length) == correctAnswer) { currenButton.id = 'correct' }
       if (currenButton.id != 'wrong' && currenButton.id != 'correct') { currenButton.style.visibility = 'hidden' }
     }
-
     displayNextQuestion()
   }
 
   const displayNextQuestion = function(){
     if (currentQuestion < numberOfQuestions || activePlayer < numberOfPlayers) {
-      if (activePlayer < numberOfPlayers) {
-        activePlayer++
-      } else {
-        activePlayer = 1
-          currentQuestion++
-      }
+      activePlayer < numberOfPlayers ? activePlayer++ : (activePlayer = 1, currentQuestion++)
       setTimeout(() => {
         router.navigate('quiz?mulitplayer=' + multiplayer + '&amountPlayer=' + numberOfPlayers + '&question=' + currentQuestion + '&player=' + activePlayer)
       }, 1500)
