@@ -51,16 +51,13 @@ const Quiz = ({ children, ...props }) => {
     let buttonText = event.target.textContent
     buttonText = buttonText.substring(3, buttonText.length)
     let button = event.target
+    let buttons = document.getElementsByTagName('button')
     let correctAnswer=decodeHTMLEntities(completeQuestion[currentQuestion - 1].correct_answer)
     if (buttonText == correctAnswer) {
       let buttonID = button.id
       document.getElementById(buttonID).disabled = true
-      let buttons = document.getElementsByTagName('button')
       document.querySelector('.question__h2').innerHTML = 'CORRECT'
       button.id = 'correct'
-      for (let i = 0; i < 4; i++) {
-        if (buttons[i].id != 'correct') buttons[i].style.visibility = 'hidden'
-      }
 
       if (score[activePlayer - 1]) score[activePlayer - 1]++
       else {
@@ -68,16 +65,14 @@ const Quiz = ({ children, ...props }) => {
       }
     } else {
       button.id = 'wrong'
-      let buttons = document.getElementsByTagName('button')
       document.querySelector('.question__h2').innerHTML = 'WRONG'
-
-      for (let i = 0; i < 4; i++) {
-        let currenButton = buttons[i]
-        let buttonID = currenButton.id
-        document.getElementById(buttonID).disabled = true
-        if (currenButton.textContent.substring(3, currenButton.textContent.length) == correctAnswer) { currenButton.id = 'correct' }
-        if (currenButton.id != 'wrong' && currenButton.id != 'correct') { currenButton.style.visibility = 'hidden' }
-      }
+    }
+    for (let i = 0; i < 4; i++) {
+      let currenButton = buttons[i]
+      let buttonID = currenButton.id
+      document.getElementById(buttonID).disabled = true
+      if (currenButton.textContent.substring(3, currenButton.textContent.length) == correctAnswer) { currenButton.id = 'correct' }
+      if (currenButton.id != 'wrong' && currenButton.id != 'correct') { currenButton.style.visibility = 'hidden' }
     }
 
     if (currentQuestion < numberOfQuestions || activePlayer < numberOfPlayers) {
