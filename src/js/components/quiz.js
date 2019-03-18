@@ -78,17 +78,13 @@ const Quiz = ({ children, ...props }) => {
     if (currentQuestion < numberOfQuestions || activePlayer < numberOfPlayers) {
       if (activePlayer < numberOfPlayers) {
         activePlayer++
-
-        setTimeout(() => {
-          router.navigate('quiz?mulitplayer=' + multiplayer + '&amountPlayer=' + numberOfPlayers + '&question=' + currentQuestion + '&player=' + activePlayer)
-        }, 1500)
       } else {
         activePlayer = 1
-        setTimeout(() => {
           currentQuestion++
-          router.navigate('quiz?mulitplayer=' + multiplayer + '&amountPlayer=' + numberOfPlayers + '&question=' + currentQuestion + '&player=' + activePlayer)
-        }, 1500)
       }
+      setTimeout(() => {
+        router.navigate('quiz?mulitplayer=' + multiplayer + '&amountPlayer=' + numberOfPlayers + '&question=' + currentQuestion + '&player=' + activePlayer)
+      }, 1500)
     } else if (currentQuestion == numberOfQuestions) {
       if (score.length == numberOfPlayers) {
         localStorage.setItem('scores', JSON.stringify(score))
