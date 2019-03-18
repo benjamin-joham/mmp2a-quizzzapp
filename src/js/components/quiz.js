@@ -1,6 +1,7 @@
 import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import bem from 'bem-names'
 import router from './../modules/router'
+import decodeHTMLEntities from './../modules/decoder'
 import { UpdateScoresOfSP, UpdateScoresOfChallenge, updateFirestore } from './../modules/firebase'
 
 let score = []
@@ -49,7 +50,7 @@ const Quiz = ({ children, ...props }) => {
     let button = event.target
     buttonText = buttonText.substring(3, buttonText.length)
 
-    if (buttonText == correctAnswer) {
+    if (buttonText == correct_answer) {
       let buttonID = button.id
       document.getElementById(buttonID).disabled = true
       let buttons = document.getElementsByTagName('button')
@@ -72,7 +73,7 @@ const Quiz = ({ children, ...props }) => {
         let currenButton = buttons[i]
         let buttonID = currenButton.id
         document.getElementById(buttonID).disabled = true
-        if (currenButton.textContent.substring(3, currenButton.textContent.length) == correctAnswer) { currenButton.id = 'correct' }
+        if (currenButton.textContent.substring(3, currenButton.textContent.length) == correct_answer) { currenButton.id = 'correct' }
         if (currenButton.id != 'wrong' && currenButton.id != 'correct') { currenButton.style.visibility = 'hidden' }
       }
     }
@@ -158,38 +159,6 @@ const Quiz = ({ children, ...props }) => {
     return challenge
   }
 
-  function decodeHTMLEntities (text) {
-    let entities = [
-      ['amp', '&'],
-      ['apos', '\''],
-      ['#x27', '\''],
-      ['#x2F', '/'],
-      ['#39', '\''],
-      ['#039', '\''],
-      ['#47', '/'],
-      ['lt', '<'],
-      ['gt', '>'],
-      ['nbsp', ' '],
-      ['Uuml;', 'Ü'],
-      ['Uuml', 'Ü'],
-      ['uuml', 'ü'],
-      ['uuml;', 'ü'],
-      ['quot', '"'],
-      ['eacute', 'é'],
-      ['Eacute', 'É'],
-      ['ntilde', 'ñ'],
-      ['ntilde;', 'ñ'],
-      ['Ntilde', 'ñ'],
-      ['Ntilde;', 'ñ'],
-      ['oslash', 'ø'],
-      ['szlig', 'ß']
-    ]
-
-    for (let i = 0, max = entities.length; i < max; ++i) {
-      text = text.replace(new RegExp('&' + entities[i][0] + ';', 'g'), entities[i][1])
-    }
-    return text
-  }
   return (
     <section className={bem('quiz')}>
       {displayChallenge(props.challenge)}
