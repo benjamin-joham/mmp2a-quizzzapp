@@ -7,20 +7,20 @@ let score = []
 console.log('initial scores: ', score)
 
 const Quiz = ({ children, ...props }) => {
-  let question_and_answers = window.questions
-  let number_of_questions = Object.values(question_and_answers).length
-  console.log(number_of_questions)
+  let completeQuestion = window.questions
+  let numberOfQuestions = Object.values(completeQuestion).length
+  console.log(numberOfQuestions)
   let multiplayer = true ? props.multiplayer == 'true' : false
-  let number_of_players = props.amountPlayer
+  let numberOfPlayers = props.amountPlayer
   let activePlayer = props.player
-  let current_question = props.question
-  let question = decodeHTMLEntities(question_and_answers[current_question - 1].question)
-  let correct_ans = decodeHTMLEntities(question_and_answers[current_question - 1].correct_answer)
+  let currentQuestion = props.question
+  let question = decodeHTMLEntities(completeQuestion[currentQuestion - 1].question)
+  let correctAnswerDecoded = decodeHTMLEntities(completeQuestion[currentQuestion - 1].correctAnswer)
   let arr = [
-    correct_ans,
-    decodeHTMLEntities(question_and_answers[current_question - 1].incorrect_answers[0]),
-    decodeHTMLEntities(question_and_answers[current_question - 1].incorrect_answers[1]),
-    decodeHTMLEntities(question_and_answers[current_question - 1].incorrect_answers[2])
+    correctAnswerDecoded,
+    decodeHTMLEntities(completeQuestion[currentQuestion - 1].incorrectAnswers[0]),
+    decodeHTMLEntities(completeQuestion[currentQuestion - 1].incorrectAnswers[1]),
+    decodeHTMLEntities(completeQuestion[currentQuestion - 1].incorrectAnswers[2])
   ]
   let answer1 = 'A: ' + arr[0] // correct
   let answer2 = 'C: ' + arr[1]
@@ -43,17 +43,17 @@ const Quiz = ({ children, ...props }) => {
       break
   }
   console.log('active player', activePlayer)
-  console.log('question', current_question)
+  console.log('question', currentQuestion)
 
   const checkAnswer = (event) => {
-    let button_text = event.target.textContent
+    let buttonText = event.target.textContent
     let button = event.target
-    button_text = button_text.substring(3, button_text.length)
+    buttonText = buttonText.substring(3, buttonText.length)
 
     let total = 0
     let correct = 1
 
-    if (button_text == correct_ans) {
+    if (buttonText == correctAnswerDecoded) {
       let button_id = button.id
       document.getElementById(button_id).disabled = true
       let buttons = document.getElementsByTagName('button')
@@ -76,37 +76,37 @@ const Quiz = ({ children, ...props }) => {
         let current_button = buttons[i]
         let button_id = current_button.id
         document.getElementById(button_id).disabled = true
-        if (current_button.textContent.substring(3, current_button.textContent.length) == correct_ans) { current_button.id = 'correct' }
+        if (current_button.textContent.substring(3, current_button.textContent.length) == correctAnswerDecoded) { current_button.id = 'correct' }
         if (current_button.id != 'wrong' && current_button.id != 'correct') { current_button.style.visibility = 'hidden' }
       }
     }
 
     // TODO: check if all questions have been answered
-    if (current_question < number_of_questions || activePlayer < number_of_players) {
+    if (currentQuestion < numberOfQuestions || activePlayer < numberOfPlayers) {
       // TODO: check if all players had the question
-      if (activePlayer < number_of_players) {
-        // console.log('Quiz-Player: ', number_of_players)
+      if (activePlayer < numberOfPlayers) {
+        // console.log('Quiz-Player: ', numberOfPlayers)
         activePlayer++
 
         setTimeout(() => {
           console.log('next question')
-          router.navigate('quiz?mulitplayer=' + multiplayer + '&amountPlayer=' + number_of_players + '&question=' + current_question + '&player=' + activePlayer)
+          router.navigate('quiz?mulitplayer=' + multiplayer + '&amountPlayer=' + numberOfPlayers + '&question=' + currentQuestion + '&player=' + activePlayer)
         }, 1500)
       } else {
         console.log('new scores: ', score)
         activePlayer = 1
         console.log('next question')
         setTimeout(() => {
-          current_question++
-          router.navigate('quiz?mulitplayer=' + multiplayer + '&amountPlayer=' + number_of_players + '&question=' + current_question + '&player=' + activePlayer)
+          currentQuestion++
+          router.navigate('quiz?mulitplayer=' + multiplayer + '&amountPlayer=' + numberOfPlayers + '&question=' + currentQuestion + '&player=' + activePlayer)
           console.log('hieeeeeeer')
         }, 1500)
       }
-    } else if (current_question == number_of_questions) {
-      if (score.length == number_of_players) {
+    } else if (currentQuestion == numberOfQuestions) {
+      if (score.length == numberOfPlayers) {
         localStorage.setItem('scores', JSON.stringify(score))
       } else {
-        for (let i = 0; i < number_of_players; i++) {
+        for (let i = 0; i < numberOfPlayers; i++) {
           if (score[i]) {
             continue
           } else {
@@ -129,7 +129,7 @@ const Quiz = ({ children, ...props }) => {
           }, 1000);
         } else {
           if(window.user) {
-            UpdateScoresOfSP(window.user.email, number_of_questions, score[0])
+            UpdateScoresOfSP(window.user.email, numberOfQuestions, score[0])
             setTimeout(() => {
               console.log('vor endeeeeeee mit login')
               router.navigate('/end')
@@ -161,7 +161,7 @@ const Quiz = ({ children, ...props }) => {
   // if()
 
   const displayNumberOfQuestionAndPlayer = () => {
-    let response = 'Question ' + current_question
+    let response = 'Question ' + currentQuestion
     if (multiplayer == false) {
       return response
     } else {
