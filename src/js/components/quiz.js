@@ -23,33 +23,34 @@ const Quiz = ({ children, ...props }) => {
   answersArray = mixAnswers(answersArray)
 
   function mixAnswers(answersArray){
-    answersArray[0] = 'A: ' + answersArray[0] // correct
-    answersArray[1]= 'C: ' + answersArray[1]
-    answersArray[2]= 'B: ' + answersArray[2]
-    answersArray[3] = 'D: ' + answersArray[3]
+    let mixedArray=[]
+    mixedArray[0] = 'A: ' + answersArray[0] // correct
+    mixedArray[1]= 'C: ' + answersArray[1]
+    mixedArray[2]= 'B: ' + answersArray[2]
+    mixedArray[3] = 'D: ' + answersArray[3]
   
     let rand = Math.floor((Math.random() * 3))
-    answersArray[0] = 'A: ' + answersArray[rand]
+    mixedArray[0] = 'A: ' + answersArray[rand]
     switch (rand) {
       case 1:
-      answersArray[1] = 'C: ' + answersArray[0] // correct
+      mixedArray[1] = 'C: ' + answersArray[0] // correct
         break
       case 2:
-      answersArray[2] = 'B: ' + answersArray[0]
+      mixedArray[2] = 'B: ' + answersArray[0]
         break
       case 3:
-      answersArray[3] = 'D: ' + answersArray[0]
+      mixedArray[3] = 'D: ' + answersArray[0]
         break
       default:
         break
     }
-      return answersArray  
+      return mixedArray  
   }
 
   const checkAnswer = (event) => {
     let buttonText = event.target.textContent
-    let button = event.target
     buttonText = buttonText.substring(3, buttonText.length)
+    let button = event.target
     let correctAnswer=decodeHTMLEntities(completeQuestion[currentQuestion - 1].correct_answer)
     if (buttonText == correctAnswer) {
       let buttonID = button.id
