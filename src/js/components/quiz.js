@@ -70,9 +70,7 @@ const Quiz = ({ children, ...props }) => {
   }
 
   const sendUserToEndScreen = () => {
-    if(window.user) {
-      UpdateScoresOfSP(window.user.email, numberOfQuestions, score[0])
-    }
+    if(window.user) {UpdateScoresOfSP(window.user.email, numberOfQuestions, score[0])}
     setTimeout(() => {
       router.navigate('/end')
     }, 3000)
@@ -88,17 +86,13 @@ const Quiz = ({ children, ...props }) => {
 
   const displayNumberOfQuestionAndPlayer = () => {
     let response = 'Question ' + currentQuestion
-      if (multiplayer == true) {
-      response += ' | Player' + activePlayer
-    }
-      return response
+    if (multiplayer == true) {response += ' | Player' + activePlayer}
+    return response
   }
 
   const displayChallenge = (props) => {
     let challenge
-    if (props == true) {
-      challenge = <h1 className={bem('quiz', 'h1', ['challenge'])} >Challenge</h1>
-    }
+    if (props == true) {challenge = <h1 className={bem('quiz', 'h1', ['challenge'])} >Challenge</h1>}
     return challenge
   }
 
