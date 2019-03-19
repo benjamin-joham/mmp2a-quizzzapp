@@ -96,11 +96,7 @@ const Quiz = ({ children, ...props }) => {
     let scores = JSON.parse(localStorage.getItem('scores'))
 
       if (scores.length < 2) {  //Singleplayer
-        if (window.challenge == true) {
-          endChallenge()
-        } else {
-          sendUserToEndScreen()
-        }
+        window.challenge==true ? endChallenge() : sendUserToEndScreen()
       }
   }
 
