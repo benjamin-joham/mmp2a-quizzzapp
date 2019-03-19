@@ -82,7 +82,12 @@ const Quiz = ({ children, ...props }) => {
         router.navigate('quiz?mulitplayer=' + multiplayer + '&amountPlayer=' + numberOfPlayers + '&question=' + currentQuestion + '&player=' + activePlayer)
       }, 1500)
     } else if (currentQuestion == numberOfQuestions) {
-      if (score.length == numberOfPlayers) {
+      endGame()
+    }
+  }
+
+  const endGame =() =>{
+          if (score.length == numberOfPlayers) {
         localStorage.setItem('scores', JSON.stringify(score))
       } else {
         for (let i = 0; i < numberOfPlayers; i++) {
@@ -113,7 +118,6 @@ const Quiz = ({ children, ...props }) => {
           }
         }
       }
-    }
   }
 
 
