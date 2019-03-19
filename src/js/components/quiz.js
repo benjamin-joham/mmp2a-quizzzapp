@@ -33,7 +33,7 @@ const Quiz = ({ children, ...props }) => {
     mixedArray[0] = 'A: ' + answersArray[rand]
     switch (rand) {
       case 1:
-      mixedArray[1] = 'C: ' + answersArray[0] // correct
+      mixedArray[1] = 'C: ' + answersArray[0]
         break
       case 2:
       mixedArray[2] = 'B: ' + answersArray[0]
@@ -94,7 +94,7 @@ const Quiz = ({ children, ...props }) => {
     }
     localStorage.setItem('scores', JSON.stringify(score))
     let scores = JSON.parse(localStorage.getItem('scores'))
-    window.challenge==true ? endChallenge() : sendUserToEndScreen()
+    window.challenge==true ? sendUserToProfile() : sendUserToEndScreen()
   }
 
   const sendUserToEndScreen = () => {
@@ -106,7 +106,7 @@ const Quiz = ({ children, ...props }) => {
     }, 3000)
   }
 
-  const endChallenge = () => {
+  const sendUserToProfile = () => {
             setTimeout(() => {
             UpdateScoresOfChallenge(window.questionsId, window.challengeScore, score[0])
             updateFirestore()
