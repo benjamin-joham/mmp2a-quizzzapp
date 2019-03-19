@@ -116,11 +116,10 @@ const Quiz = ({ children, ...props }) => {
 
   const displayNumberOfQuestionAndPlayer = () => {
     let response = 'Question ' + currentQuestion
-    if (multiplayer == false) {
-      return response
-    } else {
-      return response + ' | Player' + activePlayer
+      if (multiplayer == true) {
+      response += ' | Player' + activePlayer
     }
+      return response
   }
 
   const displayChallenge = (props) => {
