@@ -15,7 +15,7 @@ const Footer = () => {
 
   const clickPrivacy = (event) => {
     f.current.appendChild(<Privacy/>)
-    let linkToPrivacy = document.getElementById('footer_linkToPrivacy')
+    let linkToPrivacy = document.getElementById('footer_link_priv')
     linkToPrivacy.style.visibility = 'hidden'
   }
 
