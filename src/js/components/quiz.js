@@ -126,7 +126,6 @@ const Quiz = ({ children, ...props }) => {
     let challenge
     if (props == true) {
       challenge = <h1 className={bem('quiz', 'h1', ['challenge'])} >Challenge</h1>
-      return challenge
     }
     return challenge
   }
