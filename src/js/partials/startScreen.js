@@ -1,3 +1,4 @@
+import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import Header from './../components/header'
 import Settings from '../components/settings'
 import api from './../modules/openTriviaApi'
@@ -14,6 +15,9 @@ const clickHandler = async (event) => {
     })
     .then(() => {
       localStorage.clear()
+      let score=[]
+      score[0]=0
+      localStorage.setItem('scores', JSON.stringify(score))
       if (players.value > 1) { router.navigate('/quiz?mulitplayer=true&amountPlayer=' + players.value + '&question=1&player=1') } else { router.navigate('/quiz?mulitplayer=false&amountPlayer=' + players.value + '&question=1&player=1') }
     })
   )

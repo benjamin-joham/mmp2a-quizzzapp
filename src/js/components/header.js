@@ -3,6 +3,7 @@ import * as React from 'jsx-dom'
 import * as Firebase from '../modules/firebase'
 import router, { updateHook } from '../modules/router'
 import bem from 'bem-names'
+import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 
 const handleSignout = async event => {
   Firebase.userLogout()

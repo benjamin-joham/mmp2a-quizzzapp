@@ -1,5 +1,6 @@
 import Header from '../components/header'
 import Quiz from '../components/quiz'
+import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 
 const QuizzScreen = (params) => {
   let amountOfQuestions = window.questions.length

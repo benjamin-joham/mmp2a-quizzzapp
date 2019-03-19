@@ -5,6 +5,7 @@ import QuizzScreen from '../partials/quizzScreen'
 import ProfileScreen from '../partials/profileScreen'
 import EndScreen from '../partials/endScreen'
 import bem from 'bem-names'
+import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 
 const router = new Navigo(window.location.origin)
 const callbacks = []
