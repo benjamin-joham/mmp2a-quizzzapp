@@ -95,13 +95,9 @@ const Quiz = ({ children, ...props }) => {
     localStorage.setItem('scores', JSON.stringify(score))
     let scores = JSON.parse(localStorage.getItem('scores'))
 
-      if (scores.length < 2) {
+      if (scores.length < 2) {  //Singleplayer
         if (window.challenge == true) {
-          setTimeout(() => {
-            UpdateScoresOfChallenge(window.questionsId, window.challengeScore, score[0])
-            updateFirestore()
-            router.navigate('/profile')
-          }, 1000);
+          endChallenge()
         } else {
           if(window.user) {
             UpdateScoresOfSP(window.user.email, numberOfQuestions, score[0])
@@ -118,6 +114,13 @@ const Quiz = ({ children, ...props }) => {
       }
   }
 
+  const endChallenge = () => {
+            setTimeout(() => {
+            UpdateScoresOfChallenge(window.questionsId, window.challengeScore, score[0])
+            updateFirestore()
+            router.navigate('/profile')
+          }, 1000);
+  }
 
   const displayNumberOfQuestionAndPlayer = () => {
     let response = 'Question ' + currentQuestion
