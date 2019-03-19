@@ -87,15 +87,13 @@ const Quiz = ({ children, ...props }) => {
   }
 
   const endGame =() =>{
-          if (score.length == numberOfPlayers) {
-        localStorage.setItem('scores', JSON.stringify(score))
-      } else {
-        for (let i = 0; i < numberOfPlayers; i++) {
-          score[i] ? score[i]=score[i] : score[i]=0
-        }
-        localStorage.setItem('scores', JSON.stringify(score))
+    if(score.length!=numberOfPlayers) {
+      for (let i = 0; i < numberOfPlayers; i++) {
+        score[i] ? score[i]=score[i] : score[i]=0
       }
-      let scores = JSON.parse(localStorage.getItem('scores'))
+    }
+    localStorage.setItem('scores', JSON.stringify(score))
+    let scores = JSON.parse(localStorage.getItem('scores'))
 
       if (scores.length < 2) {
         if (window.challenge == true) {
