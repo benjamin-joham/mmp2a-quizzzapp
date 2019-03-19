@@ -48,6 +48,3 @@ const Settings = () => {
 }
 
 export default Settings
-
-// <p><button class="settings__button">1</button><button class="settings__button">2</button></p>
-// <p><button class="settings__button">3</button><button class="settings__button">4</button></p>
