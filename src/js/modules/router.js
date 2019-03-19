@@ -9,19 +9,8 @@ import { checkAuthState } from './firebase'
 import bem from 'bem-names'
 
 const router = new Navigo(window.location.origin)
-
 const callbacks = []
-
 const body = document.querySelector('body')
-
-// router.hooks({
-//   before: async (done, params) => {
-//     console.log('hook before')
-//     // let user = () => { return checkAuthState() }
-//     // console.log(user.then(x => x))
-//     // if (user) done()
-//   }
-// })
 
 router.notFound(() => {
   body.appendChild(
@@ -34,20 +23,16 @@ router.notFound(() => {
       </a>
     </div>
   )
-  console.log('404')
 })
 
 router
   .on(
     {
       '/': () => {
-        console.log('jetzt in root')
-        // append LoginScreen
         body.innerHTML = ''
         body.appendChild(<LoginScreen/>)
       },
       'start': () => {
-      // append StartScreen
         body.innerHTML = ''
         body.appendChild(<StartScreen />)
       },
