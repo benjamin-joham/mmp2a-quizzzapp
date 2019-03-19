@@ -86,11 +86,7 @@ const Quiz = ({ children, ...props }) => {
         localStorage.setItem('scores', JSON.stringify(score))
       } else {
         for (let i = 0; i < numberOfPlayers; i++) {
-          if (score[i]) {
-            continue
-          } else {
-            score[i] = 0
-          }
+          score[i] ? score[i]=score[i] : score[i]=0
         }
         localStorage.setItem('scores', JSON.stringify(score))
       }
