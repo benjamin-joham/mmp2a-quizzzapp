@@ -2,6 +2,7 @@ import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import bem from 'bem-names'
 import router from './../modules/router'
 import decodeHTMLEntities from './../modules/decoder'
+import mixAnswers from './../modules/questionMixer'
 import { UpdateScoresOfSP, UpdateScoresOfChallenge, updateFirestore } from './../modules/firebase'
 
 let score = []
@@ -21,31 +22,6 @@ const Quiz = ({ children, ...props }) => {
     decodeHTMLEntities(completeQuestion[currentQuestion - 1].incorrect_answers[2])
   ]
   answersArray = mixAnswers(answersArray)
-
-  function mixAnswers(answersArray){
-    let mixedArray=[]
-    mixedArray[0] = 'A: ' + answersArray[0] // correct
-    mixedArray[1]= 'C: ' + answersArray[1]
-    mixedArray[2]= 'B: ' + answersArray[2]
-    mixedArray[3] = 'D: ' + answersArray[3]
-  
-    let rand = Math.floor((Math.random() * 3))
-    mixedArray[0] = 'A: ' + answersArray[rand]
-    switch (rand) {
-      case 1:
-      mixedArray[1] = 'C: ' + answersArray[0]
-        break
-      case 2:
-      mixedArray[2] = 'B: ' + answersArray[0]
-        break
-      case 3:
-      mixedArray[3] = 'D: ' + answersArray[0]
-        break
-      default:
-        break
-    }
-      return mixedArray  
-  }
 
   const checkAnswer = (event) => {
     let buttonText = event.target.textContent
