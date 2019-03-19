@@ -19,7 +19,6 @@ const Login = () => {
       <button className={bem('button', ['login'])}
         onClick={
           (e) => {
-            console.log('without login')
             router.navigate('/start')
           }
         }>
