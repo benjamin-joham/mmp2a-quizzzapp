@@ -1,6 +1,4 @@
 import Header from './../components/header'
-import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
-import Login from '../components/login'
 import Settings from '../components/settings'
 import api from './../modules/openTriviaApi'
 import router from '../modules/router'
