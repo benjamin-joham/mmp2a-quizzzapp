@@ -9,7 +9,7 @@ const Footer = () => {
 
   const clickImpressum = (event) => {
     f.current.appendChild(<Impressum/>)
-    let linkToImpressum = document.getElementById('footer_linkToImpressum')
+    let linkToImpressum = document.getElementById('footer_link_impr')
     linkToImpressum.style.visibility = 'hidden'
   }
 
