@@ -99,19 +99,23 @@ const Quiz = ({ children, ...props }) => {
         if (window.challenge == true) {
           endChallenge()
         } else {
-          if(window.user) {
-            UpdateScoresOfSP(window.user.email, numberOfQuestions, score[0])
-            setTimeout(() => {
-              router.navigate('/end')
-            }, 3000)
-          }
-          else {
-            setTimeout(() => {
-              router.navigate('/end')
-            }, 3000)
-          }
+          sendUserToEndScreen()
         }
       }
+  }
+
+  const sendUserToEndScreen = () => {
+    if(window.user) {
+      UpdateScoresOfSP(window.user.email, numberOfQuestions, score[0])
+      setTimeout(() => {
+        router.navigate('/end')
+      }, 3000)
+    }
+    else {
+      setTimeout(() => {
+        router.navigate('/end')
+      }, 3000)
+    }
   }
 
   const endChallenge = () => {
