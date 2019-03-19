@@ -1,5 +1,4 @@
 import Header from '../components/header'
-import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import Quiz from '../components/quiz'
 
 const QuizzScreen = (params) => {
