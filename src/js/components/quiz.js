@@ -66,7 +66,6 @@ const Quiz = ({ children, ...props }) => {
       }
     }
     localStorage.setItem('scores', JSON.stringify(score))
-    let scores = JSON.parse(localStorage.getItem('scores'))
     window.challenge==true ? sendUserToProfile() : sendUserToEndScreen()
   }
 
