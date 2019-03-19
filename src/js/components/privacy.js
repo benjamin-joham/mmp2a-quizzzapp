@@ -1,4 +1,3 @@
-import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import bem from 'bem-names'
 
 const Privacy = () => {
