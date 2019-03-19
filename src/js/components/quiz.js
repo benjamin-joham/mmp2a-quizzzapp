@@ -81,7 +81,7 @@ const Quiz = ({ children, ...props }) => {
       setTimeout(() => {
         router.navigate('quiz?mulitplayer=' + multiplayer + '&amountPlayer=' + numberOfPlayers + '&question=' + currentQuestion + '&player=' + activePlayer)
       }, 1500)
-    } else if (currentQuestion == numberOfQuestions) {
+    } else {
       endGame()
     }
   }
