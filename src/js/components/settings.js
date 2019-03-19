@@ -2,7 +2,6 @@ import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import bem from 'bem-names'
 
 const clickhandlerPlayers = (event) => {
-  console.log(event.target)
   let elem = event.target
   if (elem.id == 'btn_players_active') {
     elem.removeAttribute('id')
@@ -12,7 +11,6 @@ const clickhandlerPlayers = (event) => {
   }
 }
 const clickhandlerQuestions = (event) => {
-  console.log(event.target)
   let elem = event.target
   if (elem.id == 'btn_questions_active') {
     elem.removeAttribute('id')
