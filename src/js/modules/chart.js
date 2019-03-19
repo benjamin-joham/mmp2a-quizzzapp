@@ -1,7 +1,6 @@
 import Chart from 'chart.js'
 
 let RenderChart = (data, ctx, labels) => {
-  // console.log('KUCHEN: ',wrong_questions_last, ' ', correct_questions_last, ' ',wrong_questions_total, ' ',correct_questions_total, ' ', ctx, ' ')
   Chart.defaults.global.defaultFontColor = 'white'
   Chart.defaults.global.legend.position = 'top'
   new Chart(ctx, {
