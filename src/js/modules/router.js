@@ -1,11 +1,9 @@
 import Navigo from 'navigo'
-import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import LoginScreen from '../partials/loginScreen'
 import StartScreen from '../partials/startScreen'
 import QuizzScreen from '../partials/quizzScreen'
 import ProfileScreen from '../partials/profileScreen'
 import EndScreen from '../partials/endScreen'
-import { checkAuthState } from './firebase'
 import bem from 'bem-names'
 
 const router = new Navigo(window.location.origin)
