@@ -1,4 +1,3 @@
-import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import bem from 'bem-names'
 import * as React from 'jsx-dom'
 import Impressum from '../components/impressum'
