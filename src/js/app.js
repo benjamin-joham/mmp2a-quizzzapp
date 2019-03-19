@@ -1,4 +1,3 @@
-import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import Impressum from './components/impressum'
 import Login from './components/login'
 import { Header } from './partials/header'
