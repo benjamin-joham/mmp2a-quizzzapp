@@ -1,7 +1,5 @@
-// import logo
 import logo from './../../images/QA_logo_white.svg'
 import * as React from 'jsx-dom'
-import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import * as Firebase from '../modules/firebase'
 import router, { updateHook } from '../modules/router'
 import bem from 'bem-names'
