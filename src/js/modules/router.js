@@ -1,27 +1,15 @@
 import Navigo from 'navigo'
-import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import LoginScreen from '../partials/loginScreen'
 import StartScreen from '../partials/startScreen'
 import QuizzScreen from '../partials/quizzScreen'
 import ProfileScreen from '../partials/profileScreen'
 import EndScreen from '../partials/endScreen'
-import { checkAuthState } from './firebase'
 import bem from 'bem-names'
+import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 
 const router = new Navigo(window.location.origin)
-
 const callbacks = []
-
 const body = document.querySelector('body')
-
-// router.hooks({
-//   before: async (done, params) => {
-//     console.log('hook before')
-//     // let user = () => { return checkAuthState() }
-//     // console.log(user.then(x => x))
-//     // if (user) done()
-//   }
-// })
 
 router.notFound(() => {
   body.appendChild(
@@ -34,20 +22,16 @@ router.notFound(() => {
       </a>
     </div>
   )
-  console.log('404')
 })
 
 router
   .on(
     {
       '/': () => {
-        console.log('jetzt in root')
-        // append LoginScreen
         body.innerHTML = ''
         body.appendChild(<LoginScreen/>)
       },
       'start': () => {
-      // append StartScreen
         body.innerHTML = ''
         body.appendChild(<StartScreen />)
       },

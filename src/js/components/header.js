@@ -1,10 +1,9 @@
-// import logo
 import logo from './../../images/QA_logo_white.svg'
 import * as React from 'jsx-dom'
-import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import * as Firebase from '../modules/firebase'
 import router, { updateHook } from '../modules/router'
 import bem from 'bem-names'
+import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 
 const handleSignout = async event => {
   Firebase.userLogout()
@@ -12,10 +11,10 @@ const handleSignout = async event => {
 }
 
 const Header = ({ children, ...props }) => {
-  const header_right = React.createRef()
+  const headerRight = React.createRef()
 
   const updateHeaderAuth = user => {
-    header_right.current.innerHTML = ''
+    headerRight.current.innerHTML = ''
 
     if (!user) {
       user = window.user
@@ -23,7 +22,7 @@ const Header = ({ children, ...props }) => {
 
     if (user) {
       if (props.data == 'quiz') {
-        header_right.current.appendChild(
+        headerRight.current.appendChild(
           <a href='#' onClick={() => {
             event.preventDefault()
             router.navigate('/start')
@@ -32,13 +31,13 @@ const Header = ({ children, ...props }) => {
           </a>
         )
       } else {
-        header_right.current.appendChild(
+        headerRight.current.appendChild(
           <a href='#' onClick={() => {
             event.preventDefault()
             router.navigate('/profile')
           } }>Profile </a>
         )
-        header_right.current.appendChild(
+        headerRight.current.appendChild(
           <a href='#' onClick={() => {
             event.preventDefault()
             handleSignout()
@@ -47,7 +46,7 @@ const Header = ({ children, ...props }) => {
       }
     } else {
       if (props.data == 'quiz') {
-        header_right.current.appendChild(
+        headerRight.current.appendChild(
           <a href='#' onClick={() => {
             event.preventDefault()
             router.navigate('/start')
@@ -56,7 +55,7 @@ const Header = ({ children, ...props }) => {
           </a>
         )
       } else {
-        header_right.current.appendChild(
+        headerRight.current.appendChild(
           <a href='#' onClick={
             async (e) => {
               let response = await Firebase.userLogin()
@@ -89,7 +88,7 @@ const Header = ({ children, ...props }) => {
       <div className={bem('header', 'div', ['center'])}>
         {inQuiz}
       </div>
-      <div ref={header_right} className={bem('header', 'div', ['right'])}>
+      <div ref={headerRight} className={bem('header', 'div', ['right'])}>
       </div>
     </header>
   )

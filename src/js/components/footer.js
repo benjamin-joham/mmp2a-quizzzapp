@@ -9,14 +9,14 @@ const Footer = () => {
 
   const clickImpressum = (event) => {
     f.current.appendChild(<Impressum/>)
-    let link_impr = document.getElementById('footer_link_impr')
-    link_impr.style.visibility = 'hidden'
+    let linkToImpressum = document.getElementById('footer_link_impr')
+    linkToImpressum.style.visibility = 'hidden'
   }
 
   const clickPrivacy = (event) => {
     f.current.appendChild(<Privacy/>)
-    let link_priv = document.getElementById('footer_link_priv')
-    link_priv.style.visibility = 'hidden'
+    let linkToPrivacy = document.getElementById('footer_link_priv')
+    linkToPrivacy.style.visibility = 'hidden'
   }
 
   return (

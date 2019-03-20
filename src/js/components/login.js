@@ -1,7 +1,7 @@
-import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import bem from 'bem-names'
 import { userLogin } from '../modules/firebase'
 import router from '../modules/router'
+import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 
 const Login = () => {
   return (
@@ -19,7 +19,6 @@ const Login = () => {
       <button className={bem('button', ['login'])}
         onClick={
           (e) => {
-            console.log('without login')
             router.navigate('/start')
           }
         }>

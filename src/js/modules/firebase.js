@@ -1,6 +1,5 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
-// import 'firebase/database'
 import 'firebase/firestore'
 import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 
@@ -13,18 +12,15 @@ let config = {
   messagingSenderId: '519321050416'
 }
 
-// TODO: Authentication
 const provider = new firebase.auth.GoogleAuthProvider()
 firebase.initializeApp(config)
 
 const callbacks = []
 export let allQuestionSets
 
-// TODO: StateHandler for before hook Navigo
 export async function checkAuthState () {
   firebase.auth().onAuthStateChanged((user) => {
     window.user = user
-    console.log('firebase authstate changed fired')
     callbacks.forEach(callback => callback(user))
   })
 }
@@ -34,11 +30,8 @@ firebase.auth().onAuthStateChanged(async (user) => {
   callbacks.forEach(callback => callback(user))
 
   if (user) {
-    console.log('User is logged in successful')
-    // testUpdate(user.displayName)
     GetAllUsers()
     AddUserToFirestore(user.displayName, user.email, '')
-    // console.log(userData)
   }
 })
 
@@ -63,16 +56,14 @@ export const userLogout = async () => {
     .catch(error => error)
 }
 
-// TODO: Firebase Firestore
 const db = firebase.firestore()
 
 const AddUserToFirestore = (name, email, nickname) => {
-  let checkUser = db.collection('users').doc(email) // .doc(email)
+  let checkUser = db.collection('users').doc(email)
   checkUser
     .get()
     .then(user => {
       if (!user.exists) {
-        console.log('User not existing')
         let userData = {
           name: name,
           email: email,
@@ -84,14 +75,8 @@ const AddUserToFirestore = (name, email, nickname) => {
         window.user = userData
         allQuestionSets = GetQuestionsets(window.user.name)
       } else {
-        console.log('User already exists: ', user.data())
         window.user = user.data()
         allQuestionSets = GetQuestionsets(window.user.name)
-        // test()
-        // let questions = ['eins','zwei']
-        // let answers = ['a','b']
-        // console.log( Object.values(questions))
-        // AddNewQuestionsetToFirestore(Object.values(questions), Object.values(answers), window.user.name, 'Sepp')
       }
     })
     .catch(error => {
@@ -99,11 +84,8 @@ const AddUserToFirestore = (name, email, nickname) => {
     })
 }
 
-// TODO: Add a new questionset
 export const AddNewQuestionsetToFirestore = async (data, User, Challenger, userPoints) => {
   return new Promise((resolve, reject) => {
-    console.log('Add new questionset?')
-    console.log('q&a', data, 'u', User, 'c', Challenger, 'p', userPoints)
     let qSet = db.collection('questionset')
     qSet.add({
       amountOfQuestions: Object.values(data).length,
@@ -123,7 +105,6 @@ export const AddNewQuestionsetToFirestore = async (data, User, Challenger, userP
   })
 }
 
-// TODO: get all questionsets for the user
 const GetQuestionsets = (name) => {
   let response = []
   let id = []
@@ -136,8 +117,7 @@ const GetQuestionsets = (name) => {
         response.push(i.data())
         id.push(i.id)
       })
-      console.log('questionssets:', response, id)
-      console.log(response.forEach(i => result.push(i)))
+
       allQuestionSets = {
         id: id,
         data: result
@@ -155,7 +135,6 @@ export const GetAllUsers = () => {
         snapshot.forEach(user => {
           allUsers.push(user.data().name)
         })
-        console.log('Challenger: ', allUsers)
         resolve(allUsers)
       })
   })
@@ -171,8 +150,6 @@ export const UpdateScoresOfSP = (name, total, correct) => {
     .then(data => {
       total_total = data.data().answers_total[0] + total
       correct_total = data.data().answers_total[1] + correct
-      console.log('total ', total_total)
-      console.log('correct ', correct_total)
       update.update({
         answers_last_round: [total, correct],
         answers_total: [total_total, correct_total]
@@ -200,7 +177,6 @@ export const updateFirestore = async () => {
       db.collection('users').doc(window.user.email)
         .get()
         .then(doc => {
-          console.log(' data: ', doc.data())
           if (window.user) {
             window.user = doc.data()
           }
@@ -214,8 +190,6 @@ export const updateFirestore = async () => {
             response.push(i.data())
             id.push(i.id)
           })
-          console.log('questionssets:', response, id)
-          console.log(response.forEach(i => result.push(i)))
           allQuestionSets = {
             id: id,
             data: result

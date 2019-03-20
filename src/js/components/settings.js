@@ -1,8 +1,7 @@
-import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 import bem from 'bem-names'
+import { h } from 'jsx-dom' // eslint-disable-line no-use-before-define
 
 const clickhandlerPlayers = (event) => {
-  console.log(event.target)
   let elem = event.target
   if (elem.id == 'btn_players_active') {
     elem.removeAttribute('id')
@@ -12,7 +11,6 @@ const clickhandlerPlayers = (event) => {
   }
 }
 const clickhandlerQuestions = (event) => {
-  console.log(event.target)
   let elem = event.target
   if (elem.id == 'btn_questions_active') {
     elem.removeAttribute('id')
@@ -48,6 +46,3 @@ const Settings = () => {
 }
 
 export default Settings
-
-// <p><button class="settings__button">1</button><button class="settings__button">2</button></p>
-// <p><button class="settings__button">3</button><button class="settings__button">4</button></p>
