@@ -19,9 +19,6 @@ const End = ({ children, ...props }) => {
   let result = ''
   let logged_in = window.user
 
-  // const resultContainer = document.querySelector('.end__div')
-  // console.log("BAGUETTE",window.questions)
-
   let checkIfNumber = (number) => {
     if (number != null) { return number } else { return 0 }
   }
@@ -46,40 +43,29 @@ const End = ({ children, ...props }) => {
       return content
     }
   }
-  // q_a = {
-  //   0: {
-  //     q: string,
-  //     corr: string,
-  //     wrong: [a,b,c],
-  //   }
-  // }
+
   let sendChallenge = async (challenger) => {
     let questionarr = []
     let answers = {}
-    let answerarr
+    let answerArr
     let data = {}
 
     for (let i = 0; i < questions_total; i++) {
-      answerarr = []
+      answerArr = []
       questionarr.push(window.questions[i].question)
-      answerarr.push(window.questions[i].correct_answer)
+      answerArr.push(window.questions[i].correct_answer)
       window.questions[i].incorrect_answers.forEach(wrong => {
-        answerarr.push(wrong)
+        answerArr.push(wrong)
       })
-      // console.log(answerarr)
-      answers.correct = answerarr[0]
-      answers.wrong = [answerarr[1], answerarr[2], answerarr[3]]
+      answers.correct = answerArr[0]
+      answers.wrong = [answerArr[1], answerArr[2], answerArr[3]]
       data[i] = {
         question: window.questions[i].question,
-        correct_answer: answerarr[0],
-        incorrect_answers: [answerarr[1], answerarr[2], answerarr[3]]
+        correct_answer: answerArr[0],
+        incorrect_answers: [answerArr[1], answerArr[2], answerArr[3]]
       }
     }
-    // console.log('q&a', data)
-    // console.log(Object.values(data).length)
-    // console.log(questionarr)
-    // console.log(answerarr)
-    // console.log(answers)
+
     let points = JSON.parse(localStorage.getItem('scores'))
 
     let response = await AddNewQuestionsetToFirestore(data, window.user.name, challenger, points[0])
@@ -95,17 +81,15 @@ const End = ({ children, ...props }) => {
 
   const showChallenger = async () => {
     let users = await GetAllUsers()
-    // console.log(users)
-    // console.log(users.then(i => console.log(i)))
     let container = document.querySelector('section.end')
-    let select = <select id='challenger' name="challenger" size="5" onClick={(e) => console.log(e.target)}></select>
+    let select = <select className={bem('end', 'select')} id='challenger' name="challenger" size="5" onClick={(e) => console.log(e.target)}></select>
     { users.forEach(i => {
-      if (i != window.user.name) { select.appendChild(<option value={i}>{i}</option>) }
+      if (i != window.user.name) { select.appendChild(<option className={bem('select','option')} value={i}>{i}</option>) }
     }) }
     let content = container.appendChild(
       <div className={bem('end', 'div', ['challenge'])}>
-        <h1>Choose your Challenger</h1>
-        <form>
+        <h1 className={bem()}>Choose your Challenger</h1>
+        <form className={bem('end','form')}>
           {select}
           <button onClick={
             (e) => {
