@@ -151,9 +151,10 @@ module.exports = {
 
     // dotenv
     new Dotenv({
-      path: './.env'
+      path: path.resolve(__dirname, './.env')
       //systemvars: true,
     }),
+
   ],
 
   optimization: {
