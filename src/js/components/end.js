@@ -5,20 +5,19 @@ import { GetAllUsers, AddNewQuestionsetToFirestore, updateFirestore } from '../m
 import router from '../modules/router'
 
 const End = ({ children, ...props }) => {
-  let correct_questions = JSON.parse(localStorage.getItem('scores'))
-  // console.log(JSON.stringify(correct_questions));
-  let questions_total
+  let correctQuestions = JSON.parse(localStorage.getItem('scores'))
+  let questionsTotal
   if (window.challenge) {
-    questions_total = Object.values(window.questions).length
+    questionsTotal = Object.values(window.questions).length
   } else {
-    questions_total = window.questions.length
+    questionsTotal = window.questions.length
   }
-  let number_of_players = correct_questions.length
-  let button1_text = 'View statistic!'
-  let button2_text = 'Play again!'
-  let button3_text = 'Challenge a friend!'
+  let numberOfPlayers = correctQuestions.length
+  let button1Text = 'View statistic!'
+  let button2Text = 'Play again!'
+  let button3Text = 'Challenge a friend!'
   let result = ''
-  let logged_in = window.user
+  let loggedIn = window.user
 
   let checkIfNumber = (number) => {
     if (number != null) { return number } else { return 0 }
@@ -26,9 +25,9 @@ const End = ({ children, ...props }) => {
 
   let getContent = () => {
     let add
-    if (number_of_players == 1) { // singleplayer
-      if (logged_in) { add = addButtons() }
-      result = 'You answered ' + checkIfNumber(correct_questions[0]) + '/' + questions_total + ' Questions correct.'
+    if (numberOfPlayers == 1) { // singleplayer
+      if (loggedIn) { add = addButtons() }
+      result = 'You answered ' + checkIfNumber(correctQuestions[0]) + '/' + questionsTotal + ' Questions correct.'
       return (
         <div className={bem('end', 'div')}>
           <h2 className={bem('end', 'h2')}>{result}</h2>
@@ -37,8 +36,8 @@ const End = ({ children, ...props }) => {
       )
     } else { // multiplayer
       let content = <div className={bem('end', 'div')}></div>
-      for (let i = 1; i <= number_of_players; i++) {
-        result = 'Player ' + i + ' answered ' + checkIfNumber(correct_questions[i - 1]) + '/' + questions_total + ' Questions correct.'
+      for (let i = 1; i <= numberOfPlayers; i++) {
+        result = 'Player ' + i + ' answered ' + checkIfNumber(correctQuestions[i - 1]) + '/' + questionsTotal + ' Questions correct.'
         content.appendChild(<h2 className={bem('end', 'h2')}>{result}</h2>)
       }
       return content
@@ -51,19 +50,19 @@ const End = ({ children, ...props }) => {
     let answerArr
     let data = {}
 
-    for (let i = 0; i < questions_total; i++) {
+    for (let i = 0; i < questionsTotal; i++) {
       answerArr = []
       questionarr.push(window.questions[i].question)
-      answerArr.push(window.questions[i].correct_answer)
-      window.questions[i].incorrect_answers.forEach(wrong => {
+      answerArr.push(window.questions[i].correctAnswer)
+      window.questions[i].incorrectAnswers.forEach(wrong => {
         answerArr.push(wrong)
       })
       answers.correct = answerArr[0]
       answers.wrong = [answerArr[1], answerArr[2], answerArr[3]]
       data[i] = {
         question: window.questions[i].question,
-        correct_answer: answerArr[0],
-        incorrect_answers: [answerArr[1], answerArr[2], answerArr[3]]
+        correctAnswer: answerArr[0],
+        incorrectAnswers: [answerArr[1], answerArr[2], answerArr[3]]
       }
     }
 
@@ -113,17 +112,17 @@ const End = ({ children, ...props }) => {
   }
 
   let addButtons = () => {
-    if (logged_in) {
+    if (loggedIn) {
       return (
         <div>
           <button className={bem('button')} onClick={() => {
             updateFirestore()
             router.navigate('/profile')
           }}>
-            {button1_text}
+            {button1Text}
           </button>
           <button className={bem('button')} onClick={() => showChallenger()}>
-            {button3_text}
+            {button3Text}
           </button>
         </div>
       )
@@ -140,7 +139,7 @@ const End = ({ children, ...props }) => {
           router.navigate('/start')
         }
         }>
-        {button2_text}
+        {button2Text}
       </button>
     </section>
   )
