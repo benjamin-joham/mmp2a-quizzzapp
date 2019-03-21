@@ -45,24 +45,24 @@ const End = ({ children, ...props }) => {
   }
 
   let sendChallenge = async (challenger) => {
-    let questionarr = []
+    let questionArr = []
     let answers = {}
-    let answerarr
+    let answerArr
     let data = {}
 
     for (let i = 0; i < questionsTotal; i++) {
-      answerarr = []
-      questionarr.push(window.questions[i].question)
-      answerarr.push(window.questions[i].correct_answer)
+      answerArr = []
+      questionArr.push(window.questions[i].question)
+      answerArr.push(window.questions[i].correct_answer)
       window.questions[i].incorrect_answers.forEach(wrong => {
-        answerarr.push(wrong)
+        answerArr.push(wrong)
       })
-      answers.correct = answerarr[0]
-      answers.wrong = [answerarr[1], answerarr[2], answerarr[3]]
+      answers.correct = answerArr[0]
+      answers.wrong = [answerArr[1], answerArr[2], answerArr[3]]
       data[i] = {
         question: window.questions[i].question,
-        correct_answer: answerarr[0],
-        incorrect_answers: [answerarr[1], answerarr[2], answerarr[3]]
+        correct_answer: answerArr[0],
+        incorrect_answers: [answerArr[1], answerArr[2], answerArr[3]]
       }
     }
 
