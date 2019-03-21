@@ -11,14 +11,10 @@ const Profile = () => {
   setTimeout(async () => {
     let res = await updateFirestore()
     let data = window.user
-    console.log('DATA: ', window.user)
-    console.log('DATA: ', window.user.answers_last_round[0, 0])
     let correct_questions_last = data.answers_last_round[1]
     let wrong_questions_last = data.answers_last_round[0] - correct_questions_last
     let correct_questions_total = data.answers_total[1]
     let wrong_questions_total = data.answers_total[0] - correct_questions_total
-    console.log('wrongs: ', wrong_questions_total)
-    console.log('corrects: ', correct_questions_total)
 
     const ctx = document.getElementById('chart_lastRound')
     const ctx2 = document.getElementById('chart_total')
@@ -35,12 +31,9 @@ const Profile = () => {
       let player_points
       let rival_points
 
-      console.log('challenges: ', allQuestionSets)
       let number_of_challenges = allQuestionSets.data.length
 
       let content = <ul className={bem('ul')}></ul>
-      console.log('getcontent wird gerufen')
-      console.log(number_of_challenges)
 
       allQuestionSets.data.map((x, i) => {
         const id = allQuestionSets.id[i]
@@ -73,7 +66,6 @@ const Profile = () => {
               window.questionsId = id
               window.challenge = true
               window.challengeScore = x.points[0]
-              console.log(window.questions)
               router.navigate('/quiz?mulitplayer=false&amountPlayer=1&question=1&player=1')
             }}>Play Challenge</a></p>
           } else {
@@ -88,7 +80,6 @@ const Profile = () => {
           }
         }
         // TODO: Show profile correct and route to correct challenge
-        console.log('mapping: ', x)
 
         // append content
         content.appendChild(
