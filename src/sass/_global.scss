@@ -20,12 +20,11 @@ a:hover, a:focus{
   text-decoration: underline;
 }
 button {
-  padding: 5 0 0 5;
   height: 10vh;
   font-size: $medium;
   margin-bottom: 5vh;
   border:0;
-  border-radius: 2%;
+  border-radius: 0.1em;
   width:30vw;
   min-height: 40px;
   cursor: pointer;

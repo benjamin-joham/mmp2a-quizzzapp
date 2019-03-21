@@ -83,16 +83,16 @@ const End = ({ children, ...props }) => {
     let users = await GetAllUsers()
 
     let container = document.querySelector('section.end')
-    let select = <select id='challenger' name="challenger" size="5" onClick={(e) => console.log(e.target)}></select>
+    let select = <select className={bem('end','select')} id='challenger' name="challenger" size="5" onClick={(e) => console.log(e.target)}></select>
     { users.forEach(i => {
       if (i != window.user.name) { select.appendChild(<option value={i}>{i}</option>) }
     }) }
     let content = container.appendChild(
       <div className={bem('end', 'div', ['challenge'])}>
         <h1>Choose your Challenger</h1>
-        <form>
+        <form className={bem('end','form')}>
           {select}
-          <button onClick={
+          <button className={bem('end','button',['challenge'])} onClick={
             (e) => {
               e.preventDefault()
               let element
@@ -113,7 +113,7 @@ const End = ({ children, ...props }) => {
     if (logged_in) {
       return (
         <div>
-          <button className={bem('button')} onClick={() => {
+          <button className={bem('end','button',['statistic'])} onClick={() => {
             updateFirestore()
             router.navigate('/profile')
           }}>
@@ -131,7 +131,7 @@ const End = ({ children, ...props }) => {
     <section className={bem('end')}>
       <h1 className={bem('end', 'h1')}>You finished the Quiz!</h1>
       {getContent()}
-      <button className={bem('button')}
+      <button className={bem('end','button',['play'])}
         onClick={() => {
           localStorage.removeItem('scores')
           router.navigate('/start')

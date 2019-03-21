@@ -7,7 +7,7 @@ const Login = () => {
   return (
     <section className={bem('login')}>
       <h2 className={bem('login', 'h2')}>Welcome to QuizzzApp!</h2>
-      <button className={bem('button', ['login'])}
+      <button className={bem('login','button', ['google'])}
         onClick={
           async (e) => {
             let response = await userLogin()
@@ -16,7 +16,7 @@ const Login = () => {
         }>
         Login with Google
       </button>
-      <button className={bem('button', ['login'])}
+      <button className={bem('login','button', ['anonym'])}
         onClick={
           (e) => {
             router.navigate('/start')
