@@ -1,3 +1,4 @@
+import { h } from 'jsx-dom'
 import bem from 'bem-names'
 import router from './../modules/router'
 import decodeHTMLEntities from './../modules/decoder'
@@ -27,7 +28,7 @@ const Quiz = ({ children, ...props }) => {
     buttonText = buttonText.substring(3, buttonText.length)
     let button = event.target
     let buttons = document.getElementsByTagName('button')
-    let correctAnswer=decodeHTMLEntities(completeQuestion[currentQuestion - 1].correct_answer)
+    let correctAnswer = decodeHTMLEntities(completeQuestion[currentQuestion - 1].correct_answer)
     let buttonID = button.id
     document.getElementById(buttonID).disabled = true
 
@@ -51,47 +52,48 @@ const Quiz = ({ children, ...props }) => {
     currentQuestion < numberOfQuestions || activePlayer < numberOfPlayers ? displayNextQuestion() : endGame()
   }
 
-  const displayNextQuestion = function(){
+  const displayNextQuestion = function () {
     activePlayer < numberOfPlayers ? activePlayer++ : (activePlayer = 1, currentQuestion++)
-      setTimeout(() => {
-        router.navigate('quiz?mulitplayer=' + multiplayer + '&amountPlayer=' + numberOfPlayers + '&question=' + currentQuestion + '&player=' + activePlayer)
-      }, 1500)
+    setTimeout(() => {
+      router.navigate('quiz?mulitplayer=' + multiplayer + '&amountPlayer=' + numberOfPlayers + '&question=' + currentQuestion + '&player=' + activePlayer)
+    }, 1500)
   }
 
-  const endGame =() =>{
-    if(score.length!=numberOfPlayers) {
+  const endGame = () => {
+    if (score.length != numberOfPlayers) {
       for (let i = 0; i < numberOfPlayers; i++) {
-        score[i] ? score[i]=score[i] : score[i]=0
+        score[i] ? score[i] = score[i] : score[i] = 0
       }
     }
+    console.log('scores', score)
     localStorage.setItem('scores', JSON.stringify(score))
-    window.challenge==true ? sendUserToProfile() : sendUserToEndScreen()
+    window.challenge == true ? sendUserToProfile() : sendUserToEndScreen()
   }
 
   const sendUserToEndScreen = () => {
-    if(window.user) {UpdateScoresOfSP(window.user.email, numberOfQuestions, score[0])}
+    if (window.user) { UpdateScoresOfSP(window.user.email, numberOfQuestions, score[0]) }
     setTimeout(() => {
       router.navigate('/end')
     }, 3000)
   }
 
   const sendUserToProfile = () => {
-            setTimeout(() => {
-            UpdateScoresOfChallenge(window.questionsId, window.challengeScore, score[0])
-            updateFirestore()
-            router.navigate('/profile')
-          }, 1000);
+    setTimeout(() => {
+      UpdateScoresOfChallenge(window.questionsId, window.challengeScore, score[0])
+      updateFirestore()
+      router.navigate('/profile')
+    }, 1000)
   }
 
   const displayNumberOfQuestionAndPlayer = () => {
     let response = 'Question ' + currentQuestion
-    if (multiplayer == true) {response += ' | Player' + activePlayer}
+    if (multiplayer == true) { response += ' | Player' + activePlayer }
     return response
   }
 
   const displayChallenge = (props) => {
     let challenge
-    if (props == true) {challenge = <h1 className={bem('quiz', 'h1', ['challenge'])} >Challenge</h1>}
+    if (props == true) { challenge = <h1 className={bem('quiz', 'h1', ['challenge'])} >Challenge</h1> }
     return challenge
   }
 

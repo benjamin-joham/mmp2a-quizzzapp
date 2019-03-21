@@ -9,18 +9,17 @@ const clickHandler = async (event) => {
   let players = document.getElementById('btn_players_active')
   let questions = document.getElementById('btn_questions_active')
 
-  console.log(api(questions.value)  //wtf?!?
-    .then(x => {
-      window.questions = x
+  api(questions.value)
+    .then(question => {
+      window.questions = question
     })
     .then(() => {
       localStorage.clear()
-      let score=[]
-      score[0]=0
+      let score = []
+      score[0] = 0
       localStorage.setItem('scores', JSON.stringify(score))
       if (players.value > 1) { router.navigate('/quiz?mulitplayer=true&amountPlayer=' + players.value + '&question=1&player=1') } else { router.navigate('/quiz?mulitplayer=false&amountPlayer=' + players.value + '&question=1&player=1') }
     })
-  )
 }
 
 const StartScreen = () => {

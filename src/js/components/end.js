@@ -6,6 +6,7 @@ import router from '../modules/router'
 
 const End = ({ children, ...props }) => {
   let correct_questions = JSON.parse(localStorage.getItem('scores'))
+  // console.log(JSON.stringify(correct_questions));
   let questions_total
   if (window.challenge) {
     questions_total = Object.values(window.questions).length
@@ -83,13 +84,16 @@ const End = ({ children, ...props }) => {
     let users = await GetAllUsers()
     let container = document.querySelector('section.end')
     let select = <select className={bem('end', 'select')} id='challenger' name="challenger" size="5" onClick={(e) => console.log(e.target)}></select>
-    { users.forEach(i => {
-      if (i != window.user.name) { select.appendChild(<option className={bem('select','option')} value={i}>{i}</option>) }
-    }) }
+
+    users.forEach(i => {
+      if (i != window.user.name) {
+        select.appendChild(<option className={bem('select', 'option')} value={i}>{i}</option>)
+      }
+    })
     let content = container.appendChild(
       <div className={bem('end', 'div', ['challenge'])}>
         <h1 className={bem()}>Choose your Challenger</h1>
-        <form className={bem('end','form')}>
+        <form className={bem('end', 'form')}>
           {select}
           <button onClick={
             (e) => {
