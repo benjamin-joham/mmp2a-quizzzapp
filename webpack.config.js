@@ -154,11 +154,11 @@ module.exports = {
     new Dotenv({
       path: path.resolve(__dirname, './.env')
       //systemvars: true,
-    })
+    }),
 
-    // new webpack.DefinePlugin({
-    //   '__STRIPE_PUBLISHABLE_KEY__': JSON.stringify(process.env.STRIPE_PUBLISHABLE_KEY || '')
-    // })
+    new webpack.DefinePlugin({
+      'FIREBASE_KEY': JSON.stringify(process.env.FIREBASE_KEY || 'Bla')
+    })
   ],
 
   optimization: {
