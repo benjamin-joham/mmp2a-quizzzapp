@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
@@ -153,8 +154,11 @@ module.exports = {
     new Dotenv({
       path: path.resolve(__dirname, './.env')
       //systemvars: true,
-    }),
+    })
 
+    // new webpack.DefinePlugin({
+    //   '__STRIPE_PUBLISHABLE_KEY__': JSON.stringify(process.env.STRIPE_PUBLISHABLE_KEY || '')
+    // })
   ],
 
   optimization: {
