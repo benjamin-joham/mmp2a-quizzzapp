@@ -156,9 +156,9 @@ module.exports = {
       //systemvars: true,
     }),
 
-    new webpack.DefinePlugin({
-      'FIREBASE_KEY': JSON.stringify(process.env.FIREBASE_KEY || 'Bla')
-    })
+    // new webpack.DefinePlugin({
+    //   'FIREBASE_KEY': JSON.stringify(process.env.FIREBASE_KEY || 'Bla')
+    // })
   ],
 
   optimization: {
