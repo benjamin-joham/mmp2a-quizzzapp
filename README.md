@@ -1,10 +1,10 @@
-# Webpack for Webdevs
-## A webpack 4 based setup
+# Multimediaprojekt 2a
+## QuizzzApp
 
-### Installation
-* If you haven't already, install [npm](https://www.npmjs.com/).
-* Clone this repository to your local machine.
-* `npm install`
+> Benjamin Joham und Viktoria Maurer
+
+This project was part of the bachelor in MultiMediaTechnology at the university of applied sciences.
+
 
 ### How to use
 * `npm start` starts a local server. If you change any of the files in `src/`, the browser will reflect the changes automatically ("autorefresh", "autoreload").
